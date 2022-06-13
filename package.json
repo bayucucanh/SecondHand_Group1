@@ -10,6 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-firebase/analytics": "^14.11.0",
+    "@react-native-firebase/app": "^14.11.0",
+    "@react-native-firebase/crashlytics": "^14.11.0",
     "appcenter": "4.4.4",
     "appcenter-analytics": "4.4.4",
     "appcenter-crashes": "4.4.4",
