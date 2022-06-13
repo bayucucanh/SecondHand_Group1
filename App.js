@@ -13,7 +13,7 @@ const CodePushOptions = {
 const App = () => {
   return (
     <View>
-      <Text>App</Text>
+      <Text>Test</Text>
     </View>
   )
 }
