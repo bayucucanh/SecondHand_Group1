@@ -1,7 +1,8 @@
-import {Text, View, Button } from 'react-native'
-import React, {useEffect} from 'react'
+import {Text, View, Button} from 'react-native';
+import React, {useEffect} from 'react';
 import codePush from 'react-native-code-push';
 import crashlytics from '@react-native-firebase/crashlytics';
+import Router from './router';
 
 const CodePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
@@ -12,16 +13,11 @@ const CodePushOptions = {
 };
 
 const App = () => {
-
   useEffect(() => {
     crashlytics().log('App mounted.');
   }, []);
-  
-  return (
-    <View>
-      <Button title="Test Crash" onPress={() => crashlytics().crash()} />
-    </View>
-  )
-}
+
+  return <Router />;
+};
 
 export default codePush(CodePushOptions)(App);
