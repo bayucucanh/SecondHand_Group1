@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "81021990273",
+    "project_id": "seconhand-fde62",
+    "storage_bucket": "seconhand-fde62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81021990273:android:3550a5b307e9a5d465e480",
+        "android_client_info": {
+          "package_name": "com.secondhand_group1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81021990273-hk3qn26bl6g2mk2opevmmfj4l1sc36sm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.secondhand_group1",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "81021990273-su4pdgvc8abh1lkr4gm5nqdmi7sctri8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD92LFzE5JFPtKnIyvYdapxCH0y6jN1uuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81021990273-su4pdgvc8abh1lkr4gm5nqdmi7sctri8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
