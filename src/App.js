@@ -1,8 +1,11 @@
-import {Text, View, Button} from 'react-native';
+import {Text, View, Button, LogBox} from 'react-native';
 import React, {useEffect} from 'react';
 import codePush from 'react-native-code-push';
 import crashlytics from '@react-native-firebase/crashlytics';
 import Router from './router';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {Store, Persistor} from './redux/store';
 
 const CodePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
@@ -12,12 +15,14 @@ const CodePushOptions = {
   },
 };
 
-const App = () => {
-  useEffect(() => {
-    crashlytics().log('App mounted.');
-  }, []);
+function App() {
+  return (
+    <Provider store={Store}>
+      <PersistGate loading={null} persistor={Persistor}>
+        <Router />
+      </PersistGate>
+    </Provider>
+  );
+}
 
-  return <Router />;
-};
-
-export default codePush(CodePushOptions)(App);
+export default codePush(CodePushOptions)(App)
