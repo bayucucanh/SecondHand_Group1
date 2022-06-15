@@ -2,11 +2,18 @@
 /* eslint-disable react/prop-types */
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
-
+import {useSelector} from 'react-redux';
 const Splash = ({navigation}) => {
+
+  const login = useSelector(state => state.login.isLogin);
+
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('Register');
+      if(login) {
+        navigation.replace('MainApp');
+      } else {
+        navigation.replace('Login');
+      }
     }, 3000);
   }, []);
 
