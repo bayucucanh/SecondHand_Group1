@@ -21,6 +21,7 @@
     "appcenter-analytics": "4.4.4",
     "appcenter-crashes": "4.4.4",
     "axios": "^0.27.2",
+    "formik": "^2.2.9",
     "react": "17.0.2",
     "react-native": "0.68.2",
     "react-native-code-push": "^7.0.4",
