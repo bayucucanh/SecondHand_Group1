@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 import React from 'react';
 
-const Login = () => {
+const Login = ({navigation}) => {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Login</Text>
+      <Button title='Register' onPress={() =>navigation.navigate('Register')} />
     </View>
   );
 };
