@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 
 const Splash = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('Login');
+      navigation.replace('Register');
     }, 3000);
   }, []);
 

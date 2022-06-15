@@ -1,1 +1,0 @@
-export const API_LOGIN = 'https://market-final-project.herokuapp.com/auth/login'

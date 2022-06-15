@@ -1,4 +1,4 @@
-import {Text, View, Button, LogBox} from 'react-native';
+/* eslint-disable no-unused-vars */
 import React, {useEffect} from 'react';
 import codePush from 'react-native-code-push';
 import crashlytics from '@react-native-firebase/crashlytics';
@@ -25,4 +25,4 @@ function App() {
   );
 }
 
-export default codePush(CodePushOptions)(App)
+export default codePush(CodePushOptions)(App);
