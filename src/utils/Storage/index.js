@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 async function get(key, defaultValue = null) {
