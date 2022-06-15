@@ -27,6 +27,7 @@
 
         // ignore errors for the react-navigation package
         "import/prefer-default-export": "off",
-         "react/prop-types": 0
+         "react/prop-types": 0,
+         "react/no-unescaped-entities": 0
     }
 }
