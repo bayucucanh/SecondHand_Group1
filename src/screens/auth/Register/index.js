@@ -21,7 +21,8 @@ const Register = ({navigation}) => {
 
   useEffect(() => {
     if (isRegSukses) {
-      navigation.replace('Login');
+      // navigation.replace('Login');
+      console.log('Success');
     }
   }, [isRegSukses, navigation]);
 
