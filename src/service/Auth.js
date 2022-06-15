@@ -9,7 +9,7 @@ async function setAccount(data) {
 }
 
 async function logout() {
-  return await Storage.set('account', null);
+  return await Storage.clear('account');
 }
 
 export default {

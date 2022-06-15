@@ -1,7 +1,8 @@
-import { LOGIN_SUCCESS, LOGIN_FAILED } from "../types";
+import {LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT} from '../types';
 
 const initialState = {
   userData: [],
+  isLogin: false,
 };
 
 const LoginReducer = (state = initialState, action = {}) => {
@@ -10,10 +11,17 @@ const LoginReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         userData: action.payload,
+        isLogin: true,
       };
     case LOGIN_FAILED:
       return {
         ...state,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isLogin: false,
+        userData: null
       };
     default:
       return state;

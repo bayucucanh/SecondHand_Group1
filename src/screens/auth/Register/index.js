@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import * as yup from 'yup';
 import {Formik} from 'formik';
+import { registerValidationSchema } from '../../../utils/validationSchema';
 
 import {checkRegister} from '../../../redux/actions/pushDataRegister';
 
@@ -26,31 +26,7 @@ const Register = ({navigation}) => {
     }
   }, [isRegSukses, navigation]);
 
-  const registerValidationSchema = yup.object().shape({
-    full_name: yup
-      .string()
-      .min(2, 'To Short!')
-      .max(50, 'To Long!')
-      .required('Required'),
-    email: yup
-      .string()
-      .email('Please enter valid email')
-      .required('Email Address is Required'),
-    password: yup
-      .string()
-      .min(8, ({min}) => `Password must be at least ${min} characters`)
-      .required('Password is required'),
-    phone_number: yup
-      .string()
-      .min(2, 'To Short!')
-      .max(50, 'To Long!')
-      .required('Required'),
-    address: yup
-      .string()
-      .min(2, 'To Short!')
-      .max(50, 'To Long!')
-      .required('Required'),
-  });
+  
 
   const onRegister = async values => {
     console.log('hahaa');
