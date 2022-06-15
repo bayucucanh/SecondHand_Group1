@@ -1,26 +1,29 @@
 /* eslint-disable no-unused-vars */
-import {StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet, Text, View, TouchableOpacity, TextInput,
+} from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../../redux/actions';
-import {Formik} from 'formik';
-import { loginValidationSchema } from '../../../utils';
+import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
+import { loginUser } from '../../../redux/actions';
+import { loginValidationSchema } from '../../../utils';
 
-const Login = () => {
+function Login() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const onLogin = (value) => {
-    dispatch(loginUser(value.email, value.password, navigation))
-  }
+    dispatch(loginUser(value.email, value.password, navigation));
+  };
 
   return (
     <View style={styles.container}>
       <Formik
         validationSchema={loginValidationSchema}
-        initialValues={{email: '', password: ''}}
-        onSubmit={values => onLogin(values)}>
+        initialValues={{ email: '', password: '' }}
+        onSubmit={(values) => onLogin(values)}
+      >
         {({
           handleChange,
           handleBlur,
@@ -30,7 +33,7 @@ const Login = () => {
           isValid,
         }) => (
           <>
-            <View style={[styles.inputContainer, {marginTop: 10}]}>
+            <View style={[styles.inputContainer, { marginTop: 10 }]}>
               <TextInput
                 name="email"
                 placeholder="Email Address"
@@ -45,7 +48,7 @@ const Login = () => {
               <Text style={styles.errorText}>{errors.email}</Text>
             )}
 
-            <View style={[styles.inputContainer, {marginTop: 10}]}>
+            <View style={[styles.inputContainer, { marginTop: 10 }]}>
               <TextInput
                 style={styles.textInput}
                 name="password"
@@ -65,16 +68,18 @@ const Login = () => {
             <TouchableOpacity
               onPress={handleSubmit}
               style={styles.btn}
-              disabled={!isValid}>
+              disabled={!isValid}
+            >
               <Text style={styles.btnText}>Login Now</Text>
             </TouchableOpacity>
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Text style={{color: '#000', marginRight: 5}}>
-                Don't have an account?
+            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+              <Text style={{ color: '#000', marginRight: 5 }}>
+                Don&apos;t have an account?
               </Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Register')}>
-                <Text style={{color: '#b12441', fontWeight: 'bold'}}>
+                onPress={() => navigation.navigate('Register')}
+              >
+                <Text style={{ color: '#b12441', fontWeight: 'bold' }}>
                   Register Now
                 </Text>
               </TouchableOpacity>
@@ -84,13 +89,13 @@ const Login = () => {
       </Formik>
     </View>
   );
-};
+}
 
 export default Login;
 
 const styles = StyleSheet.create({
   textInput: {
-    borderWidth: 1
+    borderWidth: 1,
   },
   btn: {
     borderWidth: 1,
@@ -99,6 +104,6 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
 });

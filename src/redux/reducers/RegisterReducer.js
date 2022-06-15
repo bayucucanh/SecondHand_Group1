@@ -1,4 +1,4 @@
-import {REGISTER_SUCCESS, REGISTER_FAILED} from '../types';
+import { REGISTER_SUCCESS, REGISTER_FAILED } from '../types';
 
 const initialState = {
   userData: true,
