@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT} from '../types';
+import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from '../types';
 
 const initialState = {
   userData: [],
@@ -21,7 +21,7 @@ const LoginReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isLogin: false,
-        userData: null
+        userData: null,
       };
     default:
       return state;

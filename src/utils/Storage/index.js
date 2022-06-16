@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-async function get(key, defaultValue = null) {
+async function get(key) {
   try {
     let value = await AsyncStorage.getItem(key);
 
@@ -10,17 +10,17 @@ async function get(key, defaultValue = null) {
     }
     return value;
   } catch (error) {
-    console.log('Could not save data: ' + key, error);
+    return console.log(`Could not save data: ${key}`, error);
   }
 }
 async function set(key, value) {
   try {
     return await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
-    console.log('Could not save data: ' + key, error);
+    return console.log(`Could not save data: ${key}`, error);
   }
 }
-async function remove(key) {}
+// async function remove(key) {}
 
 async function clear() {
   try {
@@ -28,7 +28,7 @@ async function clear() {
       console.log('cleared');
     });
   } catch (error) {
-    console.log('Could not clear data ', error);
+    return console.log('Could not clear data ', error);
   }
 }
 
@@ -36,5 +36,5 @@ export default {
   get,
   set,
   clear,
-  remove,
+  // remove,
 };

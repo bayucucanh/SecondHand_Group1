@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Login, Register, Splash} from '../screens/index';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useDispatch, useSelector } from 'react-redux';
+import { Login, Register, Splash } from '../screens/index';
 import Auth from '../service/Auth';
 import MainApp from './MainApp';
-import {successLogin} from '../redux/actions';
+import { successLogin } from '../redux/actions';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +13,7 @@ function Router() {
 
   const [loginCheck, setLoginCheck] = useState(true);
 
-  const login = useSelector(state => state.login.isLogin);
+  const login = useSelector((state) => state.login.isLogin);
 
   useEffect(() => {
     console.log(login);
@@ -22,7 +22,7 @@ function Router() {
 
   const getUser = async () => {
     // Mengambil data yang ada pada storage
-    let data = await Auth.getAccount();
+    const data = await Auth.getAccount();
     if (data != null) {
       // mengirim data yang ada pada storage ke action setUser
       dispatch(successLogin(data));
@@ -45,30 +45,29 @@ function Router() {
       <Stack.Screen
         name="Splash"
         component={Splash}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
 
-      {!login ? (
+      {!login && (
         <>
           <Stack.Screen
             name="Login"
             component={Login}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
 
           <Stack.Screen
             name="Register"
             component={Register}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
         </>
-      ) : (
-        <Stack.Screen
-          name="MainApp"
-          component={MainApp}
-          options={{headerShown: false}}
-        />
       )}
+      <Stack.Screen
+        name="MainApp"
+        component={MainApp}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
