@@ -7,20 +7,8 @@ import { RectButton } from 'react-native-gesture-handler';
 import {
   alertDanger, neutral1, neutral3, neutral4, neutral5, primaryPurple1, primaryPurple4,
 } from '../../constant/color';
-// import { useSelector, useDispatch } from 'react-redux';
-// import Auth from '../../service/Auth';
-// import { logout } from '../../redux/actions';
 
 function Home() {
-  // const dispatch = useDispatch();
-  // const loginData = useSelector((state) => state.login);
-
-  // const onLogout = () => {
-  //   Auth.logout();
-  //   dispatch(logout());
-  //   navigation.replace('Splash');
-  // };
-
   return (
     <View style={{
       flex: 1, paddingHorizontal: 24, paddingTop: 38, backgroundColor: neutral1,
