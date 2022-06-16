@@ -48,7 +48,7 @@ function Router() {
         options={{ headerShown: false }}
       />
 
-      {!login ? (
+      {!login && (
         <>
           <Stack.Screen
             name="Login"
@@ -62,13 +62,12 @@ function Router() {
             options={{ headerShown: false }}
           />
         </>
-      ) : (
-        <Stack.Screen
-          name="MainApp"
-          component={MainApp}
-          options={{ headerShown: false }}
-        />
       )}
+      <Stack.Screen
+        name="MainApp"
+        component={MainApp}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }

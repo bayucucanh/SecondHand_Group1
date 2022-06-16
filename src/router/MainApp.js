@@ -2,7 +2,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Feather';
 import { Home } from '../screens/index';
 
 const Tab = createBottomTabNavigator();
@@ -12,8 +12,11 @@ function MainApp() {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: '#0D28A6',
-        tabBarIconStyle: {
-          size: 50,
+        tabBarStyle: {
+          height: 60,
+          paddingTop: 11,
+          paddingHorizontal: 8,
+          paddingBottom: 11,
         },
       }}
     >
