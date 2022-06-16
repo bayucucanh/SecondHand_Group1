@@ -19,3 +19,5 @@ export const neutral4 = '#3C3C3C';
 export const neutral3 = '#8A8A8A';
 export const neutral2 = '#D0D0D0';
 export const neutral1 = '#FFFFFF';
+
+export const lightGray = '#E5E5E5';
