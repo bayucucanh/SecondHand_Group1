@@ -9,11 +9,11 @@ function Splash({ navigation }) {
 
   useEffect(() => {
     setTimeout(() => {
-      if (login) {
-        navigation.replace('MainApp');
-      } else {
-        navigation.replace('Login');
-      }
+      // if (login) {
+      navigation.replace('MainApp');
+      // } else {
+      // navigation.replace('Login');
+      // }
     }, 3000);
   }, []);
 

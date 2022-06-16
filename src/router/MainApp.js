@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -11,6 +12,9 @@ function MainApp() {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: '#0D28A6',
+        tabBarIconStyle: {
+          size: 50,
+        },
       }}
     >
       <Tab.Screen
@@ -19,8 +23,8 @@ function MainApp() {
         options={{
           tabBarLabel: 'Home',
           headerShown: false,
-          tabBarIcon: (
-            <Icon name="home" color="black" size={20} />
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" color={color} size={24} />
           ),
         }}
       />

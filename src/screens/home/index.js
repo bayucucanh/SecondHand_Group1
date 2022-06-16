@@ -18,7 +18,7 @@ function Home() {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home</Text>
+      <Text style={{ fontFamily: 'Poppins-Bold' }}>Home</Text>
       {/* <Button title="logout" onPress={onLogout} /> */}
       <View />
     </View>
