@@ -42,7 +42,7 @@ function Profile({ navigation }) {
       <View>
         <TouchableOpacity
           style={{ flexDirection: 'row', marginVertical: 18 }}
-
+          onPress={() => navigation.navigate('ChangeProfile')}
         >
           <Icon name="edit" color={primaryPurple4} size={24} />
           <Text style={{

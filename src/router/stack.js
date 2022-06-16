@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { Login, Register, Splash } from '../screens/index';
+import {
+  Login, Register, Splash, ChangeProfile,
+} from '../screens/index';
 import Auth from '../service/Auth';
 import MainApp from './MainApp';
 import { successLogin } from '../redux/actions';
@@ -42,7 +44,7 @@ function Router() {
 
   return (
     <Stack.Navigator initialRouteName="Splash">
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Splash"
         component={Splash}
         options={{ headerShown: false }}
@@ -66,6 +68,11 @@ function Router() {
       <Stack.Screen
         name="MainApp"
         component={MainApp}
+        options={{ headerShown: false }}
+      /> */}
+      <Stack.Screen
+        name="ChangeProfile"
+        component={ChangeProfile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
