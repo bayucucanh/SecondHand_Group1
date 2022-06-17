@@ -27,6 +27,8 @@
  
          // disable prop types check
          "react/prop-types": 0,
-         "no-console":"off"
+         "no-console":"off",
+         "linebreak-style": ["error", "windows"],
+         "no-unused-vars": "off"
     }
 }
