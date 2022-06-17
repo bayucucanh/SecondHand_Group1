@@ -2,9 +2,18 @@ name: Build
 on:
   push:
     branches:
-      - master
+      - development
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+([0-9]+)'
   pull_request:
     types: [opened, synchronize, reopened]
+
+env:
+  APP_CENTER_TOKEN: ${{ secrets.APP_CENTER_TOKEN_MYAPP_ANDROID_TEST  }}
+  APP_NAME: ${{ 'bayucucan36/SecondHand_Group1'  }}
+  TESTING_GROUP: ${{  'Testers'  }}
+  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/release/app-release.apk'  }}
+
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -18,3 +27,32 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build android
+        run: cd android && ./gradlew assembleRelease
+
+      - name: Upload to App Center
+        uses: wzieba/AppCenter-Github-Action@v1
+        with:
+          appName: ${{ env.APP_NAME }}
+          token: ${{ env.APP_CENTER_TOKEN }}
+          group: ${{ env.TESTING_GROUP }}
+          file: ${{ env.UPLOAD_FILE }}
+          notifyTesters: true
+          debug: false
