@@ -1,9 +1,9 @@
 import { View, Text, Button } from 'react-native';
 import React from 'react';
 import { RectButton } from 'react-native-gesture-handler';
-import { neutral1, primaryPurple4 } from '../../constant/color';
+import { neutral1, primaryPurple2, primaryPurple4 } from '../../constant/color';
 
-function CustomButton({ title }) {
+function CustomButton({ title, enabled, onPress }) {
   return (
     <RectButton
       style={{
@@ -12,10 +12,12 @@ function CustomButton({ title }) {
         alignItems: 'center',
         alignContent: 'center',
         paddingVertical: 12,
-        backgroundColor: primaryPurple4,
+        backgroundColor: enabled ? primaryPurple4 : primaryPurple2,
         borderRadius: 12,
         marginTop: 24,
       }}
+      enabled={enabled}
+      onPress={onPress}
     >
       <Text style={{
         fontFamily: 'Poppins-Medium',
