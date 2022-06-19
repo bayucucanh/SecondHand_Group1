@@ -35,3 +35,23 @@ export const registerValidationSchema = yup.object().shape({
     .max(50, 'To Long!')
     .required('Required'),
 });
+export const profileValidationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .min(2, 'Nama telalu pendek!')
+    .max(50, 'Nama telalu panjang!')
+    .required('Nama tidak boleh kosong!'),
+  city: yup
+    .string()
+    .required('Kota tidak boleh kosong'),
+  address: yup
+    .string()
+    .min(2, 'Alamat telalu pendek!')
+    .max(50, 'Alamat telalu panjang!')
+    .required('Alamat tidak boleh kosong!'),
+  phone_number: yup
+    .string()
+    .min(2, 'No handphone telalu pendek!')
+    .max(50, 'No handphone telalu panjang!')
+    .required('No handphone tidak boleh kosong!'),
+});

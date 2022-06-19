@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { neutral2, neutral3, neutral5 } from '../../constant/color';
 
-function InputDropdown({ data }) {
+function InputDropdown({ data, city }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(data);
@@ -11,9 +11,11 @@ function InputDropdown({ data }) {
   return (
     <View style={{ flexDirection: 'row' }}>
       <DropDownPicker
+        name="city"
         open={open}
         value={value}
         items={items}
+        onChangeValue={() => city('city', value, true)}
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems}
@@ -23,7 +25,7 @@ function InputDropdown({ data }) {
         style={{
           borderRadius: 16,
           borderWidth: 2,
-          borderColor: neutral2,
+          borderColor: value ? neutral5 : neutral2,
           justifyContent: 'center',
           paddingHorizontal: 16,
           fontFamily: 'Poppins-Regular',
