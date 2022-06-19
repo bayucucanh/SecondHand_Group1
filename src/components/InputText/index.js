@@ -13,7 +13,7 @@ function InputText({
     if (error) {
       return alertDanger;
     }
-    if (isFocus) {
+    if (isFocus || value) {
       return neutral5;
     }
     return neutral2;
