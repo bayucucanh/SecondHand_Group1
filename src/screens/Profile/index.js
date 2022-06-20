@@ -1,4 +1,6 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import {
+  Text, View, TouchableOpacity, StatusBar,
+} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { useDispatch } from 'react-redux';
@@ -9,6 +11,7 @@ import {
 import { version as appVersion } from '../../../package.json';
 import Auth from '../../service/Auth';
 import { logout } from '../../redux/actions';
+import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 
 function Profile({ navigation }) {
   const dispatch = useDispatch();
@@ -25,6 +28,7 @@ function Profile({ navigation }) {
       flex: 1, paddingHorizontal: 24, paddingTop: 24, backgroundColor: neutral1,
     }}
     >
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white" />
       <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24, color: neutral5 }}>Akun Saya</Text>
       <View style={{ alignItems: 'center', marginVertical: 24 }}>
         <View style={{
