@@ -5,13 +5,12 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { primaryPurple1, primaryPurple4 } from '../../constant/color';
 
 function PhotoProfile({ image, setFieldValue }) {
-  const [photo, setPhoto] = useState(null);
-  const [photoForDB, setPhotoForDB] = useState(null);
+  const [photo, setPhoto] = useState(image);
   const [hasPhoto, setHasPhoto] = useState(false);
   const getImage = () => {
     launchImageLibrary(
       {
-        quality: 0.9, maxWidth: 250, maxHeight: 250, includeBase64: true,
+        maxWidth: 112, maxHeight: 112,
       },
       (response) => {
         if (response.didCancel || response.error) {
@@ -19,19 +18,19 @@ function PhotoProfile({ image, setFieldValue }) {
           console.log('Cancel Image Pick');
         } else {
           const source = response?.assets[0];
-          setPhotoForDB(`data:${source.type};base64, ${source.base64}`);
           const Uri = { uri: source.uri };
           setPhoto(Uri);
           setHasPhoto(true);
-          console.log(Uri);
-          setFieldValue('image_url', photoForDB);
+          setFieldValue('image_url', source, true);
         }
       },
     );
   };
   return (
-    <TouchableOpacity onPress={() => getImage()}>
-      <View style={{ alignItems: 'center', marginVertical: 24 }}>
+    <View style={{ alignItems: 'center', marginVertical: 24 }}>
+      <TouchableOpacity
+        onPress={() => getImage()}
+      >
         <View
           style={{
             width: 112,
@@ -43,7 +42,7 @@ function PhotoProfile({ image, setFieldValue }) {
             overflow: 'hidden',
           }}
         >
-          {photo ? (
+          {image.uri ? (
             <Image
               source={photo}
               style={{
@@ -55,8 +54,10 @@ function PhotoProfile({ image, setFieldValue }) {
             <Icon name="camera" color={primaryPurple4} size={32} />
           )}
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+
+    </View>
+
   );
 }
 

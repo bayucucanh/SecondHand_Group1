@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios';
 import { GET_USER_SUCCESS, GET_USER_FAILED } from '../types';
 import { API_GET_PROFILE } from '../../config/api';

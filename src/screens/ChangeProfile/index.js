@@ -15,6 +15,7 @@ import {
 } from '../../components';
 import { profileValidationSchema } from '../../utils';
 import { getDataProfile } from '../../redux/actions/getDataProfile';
+import { putDataProfile } from '../../redux/actions/pushDataProfile';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -22,28 +23,20 @@ function ChangeProfile() {
   const profileData = useSelector((state) => state.profile.profileData);
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const dispatch = useDispatch();
-  // const [tempCity, setTempCity] = useState('');
-  // const [tempAddress, setTempAddress] = useState('');
 
-  useEffect(() => {
-    dispatch(getDataProfile(accessToken));
-    // getCityAddress();
-  }, []);
-
-  // const getCityAddress = () => {
-  //   const data = profileData.address.split(',');
-  //   if (data.length > 2) {
-  //     let temp = '';
-  //     for (let i = 0; i < data.length - 1; i += 1) {
-  //       temp += data[i];
-  //     }
-  //     setTempAddress(temp);
-  //     setTempCity(data[data.length - 1]);
-  //   } else {
-  //     setTempAddress(data[0]);
-  //     setTempCity(data[1].trim());
-  //   }
-  // };
+  const onUpdate = async (values) => {
+    const formdata = new FormData();
+    formdata.append('full_name', values.full_name);
+    formdata.append('city', values.city);
+    formdata.append('address', values.address);
+    formdata.append('phone_number', values.phone_number);
+    formdata.append('image', {
+      uri: values.image_url.uri,
+      type: 'image/jpeg',
+      name: values.image_url.fileName,
+    });
+    await dispatch(putDataProfile(accessToken, formdata));
+  };
 
   return (
     <ScrollView
@@ -55,7 +48,6 @@ function ChangeProfile() {
       }}
       >
         <Header title="Lengkapi info akun" />
-        {/* {tempAddress !== '' && tempCity !== '' ? ( */}
         <Formik
           validationSchema={profileValidationSchema}
           initialValues={{
@@ -63,9 +55,9 @@ function ChangeProfile() {
             city: profileData.city,
             address: profileData.address,
             phone_number: profileData.phone_number,
-            image_url: null,
+            image_url: profileData.image_url,
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => onUpdate(values)}
         >
           {({
             handleChange,
@@ -78,7 +70,7 @@ function ChangeProfile() {
             touched,
           }) => (
             <>
-              <PhotoProfile image={values.image} setFieldValue={setFieldValue} />
+              <PhotoProfile image={{ uri: values.image_url }} setFieldValue={setFieldValue} />
               <View style={{ marginHorizontal: 24 }}>
                 <Text style={styles.inputLabel}>Nama*</Text>
                 <InputText
