@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { neutral2, neutral3, neutral5 } from '../../constant/color';
 
-function InputDropdown({ data, city }) {
+function InputDropdown({ data, city, initialData }) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(initialData);
   const [items, setItems] = useState(data);
 
   return (

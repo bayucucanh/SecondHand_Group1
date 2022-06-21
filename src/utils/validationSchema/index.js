@@ -36,7 +36,7 @@ export const registerValidationSchema = yup.object().shape({
     .required('Required'),
 });
 export const profileValidationSchema = yup.object().shape({
-  name: yup
+  full_name: yup
     .string()
     .min(2, 'Nama telalu pendek!')
     .max(50, 'Nama telalu panjang!')
