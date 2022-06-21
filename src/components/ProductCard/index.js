@@ -1,15 +1,15 @@
 import {
-  StyleSheet, Text, View, Image,
+  StyleSheet, Text, View, Image, TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import { neutral3, neutral5 } from '../../constant/color';
-import formatRupiah from '../../utils/formatCurrency';
+import { formatRupiah } from '../../utils/formatCurrency';
 
 function ProductCard({
   name, categories, basePrice, imageUrl,
 }) {
   return (
-    <View style={{
+    <TouchableOpacity style={{
       borderRadius: 8,
       padding: 12,
       backgroundColor: 'white',
@@ -42,7 +42,7 @@ function ProductCard({
       >
         {formatRupiah(basePrice)}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
