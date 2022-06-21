@@ -1,5 +1,5 @@
 import {
-  Text, TextInput, View, StyleSheet, ScrollView, StatusBar,
+  Text, TextInput, View, StyleSheet, ScrollView, StatusBar, FlatList, LogBox,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
@@ -11,14 +11,17 @@ import {
 } from '../../constant/color';
 import { IconButton, ProductCard, SearchBar } from '../../components';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
-import { getDataProfile } from '../../redux/actions/getDataProfile';
+import { getDataProfile, getDataProduct } from '../../redux/actions';
 
 function Home() {
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.userData.access_token);
+  const dataProduct = useSelector((state) => state.home.dataProduct);
 
   useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     dispatch(getDataProfile(accessToken));
+    dispatch(getDataProduct());
   }, []);
 
   return (
@@ -84,8 +87,15 @@ function Home() {
         justifyContent: 'space-around',
       }}
       >
-        <ProductCard name="Jam Tangan Casio" categories="Aksesoris" basePrice="250000" imageUrl="https://picsum.photos/140/100" />
-        <ProductCard name="Jam Tangan Casio" categories="Aksesoris" basePrice="250000" imageUrl="https://picsum.photos/140/100" />
+        <FlatList
+          data={dataProduct}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => item.id + index.toString()}
+          renderItem={({ item }) => <ProductCard name={item.name} categories="Aksesoris" basePrice={item.base_price} imageUrl={item.image_url} />}
+        />
+        {/* <ProductCard name="Jam Tangan Casio" categories="Aksesoris" basePrice="250000" imageUrl="https://picsum.photos/140/100" />
+        <ProductCard name="Jam Tangan Casio" categories="Aksesoris" basePrice="250000" imageUrl="https://picsum.photos/140/100" /> */}
       </View>
       {/* <Text style={{ fontFamily: 'Poppins-Bold' }}>Home</Text> */}
       {/* <Button title="logout" onPress={onLogout} /> */}

@@ -29,6 +29,7 @@
          "react/prop-types": 0,
          "no-console":"off",
          "linebreak-style": ["error", "windows"],
-         "no-unused-vars": "off"
+         "no-unused-vars": "off",
+         "max-len": "off"
     }
 }
