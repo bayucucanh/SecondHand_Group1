@@ -4,9 +4,8 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended",
         "plugin:react/recommended",
-        "prettier"
+        "airbnb"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -16,9 +15,21 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "react-native"
     ],
     "rules": {
+         // allow .js files to contain JSX code
+         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 
+         // prevent eslint to complain about the "styles" variable being used before it was defined
+         "no-use-before-define": ["error", { "variables": false }],
+ 
+         // disable prop types check
+         "react/prop-types": 0,
+         "no-console":"off",
+         "linebreak-style": ["error", "windows"],
+         "no-unused-vars": "off",
+         "max-len": "off"
     }
 }

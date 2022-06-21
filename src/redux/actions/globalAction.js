@@ -1,11 +1,11 @@
-import {LOADING, REFRESH, LOGOUT} from '../types';
+import { LOADING, REFRESH, LOGOUT } from '../types';
 
-export const setLoading = value => ({
+export const setLoading = (value) => ({
   type: LOADING,
   payload: value,
 });
 
-export const setRefresh = value => ({
+export const setRefresh = (value) => ({
   type: REFRESH,
   payload: value,
 });
