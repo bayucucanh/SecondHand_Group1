@@ -17,6 +17,15 @@ const HomeReducer = (state = initialState, action = {}) => {
         ...state,
         dataProduct: action.payload,
       };
+    case GET_PRODUCT_FAILED:
+      return {
+        ...state,
+      };
+    case GET_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        categories: action.payload,
+      };
     case GET_CATEGORY_FAILED:
       return {
         ...state,

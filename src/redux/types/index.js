@@ -15,9 +15,10 @@ export const LOGOUT = '@LOGOUT';
 export const LOADING = '@LOADING';
 export const REFRESH = '@REFRESH';
 
-// Home buyer
+// Buyer
 export const GET_PRODUCT_SUCCESS = '@GET_PRODUCT_SUCCESS';
 export const GET_PRODUCT_FAILED = '@GET_PRODUCT_FAILED';
 
+// Seller
 export const GET_CATEGORY_SUCCESS = '@GET_CATEGORY_SUCCESS';
 export const GET_CATEGORY_FAILED = '@GET_CATEGORY_FAILED';

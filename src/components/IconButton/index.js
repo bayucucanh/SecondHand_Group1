@@ -1,14 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import { RectButton } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   neutral1, neutral4, primaryPurple1, primaryPurple4,
 } from '../../constant/color';
 
-function IconButton({ icon, text, active }) {
+function IconButton({
+  icon, text, active, onPress,
+}) {
   return (
-    <RectButton style={active ? styles.btnCategoryActive : styles.btnCategory}>
+    <RectButton style={[active ? styles.btnCategoryActive : styles.btnCategory]} onPress={onPress} oneC>
       <Icon name={icon} color={active ? neutral1 : neutral4} size={20} />
       <Text style={active ? styles.btnTextActive : styles.btnText}>
         {text}

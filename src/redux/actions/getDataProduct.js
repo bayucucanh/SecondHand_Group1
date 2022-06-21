@@ -1,8 +1,7 @@
 import axios from 'axios';
 import {
-  GET_PRODUCT_FAILED, GET_PRODUCT_SUCCESS, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILED,
+  GET_PRODUCT_FAILED, GET_PRODUCT_SUCCESS,
 } from '../types';
-import { API_GET_PRODUCT } from '../../config/api';
 
 export const successGetProduct = (value) => ({
   type: GET_PRODUCT_SUCCESS,
@@ -13,9 +12,9 @@ export const failedGetProduct = () => ({
   type: GET_PRODUCT_FAILED,
 });
 
-export const getDataProduct = () => async (dispatch) => {
+export const getDataProduct = (url) => async (dispatch) => {
   await axios
-    .get(API_GET_PRODUCT)
+    .get(url)
     .then((value) => {
       dispatch(successGetProduct(value.data));
       console.log('Get data product berhasil');
