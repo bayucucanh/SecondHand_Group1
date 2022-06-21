@@ -1,17 +1,26 @@
 import {
   Text, TextInput, View, StyleSheet, ScrollView, StatusBar,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { RectButton } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   alertDanger, neutral1, neutral3, neutral4, neutral5, primaryPurple1, primaryPurple4,
 } from '../../constant/color';
 import { IconButton, ProductCard, SearchBar } from '../../components';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
+import { getDataProfile } from '../../redux/actions/getDataProfile';
 
 function Home() {
+  const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.login.userData.access_token);
+
+  useEffect(() => {
+    dispatch(getDataProfile(accessToken));
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <FocusAwareStatusBar barStyle="dark-content" color="#FFE9C9" />

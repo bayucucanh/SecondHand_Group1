@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   lightGray,
   neutral1, neutral3, neutral5, primaryPurple1, primaryPurple4,
@@ -12,10 +12,12 @@ import { version as appVersion } from '../../../package.json';
 import Auth from '../../service/Auth';
 import { logout } from '../../redux/actions';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
+import { PhotoProfile } from '../../components';
 
 function Profile({ navigation }) {
+  const profileData = useSelector((state) => state.profile.profileData);
+
   const dispatch = useDispatch();
-  //   const loginData = useSelector((state) => state.login);
 
   const onLogout = () => {
     Auth.logout();
@@ -28,21 +30,9 @@ function Profile({ navigation }) {
       flex: 1, paddingHorizontal: 24, paddingTop: 24, backgroundColor: neutral1,
     }}
     >
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white" />
+      <FocusAwareStatusBar barStyle="dark-content" color="white" />
       <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24, color: neutral5 }}>Akun Saya</Text>
-      <View style={{ alignItems: 'center', marginVertical: 24 }}>
-        <View style={{
-          width: 112,
-          height: 112,
-          backgroundColor: primaryPurple1,
-          borderRadius: 14,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        >
-          <Icon name="camera" color={primaryPurple4} size={32} />
-        </View>
-      </View>
+      <PhotoProfile image={{ uri: profileData.image_url }} />
       <View>
         <TouchableOpacity
           style={{ flexDirection: 'row', marginVertical: 18 }}
