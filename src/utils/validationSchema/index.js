@@ -28,7 +28,7 @@ export const registerValidationSchema = yup.object().shape({
     .required('Email Address is Required'),
   password: yup
     .string()
-    .min(8, ({min}) => `Password must be at least ${min} characters`)
+    .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
       'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number',
