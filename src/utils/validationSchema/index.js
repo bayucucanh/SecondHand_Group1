@@ -1,10 +1,18 @@
 import * as yup from 'yup';
 
 export const loginValidationSchema = yup.object().shape({
-  email: yup.string().email().required('Email is a required field'),
+  email: yup
+    .string()
+    .email()
+    .matches(/[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-z]/)
+    .required('Email is a required field'),
   password: yup
     .string()
     .min(8, 'Password must contain 8 character')
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number',
+    )
     .required('Password is a required field'),
 });
 export const registerValidationSchema = yup.object().shape({
