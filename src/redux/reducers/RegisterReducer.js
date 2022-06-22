@@ -1,7 +1,7 @@
 import { REGISTER_SUCCESS, REGISTER_FAILED } from '../types';
 
 const initialState = {
-  userData: true,
+  registerSuccess: true,
 };
 
 const RegisterReducer = (state = initialState, action = {}) => {
@@ -9,7 +9,7 @@ const RegisterReducer = (state = initialState, action = {}) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        userData: action.payload,
+        registerSuccess: action.payload,
       };
     case REGISTER_FAILED:
       return {

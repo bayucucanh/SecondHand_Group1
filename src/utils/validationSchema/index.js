@@ -22,9 +22,14 @@ export const registerValidationSchema = yup.object().shape({
     .required('Email Address is Required'),
   password: yup
     .string()
-    .min(8, ({ min }) => `Password must be at least ${min} characters`)
+    .min(8, ({min}) => `Password must be at least ${min} characters`)
     .required('Password is required'),
   phone_number: yup
+    .string()
+    .min(2, 'To Short!')
+    .max(50, 'To Long!')
+    .required('Required'),
+  city: yup
     .string()
     .min(2, 'To Short!')
     .max(50, 'To Long!')
@@ -35,6 +40,7 @@ export const registerValidationSchema = yup.object().shape({
     .max(50, 'To Long!')
     .required('Required'),
 });
+
 export const profileValidationSchema = yup.object().shape({
   full_name: yup
     .string()
