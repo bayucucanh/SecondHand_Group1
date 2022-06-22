@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { primaryPurple1, primaryPurple4 } from '../../constant/color';
 
-function PhotoProfile({ image, setFieldValue }) {
+function PhotoProfile({ image, setFieldValue, disabled = false }) {
   const [photo, setPhoto] = useState(image);
   const [hasPhoto, setHasPhoto] = useState(false);
   const getImage = () => {
@@ -30,6 +30,7 @@ function PhotoProfile({ image, setFieldValue }) {
     <View style={{ alignItems: 'center', marginVertical: 24 }}>
       <TouchableOpacity
         onPress={() => getImage()}
+        disabled={disabled}
       >
         <View
           style={{
