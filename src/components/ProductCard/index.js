@@ -1,5 +1,10 @@
 import {
-  StyleSheet, Text, View, Image, TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import React from 'react';
 import { neutral3, neutral5 } from '../../constant/color';
@@ -33,15 +38,25 @@ function ProductCard({
       >
         {name}
       </Text>
-      <Text
-        style={{
-          fontFamily: 'Poppins-Regular',
-          fontSize: 10,
-          color: neutral3,
-        }}
-      >
-        {categories}
-      </Text>
+      <FlatList
+        data={categories}
+        horizontal
+        keyExtractor={(item, index) => item.id + index.toString()}
+        renderItem={({ item }) => (
+          <Text
+            style={{
+              fontFamily: 'Poppins-Regular',
+              fontSize: 10,
+              color: neutral3,
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {item.name}
+            {', '}
+          </Text>
+        )}
+      />
       <Text
         style={{
           fontFamily: 'Poppins-Regular',
