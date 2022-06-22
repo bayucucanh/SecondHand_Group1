@@ -63,31 +63,34 @@ function Register({navigation}) {
                 placeholder="Nama"
                 value={values.full_name}
                 onChangeText={handleChange('full_name')}
-                style={{borderWidth: 1, marginBottom: 20}}
+                style={{borderWidth: 1, marginTop: 20}}
               />
               {errors.full_name && (
                 <Text style={styles.errorText}>{errors.full_name}</Text>
               )}
+
               <TextInput
                 placeholder="Email"
                 value={values.email}
                 onChangeText={handleChange('email')}
                 keyboardType="email-address"
-                style={{borderWidth: 1, marginBottom: 20}}
+                style={{borderWidth: 1, marginTop: 20}}
               />
               {errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
+
               <TextInput
                 placeholder="Password"
                 value={values.password}
                 onChangeText={handleChange('password')}
                 secureTextEntry
-                style={{borderWidth: 1, marginBottom: 20}}
+                style={{borderWidth: 1, marginTop: 20}}
               />
               {errors.password && (
                 <Text style={styles.errorText}>{errors.password}</Text>
               )}
+
               <PhoneInput
                 style={styles.phoneInput}
                 value={values.phone_number}
@@ -99,8 +102,9 @@ function Register({navigation}) {
                 textContainerStyle={{paddingVertical: 0, borderRadius: 15}}
               />
               {errors.phone_number && (
-                <Text style={styles.errorText}>{errors.phone_number}</Text>
+                <Text style={{paddingBottom: 20}}>{errors.phone_number}</Text>
               )}
+
               <InputDropdown
                 data={regions}
                 city={setFieldValue}
@@ -115,12 +119,22 @@ function Register({navigation}) {
                 placeholder="Address"
                 value={values.address}
                 onChangeText={handleChange('address')}
-                style={{borderWidth: 1, marginVertical: 20}}
+                style={{borderWidth: 1, marginTop: 20}}
               />
               {errors.address && (
                 <Text style={styles.errorText}>{errors.address}</Text>
               )}
-              <TouchableOpacity onPress={handleSubmit}>
+
+              <TouchableOpacity
+                onPress={handleSubmit}
+                style={{
+                  marginTop: 20,
+                  borderWidth: 1,
+                  width: 100,
+                  height: 40,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
                 <Text>Submit</Text>
               </TouchableOpacity>
 
@@ -154,7 +168,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 15,
     borderWidth: 2,
-    marginBottom: 20,
+    marginTop: 20,
     borderColor: 'gray',
   },
 });

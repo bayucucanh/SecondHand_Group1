@@ -1,10 +1,7 @@
 import * as yup from 'yup';
 
 export const loginValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email()
-    .required('Email is a required field'),
+  email: yup.string().email().required('Email is a required field'),
   password: yup
     .string()
     .min(8, 'Password must contain 8 character')
@@ -15,30 +12,35 @@ export const registerValidationSchema = yup.object().shape({
     .string()
     .min(2, 'To Short!')
     .max(50, 'To Long!')
-    .required('Required'),
+    .required('Fullname is Required'),
   email: yup
     .string()
     .email('Please enter valid email')
+    .matches(/[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-z]/)
     .required('Email Address is Required'),
   password: yup
     .string()
     .min(8, ({min}) => `Password must be at least ${min} characters`)
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number',
+    )
     .required('Password is required'),
   phone_number: yup
     .string()
-    .min(2, 'To Short!')
-    .max(50, 'To Long!')
-    .required('Required'),
+    .min(9, 'To Short!')
+    .max(11, 'To Long!')
+    .required('Phone Number is Required'),
   city: yup
     .string()
     .min(2, 'To Short!')
-    .max(50, 'To Long!')
-    .required('Required'),
+    .max(20, 'To Long!')
+    .required('City is Required'),
   address: yup
     .string()
-    .min(2, 'To Short!')
-    .max(50, 'To Long!')
-    .required('Required'),
+    .min(10, 'To Short!')
+    .max(150, 'To Long!')
+    .required('Address is Required'),
 });
 
 export const profileValidationSchema = yup.object().shape({
