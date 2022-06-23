@@ -21,3 +21,13 @@ export const neutral2 = '#D0D0D0';
 export const neutral1 = '#FFFFFF';
 
 export const lightGray = '#E5E5E5';
+
+export const COLORS = {
+  black: '#1E1B26',
+  white: '#FFFFFF',
+  accent: '#4895ef',
+  danger: '#f72585',
+  success: '#31Ad66',
+  transparent: 'rgba(30, 27, 38, 0.8)',
+
+};

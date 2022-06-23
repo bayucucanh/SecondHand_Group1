@@ -4,7 +4,7 @@ export const loginValidationSchema = yup.object().shape({
   email: yup
     .string()
     .email()
-    .matches(/[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-z]/)
+    .matches(/[a-z0-9._-]+@[a-z0-9]+\.[a-z]/)
     .required('Email is a required field'),
   password: yup
     .string()
@@ -24,7 +24,7 @@ export const registerValidationSchema = yup.object().shape({
   email: yup
     .string()
     .email('Please enter valid email')
-    .matches(/[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-z]/)
+    .matches(/[a-z0-9._-]+@[a-z0-9]+\.[a-z]/)
     .required('Email Address is Required'),
   password: yup
     .string()
