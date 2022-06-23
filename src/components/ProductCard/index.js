@@ -9,12 +9,13 @@ import {
 import React from 'react';
 import { neutral3, neutral5 } from '../../constant/color';
 import { formatRupiah } from '../../utils/formatCurrency';
+import styles from '../../constant/styles';
 
 function ProductCard({
   name, categories, basePrice, imageUrl,
 }) {
   return (
-    <TouchableOpacity style={styles.wrapper}>
+    <TouchableOpacity style={styles.card}>
       <Image
         style={{
           width: 140,
@@ -73,13 +74,13 @@ function ProductCard({
 
 export default ProductCard;
 
-const styles = StyleSheet.create({
-  wrapper: {
-    borderRadius: 8,
-    padding: 12,
-    backgroundColor: 'white',
-    elevation: 4,
-    maxWidth: 160,
-    marginBottom: 10,
-  },
-});
+// const styles = StyleSheet.create({
+//   wrapper: {
+//     borderRadius: 8,
+//     padding: 12,
+//     backgroundColor: 'white',
+//     elevation: 4,
+//     maxWidth: 160,
+//     marginBottom: 10,
+//   },
+// });

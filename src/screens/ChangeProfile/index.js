@@ -69,12 +69,14 @@ function ChangeProfile() {
             touched,
           }) => (
             <>
-              <PhotoProfile
-                image={{ uri: values.image_url }}
-                setFieldValue={setFieldValue}
-                icon="camera"
-                colorIcon={primaryPurple4}
-              />
+              <View style={{ marginVertical: 24 }}>
+                <PhotoProfile
+                  image={{ uri: values.image_url }}
+                  setFieldValue={setFieldValue}
+                  icon="camera"
+                  colorIcon={primaryPurple4}
+                />
+              </View>
               <View style={{ marginHorizontal: 24 }}>
                 <Text style={styles.inputLabel}>Nama*</Text>
                 <InputText

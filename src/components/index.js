@@ -11,6 +11,7 @@ import SearchBar from './SearchBar';
 import Separator from './Separator';
 import TextButton from './TextButton';
 import TextHeader from './TextHeader';
+import GoBackIcon from './GoBackIcon';
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   Separator,
   TextButton,
   TextHeader,
+  GoBackIcon,
 };

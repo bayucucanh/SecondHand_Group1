@@ -5,6 +5,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import Icon from 'react-native-vector-icons/Feather';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import {
   CustomButton,
   Header, HelperText, InputDropdown, InputText, PhotoProfile,
@@ -16,6 +17,8 @@ import { productValidationSchema, profileValidationSchema } from '../../utils';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 
 function Jual() {
+  const navigation = useNavigation();
+
   const dataCategories = useSelector((state) => state.home.categories);
   return (
     <ScrollView
@@ -111,7 +114,7 @@ function Jual() {
               <HelperText text={errors.description} />
               )}
               <Text style={styles.inputLabel}>Foto Produk</Text>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 24 }}>
                 <PhotoProfile
                   style={{
                     width: 96,
@@ -141,7 +144,7 @@ function Jual() {
                 }}
                 >
                   <CustomButton
-                    onPress={handleSubmit}
+                    onPress={() => navigation.navigate('Product', { values })}
                     title="Preview"
                     buttonStyle={{ backgroundColor: neutral1, borderColor: primaryPurple4, borderWidth: 2 }}
                     textStyle={{ color: neutral5 }}
@@ -154,8 +157,9 @@ function Jual() {
                   <CustomButton
                     onPress={handleSubmit}
                     title="Simpan"
-                    enabled={isValid && !errors.name
-                  && !errors.city && !errors.address && !errors.phone_number}
+                    enabled={false}
+                //     enabled={isValid && !errors.name
+                //   && !errors.city && !errors.address && !errors.phone_number}
                   />
                 </View>
               </View>
