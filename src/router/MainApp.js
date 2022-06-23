@@ -3,7 +3,9 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
-import { Home, Profile, Jual } from '../screens/index';
+import {
+  Home, Profile, Jual, Product,
+} from '../screens/index';
 import { primaryPurple4 } from '../constant/color';
 
 const Tab = createBottomTabNavigator();
@@ -62,6 +64,7 @@ function MainApp() {
             ),
           }}
         />
+
       </Tab.Navigator>
     </>
   );

@@ -5,7 +5,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { primaryPurple1, primaryPurple4 } from '../../constant/color';
 
 function PhotoProfile({
-  image, setFieldValue, disabled = false, style, icon, colorIcon,
+  image, setFieldValue, disabled = false, style, icon, colorIcon, styleImage,
 }) {
   const [photo, setPhoto] = useState(image);
   const [hasPhoto, setHasPhoto] = useState(false);
@@ -29,7 +29,7 @@ function PhotoProfile({
     );
   };
   return (
-    <View style={{ alignItems: 'center', marginVertical: 24 }}>
+    <View style={{ alignItems: 'center' }}>
       <TouchableOpacity
         onPress={() => getImage()}
         disabled={disabled}
@@ -52,6 +52,7 @@ function PhotoProfile({
               style={{
                 width: 112,
                 height: 112,
+                ...styleImage,
               }}
             />
           ) : (

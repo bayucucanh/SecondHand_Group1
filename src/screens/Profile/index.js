@@ -34,7 +34,9 @@ function Profile({ navigation }) {
     >
       <FocusAwareStatusBar barStyle="dark-content" color="white" />
       <TextHeader text="Akun Saya" />
-      <PhotoProfile image={{ uri: profileData.image_url }} disabled />
+      <View style={{ marginVertical: 24 }}>
+        <PhotoProfile image={{ uri: profileData.image_url }} disabled />
+      </View>
       <View>
         <TextButton onPress={() => navigation.navigate('ChangeProfile')} icon="edit" text="Ubah Akun" />
         <TextButton icon="settings" text="Pengaturan Akun" />
