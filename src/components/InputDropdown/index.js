@@ -1,31 +1,51 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { neutral2, neutral3, neutral5 } from '../../constant/color';
+import {
+  alertDanger, neutral2, neutral3, neutral5,
+} from '../../constant/color';
 
-function InputDropdown({ data, city, initialData }) {
+function InputDropdown({
+  data, setFieldValue, initialData, placeholder, multiple, schema, mode, name, error,
+}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(initialData);
   const [items, setItems] = useState(data);
+  const checkError = () => {
+    if (error) {
+      return alertDanger;
+    }
+    if (value.length === 0) {
+      return neutral2;
+    } if (value) {
+      return neutral5;
+    }
+    return neutral2;
+  };
 
   return (
     <View style={{ flexDirection: 'row' }}>
       <DropDownPicker
-        name="city"
+        schema={schema}
+        multiple={multiple}
+        min={0}
+        max={5}
         open={open}
         value={value}
         items={items}
-        onChangeValue={() => city('city', value, true)}
+        onChangeValue={() => setFieldValue(name, value, true)}
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems}
         searchable
+        mode={mode}
         listMode="MODAL"
-        placeholder="Pilih kota"
+        badgeDotColors={['#e76f51', '#00b4d8', '#e9c46a', '#e76f51', '#8ac926', '#00b4d8', '#e9c46a']}
+        placeholder={placeholder}
         style={{
           borderRadius: 16,
           borderWidth: 2,
-          borderColor: value ? neutral5 : neutral2,
+          borderColor: checkError(),
           justifyContent: 'center',
           paddingHorizontal: 16,
           fontFamily: 'Poppins-Regular',
