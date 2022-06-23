@@ -71,3 +71,30 @@ export const profileValidationSchema = yup.object().shape({
     .max(50, 'No handphone telalu panjang!')
     .required('No handphone tidak boleh kosong!'),
 });
+
+export const productValidationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .min(2, 'Nama produk telalu pendek!')
+    .max(50, 'Nama produk telalu panjang!')
+    .required('Nama produk tidak boleh kosong!'),
+  description: yup
+    .string()
+    .min(2, 'Deskripsi telalu pendek!')
+    .max(50, 'Deskripsi telalu panjang!')
+    .required('Deskripsi tidak boleh kosong'),
+  base_price: yup
+    .number()
+    .required('Harga produk tidak boleh kosong!'),
+  category_ids: yup
+    .array()
+    .min(1, 'Kategori harus minimal 1!')
+    .required('Kategori tidak boleh kosong!'),
+  location: yup
+    .string()
+    .required('Lokasi tidak boleh kosong'),
+  image: yup
+    .string()
+    .required('Foto produk tidak boleh kosong'),
+
+});

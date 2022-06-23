@@ -40,7 +40,6 @@ function ChangeProfile() {
 
   return (
     <ScrollView
-      nestedScrollEnabled
       showsVerticalScrollIndicator={false}
     >
       <View style={{
@@ -70,7 +69,12 @@ function ChangeProfile() {
             touched,
           }) => (
             <>
-              <PhotoProfile image={{ uri: values.image_url }} setFieldValue={setFieldValue} />
+              <PhotoProfile
+                image={{ uri: values.image_url }}
+                setFieldValue={setFieldValue}
+                icon="camera"
+                colorIcon={primaryPurple4}
+              />
               <View style={{ marginHorizontal: 24 }}>
                 <Text style={styles.inputLabel}>Nama*</Text>
                 <InputText
@@ -89,10 +93,11 @@ function ChangeProfile() {
                 <Text style={styles.inputLabel}>Kota*</Text>
                 <InputDropdown
                   data={regions}
-                  city={setFieldValue}
+                  setFieldValue={setFieldValue}
                   value={values.city}
                   initialData={values.city}
                   name="city"
+                  placeholder="Pilih kota"
                 />
                 { touched.city && errors.city && (
                   <HelperText text={errors.city} />
@@ -128,6 +133,7 @@ function ChangeProfile() {
                 <CustomButton
                   onPress={handleSubmit}
                   title="Simpan"
+                  buttonStyle={{ marginTop: 24 }}
                   enabled={isValid && !errors.name
                   && !errors.city && !errors.address && !errors.phone_number}
                 />
