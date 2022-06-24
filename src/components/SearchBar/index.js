@@ -5,7 +5,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { neutral1, neutral3 } from '../../constant/color';
 
-function SearchBar() {
+function SearchBar({ onChangeText, value }) {
   return (
     <View style={{
       marginHorizontal: 24,
@@ -18,6 +18,8 @@ function SearchBar() {
     }}
     >
       <TextInput
+        onChangeText={onChangeText}
+        value={value}
         style={{
           fontFamily: 'Poppins-Regular', fontSize: 14, width: '90%', alignItems: 'baseline',
         }}

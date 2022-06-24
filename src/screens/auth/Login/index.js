@@ -6,32 +6,33 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Formik} from 'formik';
-import {useNavigation} from '@react-navigation/native';
-import {loginUser} from '../../../redux/actions';
-import {loginValidationSchema} from '../../../utils';
-import {InputText, CustomButton, Header} from '../../../components';
-import {COLORS, FONTS, SIZES} from '../../../constant';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik } from 'formik';
+import { useNavigation } from '@react-navigation/native';
+import { loginUser } from '../../../redux/actions';
+import { loginValidationSchema } from '../../../utils';
+import { InputText, CustomButton, Header } from '../../../components';
+import { COLORS, FONTS, SIZES } from '../../../constant';
 
 function Login() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const onLogin = value => {
+  const onLogin = (value) => {
     dispatch(loginUser(value.email, value.password, navigation));
   };
 
   return (
     <View style={styles.container}>
       <Header />
-      <View style={{marginHorizontal: SIZES.padding}}>
+      <View style={{ marginHorizontal: SIZES.padding }}>
         <Text style={styles.title}>Login to your account!!</Text>
         <Formik
           validationSchema={loginValidationSchema}
-          initialValues={{email: '', password: ''}}
-          onSubmit={values => onLogin(values)}>
+          initialValues={{ email: '', password: '' }}
+          onSubmit={(values) => onLogin(values)}
+        >
           {({
             handleChange,
             handleBlur,
@@ -41,14 +42,15 @@ function Login() {
             isValid,
           }) => (
             <>
-              <View style={[styles.inputContainer, {marginTop: 10}]}>
+              <View style={[styles.inputContainer, { marginTop: 10 }]}>
                 <Text
                   style={{
                     ...FONTS.body3,
                     color: COLORS.black,
                     marginBottom: 5,
                     marginLeft: 3,
-                  }}>
+                  }}
+                >
                   Email
                 </Text>
                 <InputText
@@ -65,14 +67,15 @@ function Login() {
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
 
-              <View style={[styles.inputContainer, {marginTop: 10}]}>
+              <View style={[styles.inputContainer, { marginTop: 10 }]}>
                 <Text
                   style={{
                     ...FONTS.body3,
                     color: COLORS.black,
                     marginBottom: 5,
                     marginLeft: 3,
-                  }}>
+                  }}
+                >
                   Password
                 </Text>
                 <InputText
@@ -82,7 +85,7 @@ function Login() {
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
                   value={values.password}
-                  secureTextEntry={true}
+                  secureTextEntry
                 />
               </View>
               {errors.password && (
@@ -96,12 +99,13 @@ function Login() {
               />
 
               <View style={styles.goToRegister}>
-                <Text style={{color: '#000', marginRight: 5}}>
+                <Text style={{ color: '#000', marginRight: 5 }}>
                   Don&apos;t have an account?
                 </Text>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('Register')}>
-                  <Text style={{color: '#7126b5', fontWeight: 'bold'}}>
+                  onPress={() => navigation.navigate('Register')}
+                >
+                  <Text style={{ color: '#7126b5', fontWeight: 'bold' }}>
                     Sign Up!
                   </Text>
                 </TouchableOpacity>

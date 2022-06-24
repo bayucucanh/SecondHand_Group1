@@ -25,6 +25,7 @@ import { API_GET_PRODUCT } from '../../config/api';
 function Home() {
   const [btnActive, setBtnActive] = useState('');
   const [btnAllActive, setBtnAllActive] = useState(true);
+  const [searchProduct, setSearchProduct] = useState('');
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const dataProduct = useSelector((state) => state.home.dataProduct);
@@ -36,6 +37,11 @@ function Home() {
     dispatch(getDataCategories());
     getAllProduct();
   }, [dispatch]);
+
+  const getProductBySearch = useCallback((nameProduct) => {
+    setSearchProduct(nameProduct);
+    dispatch(getDataProduct(`${API_GET_PRODUCT}?search=${nameProduct}`));
+  }, []);
 
   const getProductByCategory = useCallback(
     (categoryId) => {
@@ -56,7 +62,7 @@ function Home() {
     <ScrollView style={styles.container}>
       <FocusAwareStatusBar barStyle="dark-content" color="#FFE9C9" />
       <LinearGradient colors={['#FFE9C9', '#FFFFFF']} locations={[0.6, 1]}>
-        <SearchBar />
+        <SearchBar onChangeText={getProductBySearch} value={searchProduct} />
         <View
           style={{
             flexDirection: 'row',
@@ -121,6 +127,7 @@ function Home() {
             />
             {dataCategories?.map((item) => (
               <IconButton
+                key={item.id}
                 icon="category"
                 text={item.name}
                 active={btnActive === item.id}
@@ -155,6 +162,7 @@ function Home() {
                 categories={item.Categories}
                 basePrice={item.base_price}
                 imageUrl={item.image_url}
+                style={{ maxWidth: 160 }}
               />
             )}
           />
