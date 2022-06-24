@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { alertDanger, neutral2, neutral5 } from '../../constant/color';
 
 function InputText({
-  placeholder, multiline, style, type, maxLength, onChangeText, value, error, name, onBlur,
+  placeholder, multiline, style, type, maxLength, onChangeText, value, error, name, onBlur, secureTextEntry,
 }) {
   const [isFocus, setIsFocus] = useState(false);
 
@@ -27,9 +27,10 @@ function InputText({
       onChangeText={onChangeText}
       value={value}
       name={name}
+      secureTextEntry={secureTextEntry}
       style={{
         ...style,
-        borderRadius: 16,
+        borderRadius: 5,
         borderWidth: 2,
         borderColor: checkError(),
         justifyContent: 'center',

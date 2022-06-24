@@ -1,15 +1,21 @@
 import {
-  StyleSheet, Text, View, Image, TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import React from 'react';
 import { neutral3, neutral5 } from '../../constant/color';
 import { formatRupiah } from '../../utils/formatCurrency';
+import styles from '../../constant/styles';
 
 function ProductCard({
-  name, categories, basePrice, imageUrl,
+  name, categories, basePrice, imageUrl, style,
 }) {
   return (
-    <TouchableOpacity style={styles.wrapper}>
+    <TouchableOpacity style={[styles.card, { ...style }]}>
       <Image
         style={{
           width: 140,
@@ -33,15 +39,25 @@ function ProductCard({
       >
         {name}
       </Text>
-      <Text
-        style={{
-          fontFamily: 'Poppins-Regular',
-          fontSize: 10,
-          color: neutral3,
-        }}
-      >
-        {categories}
-      </Text>
+      <FlatList
+        data={categories}
+        horizontal
+        keyExtractor={(item, index) => item.id + index.toString()}
+        renderItem={({ item }) => (
+          <Text
+            style={{
+              fontFamily: 'Poppins-Regular',
+              fontSize: 10,
+              color: neutral3,
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {item.name}
+            {', '}
+          </Text>
+        )}
+      />
       <Text
         style={{
           fontFamily: 'Poppins-Regular',
@@ -58,13 +74,13 @@ function ProductCard({
 
 export default ProductCard;
 
-const styles = StyleSheet.create({
-  wrapper: {
-    borderRadius: 8,
-    padding: 12,
-    backgroundColor: 'white',
-    elevation: 4,
-    maxWidth: 160,
-    marginBottom: 10,
-  },
-});
+// const styles = StyleSheet.create({
+//   wrapper: {
+//     borderRadius: 8,
+//     padding: 12,
+//     backgroundColor: 'white',
+//     elevation: 4,
+//     maxWidth: 160,
+//     marginBottom: 10,
+//   },
+// });

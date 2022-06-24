@@ -4,7 +4,9 @@ import Icon from 'react-native-vector-icons/Feather';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { primaryPurple1, primaryPurple4 } from '../../constant/color';
 
-function PhotoProfile({ image, setFieldValue }) {
+function PhotoProfile({
+  image, setFieldValue, disabled = false, style, icon, colorIcon, styleImage,
+}) {
   const [photo, setPhoto] = useState(image);
   const [hasPhoto, setHasPhoto] = useState(false);
   const getImage = () => {
@@ -27,9 +29,10 @@ function PhotoProfile({ image, setFieldValue }) {
     );
   };
   return (
-    <View style={{ alignItems: 'center', marginVertical: 24 }}>
+    <View style={{ alignItems: 'center' }}>
       <TouchableOpacity
         onPress={() => getImage()}
+        disabled={disabled}
       >
         <View
           style={{
@@ -40,18 +43,20 @@ function PhotoProfile({ image, setFieldValue }) {
             alignItems: 'center',
             justifyContent: 'center',
             overflow: 'hidden',
+            ...style,
           }}
         >
-          {image.uri ? (
+          {image ? (
             <Image
               source={photo}
               style={{
                 width: 112,
                 height: 112,
+                ...styleImage,
               }}
             />
           ) : (
-            <Icon name="camera" color={primaryPurple4} size={32} />
+            <Icon name={icon} color={colorIcon} size={32} />
           )}
         </View>
       </TouchableOpacity>

@@ -4,7 +4,7 @@ export const loginValidationSchema = yup.object().shape({
   email: yup
     .string()
     .email()
-    .matches(/[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-z]/)
+    .matches(/[a-z0-9._-]+@[a-z0-9]+\.[a-z]/)
     .required('Email is a required field'),
   password: yup
     .string()
@@ -24,11 +24,11 @@ export const registerValidationSchema = yup.object().shape({
   email: yup
     .string()
     .email('Please enter valid email')
-    .matches(/[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-z]/)
+    .matches(/[a-z0-9._-]+@[a-z0-9]+\.[a-z]/)
     .required('Email Address is Required'),
   password: yup
     .string()
-    .min(8, ({min}) => `Password must be at least ${min} characters`)
+    .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
       'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number',
@@ -70,4 +70,31 @@ export const profileValidationSchema = yup.object().shape({
     .min(2, 'No handphone telalu pendek!')
     .max(50, 'No handphone telalu panjang!')
     .required('No handphone tidak boleh kosong!'),
+});
+
+export const productValidationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .min(2, 'Nama produk telalu pendek!')
+    .max(50, 'Nama produk telalu panjang!')
+    .required('Nama produk tidak boleh kosong!'),
+  description: yup
+    .string()
+    .min(2, 'Deskripsi telalu pendek!')
+    .max(50, 'Deskripsi telalu panjang!')
+    .required('Deskripsi tidak boleh kosong'),
+  base_price: yup
+    .number()
+    .required('Harga produk tidak boleh kosong!'),
+  category_ids: yup
+    .array()
+    .min(1, 'Kategori harus minimal 1!')
+    .required('Kategori tidak boleh kosong!'),
+  location: yup
+    .string()
+    .required('Lokasi tidak boleh kosong'),
+  image: yup
+    .string()
+    .required('Foto produk tidak boleh kosong'),
+
 });

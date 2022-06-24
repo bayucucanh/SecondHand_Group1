@@ -3,7 +3,9 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
-import { Home, Profile } from '../screens/index';
+import {
+  Home, Profile, Jual, Product,
+} from '../screens/index';
 import { primaryPurple4 } from '../constant/color';
 
 const Tab = createBottomTabNavigator();
@@ -39,6 +41,19 @@ function MainApp() {
           }}
         />
         <Tab.Screen
+          name="Jual"
+          component={Jual}
+          options={{
+            tabBarLabel: 'Jual',
+            tabBarVisible: false,
+            headerShown: false,
+            tabBarStyle: { display: 'none' },
+            tabBarIcon: ({ color }) => (
+              <Icon name="plus-circle" color={color} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="Profile"
           component={Profile}
           options={{
@@ -49,6 +64,7 @@ function MainApp() {
             ),
           }}
         />
+
       </Tab.Navigator>
     </>
   );
