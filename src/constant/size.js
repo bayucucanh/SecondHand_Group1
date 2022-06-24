@@ -1,5 +1,6 @@
-import {Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 export const SIZES = {
   // Dimensions
@@ -24,5 +25,3 @@ export const SIZES = {
   body3: 16,
   body4: 14,
 };
-
-

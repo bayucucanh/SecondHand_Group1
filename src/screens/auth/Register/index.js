@@ -6,20 +6,20 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Formik} from 'formik';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik } from 'formik';
 import PhoneInput from 'react-native-phone-number-input';
 
-import {registerValidationSchema} from '../../../utils/validationSchema';
+import { registerValidationSchema } from '../../../utils/validationSchema';
 import InputDropdown from '../../../components/InputDropdown/index';
-import {regions} from '../../../constant/regions';
-import {checkRegister} from '../../../redux/actions/pushDataRegister';
-import {COLORS, FONTS, SIZES} from '../../../constant';
-import {InputText, CustomButton, Header} from '../../../components';
+import { regions } from '../../../constant/regions';
+import { checkRegister } from '../../../redux/actions/pushDataRegister';
+import { COLORS, FONTS, SIZES } from '../../../constant';
+import { InputText, CustomButton, Header } from '../../../components';
 
-function Register({navigation}) {
-  const isRegSukses = useSelector(state => state.register.userData);
+function Register({ navigation }) {
+  const isRegSukses = useSelector((state) => state.register.userData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function Register({navigation}) {
     }
   }, [isRegSukses, navigation]);
 
-  const onRegister = async values => {
+  const onRegister = async (values) => {
     console.log('hahaa');
     console.log(values.phone_number);
     console.log(
@@ -60,7 +60,7 @@ function Register({navigation}) {
     <ScrollView>
       <View style={styles.container}>
         <Header />
-        <View style={{marginHorizontal: SIZES.padding}}>
+        <View style={{ marginHorizontal: SIZES.padding }}>
           <Text style={styles.title}>Create your account!!</Text>
           <Formik
             validationSchema={registerValidationSchema}
@@ -72,7 +72,8 @@ function Register({navigation}) {
               city: '',
               address: '',
             }}
-            onSubmit={values => onRegister(values)}>
+            onSubmit={(values) => onRegister(values)}
+          >
             {({
               handleChange,
               handleSubmit,
@@ -90,7 +91,8 @@ function Register({navigation}) {
                     marginBottom: 5,
                     marginTop: 20,
                     marginLeft: 3,
-                  }}>
+                  }}
+                >
                   Name
                 </Text>
                 <InputText
@@ -99,7 +101,7 @@ function Register({navigation}) {
                   value={values.full_name}
                   onChangeText={handleChange('full_name')}
                   onBlur={handleBlur('full_name')}
-                  style={{borderWidth: 1}}
+                  style={{ borderWidth: 1 }}
                 />
                 {errors.full_name && (
                   <Text style={styles.errorText}>{errors.full_name}</Text>
@@ -111,7 +113,8 @@ function Register({navigation}) {
                     marginBottom: 5,
                     marginTop: 20,
                     marginLeft: 3,
-                  }}>
+                  }}
+                >
                   Email
                 </Text>
                 <InputText
@@ -121,7 +124,7 @@ function Register({navigation}) {
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
                   keyboardType="email-address"
-                  style={{borderWidth: 1}}
+                  style={{ borderWidth: 1 }}
                 />
                 {errors.email && (
                   <Text style={styles.errorText}>{errors.email}</Text>
@@ -133,7 +136,8 @@ function Register({navigation}) {
                     marginBottom: 5,
                     marginTop: 20,
                     marginLeft: 3,
-                  }}>
+                  }}
+                >
                   Password
                 </Text>
                 <InputText
@@ -142,8 +146,8 @@ function Register({navigation}) {
                   value={values.password}
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
-                  secureTextEntry={true}
-                  style={{borderWidth: 1}}
+                  secureTextEntry
+                  style={{ borderWidth: 1 }}
                 />
                 {errors.password && (
                   <Text style={styles.errorText}>{errors.password}</Text>
@@ -155,7 +159,8 @@ function Register({navigation}) {
                     color: COLORS.black,
                     marginTop: 20,
                     marginLeft: 3,
-                  }}>
+                  }}
+                >
                   Phone Number
                 </Text>
                 <PhoneInput
@@ -166,10 +171,10 @@ function Register({navigation}) {
                   onChangeText={handleChange('phone_number')}
                   withShadow
                   containerStyle={styles.phoneInput}
-                  textContainerStyle={{paddingVertical: 0, borderRadius: 15}}
+                  textContainerStyle={{ paddingVertical: 0, borderRadius: 15 }}
                 />
                 {errors.phone_number && (
-                  <Text style={{paddingBottom: 20}}>{errors.phone_number}</Text>
+                  <Text style={{ paddingBottom: 20 }}>{errors.phone_number}</Text>
                 )}
                 <Text
                   style={{
@@ -178,7 +183,8 @@ function Register({navigation}) {
                     marginBottom: 5,
                     marginTop: 20,
                     marginLeft: 3,
-                  }}>
+                  }}
+                >
                   City
                 </Text>
                 <InputDropdown
@@ -198,7 +204,8 @@ function Register({navigation}) {
                     marginBottom: 5,
                     marginTop: 20,
                     marginLeft: 3,
-                  }}>
+                  }}
+                >
                   Address
                 </Text>
                 <InputText
@@ -207,7 +214,7 @@ function Register({navigation}) {
                   value={values.address}
                   onChangeText={handleChange('address')}
                   onBlur={handleBlur('address')}
-                  style={{borderWidth: 1}}
+                  style={{ borderWidth: 1 }}
                 />
                 {errors.address && (
                   <Text style={styles.errorText}>{errors.address}</Text>
@@ -226,16 +233,18 @@ function Register({navigation}) {
                     height: 40,
                     justifyContent: 'center',
                     alignItems: 'center',
-                  }}>
+                  }}
+                >
                   <Text>Submit</Text>
                 </TouchableOpacity>
-                <View style={{flexDirection: 'row', marginTop: 10}}>
-                  <Text style={{color: '#000', marginRight: 5}}>
+                <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                  <Text style={{ color: '#000', marginRight: 5 }}>
                     Don&apos;t have an account?
                   </Text>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('Register')}>
-                    <Text style={{color: '#b12441', fontWeight: 'bold'}}>
+                    onPress={() => navigation.navigate('Register')}
+                  >
+                    <Text style={{ color: '#b12441', fontWeight: 'bold' }}>
                       Register Now
                     </Text>
                   </TouchableOpacity>
