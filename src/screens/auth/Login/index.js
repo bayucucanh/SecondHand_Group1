@@ -24,7 +24,7 @@ function Login() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="Login">
       <Header />
       <View style={{ marginHorizontal: SIZES.padding }}>
         <Text style={styles.title}>Login to your account!!</Text>
