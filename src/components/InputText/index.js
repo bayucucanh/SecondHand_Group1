@@ -2,7 +2,7 @@ import {
   TextInput,
 } from 'react-native';
 import React, { useState } from 'react';
-import { alertDanger, neutral2, neutral5 } from '../../constant/color';
+import { FONTS, COLORS, SIZES } from '../../constant';
 
 function InputText({
   placeholder, multiline, style, type, maxLength, onChangeText, value, error, name, onBlur, secureTextEntry,
@@ -11,12 +11,12 @@ function InputText({
 
   const checkError = () => {
     if (error) {
-      return alertDanger;
+      return COLORS.alertDanger;
     }
     if (isFocus || value) {
-      return neutral5;
+      return COLORS.neutral5;
     }
-    return neutral2;
+    return COLORS.neutral2;
   };
 
   return (
@@ -28,16 +28,14 @@ function InputText({
       value={value}
       name={name}
       secureTextEntry={secureTextEntry}
-      style={{
+      style={[FONTS.bodyNormalRegular, {
         ...style,
-        borderRadius: 5,
+        borderRadius: SIZES.radius2,
         borderWidth: 2,
         borderColor: checkError(),
         justifyContent: 'center',
-        paddingHorizontal: 16,
-        fontFamily: 'Poppins-Regular',
-        fontSize: 14,
-      }}
+        paddingHorizontal: SIZES.padding3,
+      }]}
       maxLength={maxLength}
       keyboardType={type}
       placeholder={placeholder}

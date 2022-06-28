@@ -2,7 +2,7 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { primaryPurple1, primaryPurple4 } from '../../constant/color';
+import { COLORS, SIZES } from '../../constant';
 
 function PhotoProfile({
   image, setFieldValue, disabled = false, style, icon, colorIcon, styleImage,
@@ -38,8 +38,8 @@ function PhotoProfile({
           style={{
             width: 112,
             height: 112,
-            backgroundColor: primaryPurple1,
-            borderRadius: 14,
+            backgroundColor: COLORS.primaryPurple1,
+            borderRadius: SIZES.radius2,
             alignItems: 'center',
             justifyContent: 'center',
             overflow: 'hidden',

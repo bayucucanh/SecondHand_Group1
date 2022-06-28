@@ -5,10 +5,8 @@ import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  alertDanger,
-  neutral1, neutral5, primaryPurple1, primaryPurple4,
-} from '../../constant/color';
+import { useTranslation } from 'react-i18next';
+import { COLORS, FONTS, SIZES } from '../../constant';
 import { regions } from '../../constant/regions';
 import {
   Header, InputText, InputDropdown, CustomButton, HelperText, PhotoProfile, Loading,
@@ -17,11 +15,10 @@ import { profileValidationSchema } from '../../utils';
 import { getDataProfile } from '../../redux/actions/getDataProfile';
 import { putDataProfile } from '../../redux/actions/pushDataProfile';
 
-const { height, width } = Dimensions.get('screen');
-
 function ChangeProfile() {
+  const { t, i18n } = useTranslation();
   const profileData = useSelector((state) => state.profile.profileData);
-  const accessToken = useSelector((state) => state.login.userData.access_token);
+  // const accessToken = useSelector((state) => state.login.userData.access_token);
   const dispatch = useDispatch();
 
   const onUpdate = async (values) => {
@@ -35,7 +32,7 @@ function ChangeProfile() {
       type: 'image/jpeg',
       name: values.image_url.fileName,
     });
-    await dispatch(putDataProfile(accessToken, formdata));
+    // await dispatch(putDataProfile(accessToken, formdata));
   };
 
   return (
@@ -43,10 +40,10 @@ function ChangeProfile() {
       showsVerticalScrollIndicator={false}
     >
       <View style={{
-        flex: 1, backgroundColor: neutral1, paddingBottom: 32, paddingTop: 20, height,
+        flex: 1, backgroundColor: COLORS.neutral1, paddingBottom: SIZES.padding6, paddingTop: 20,
       }}
       >
-        <Header title="Lengkapi info akun" />
+        <Header title={t('changeProfileTitle')} />
         <Formik
           validationSchema={profileValidationSchema}
           initialValues={{
@@ -69,83 +66,79 @@ function ChangeProfile() {
             touched,
           }) => (
             <>
-              <View style={{ marginVertical: 24 }}>
+              <View style={{ marginVertical: SIZES.padding5 }}>
                 <PhotoProfile
                   image={{ uri: values.image_url }}
                   setFieldValue={setFieldValue}
                   icon="camera"
-                  colorIcon={primaryPurple4}
+                  colorIcon={COLORS.primaryPurple4}
                 />
               </View>
-              <View style={{ marginHorizontal: 24 }}>
-                <Text style={styles.inputLabel}>Nama*</Text>
+              <View style={{ marginHorizontal: SIZES.padding5 }}>
+                <Text style={styles.inputLabel}>{t('fullnameTitle')}</Text>
                 <InputText
-                  placeholder="Nama"
+                  placeholder={t('fullnamePlaceholder')}
                   name="full_name"
                   onChangeText={handleChange('full_name')}
                   onBlur={handleBlur('full_name')}
                   error={touched.full_name && errors.full_name}
                   value={values.full_name}
-                  type="email-address"
                 />
                 {touched.full_name && errors.full_name && (
-                  <HelperText text={errors.full_name} />
+                  <HelperText text={t(errors.full_name)} />
                 )}
 
-                <Text style={styles.inputLabel}>Kota*</Text>
+                <Text style={styles.inputLabel}>{t('cityTitle')}</Text>
                 <InputDropdown
                   data={regions}
                   setFieldValue={setFieldValue}
                   value={values.city}
                   initialData={values.city}
                   name="city"
-                  placeholder="Pilih kota"
+                  placeholder={t('cityPlaceholder')}
                 />
                 { touched.city && errors.city && (
-                  <HelperText text={errors.city} />
+                  <HelperText text={t(errors.city)} />
                 )}
 
-                <Text style={styles.inputLabel}>Alamat*</Text>
+                <Text style={styles.inputLabel}>{t('addressTitle')}</Text>
                 <InputText
                   name="address"
                   onChangeText={handleChange('address')}
                   onBlur={handleBlur('address')}
                   error={touched.address && errors.address}
                   value={values.address}
-                  placeholder="Contoh: Jalan Ikan Hiu 33"
+                  placeholder={t('addressPlaceholder')}
                   style={{ textAlignVertical: 'top', height: 80 }}
                 />
                 { touched.address && errors.address && (
-                  <HelperText text={errors.address} />
+                  <HelperText text={t(errors.address)} />
                 )}
-                <Text style={styles.inputLabel}>No Handphone*</Text>
+                <Text style={styles.inputLabel}>{t('phoneNumberTitle')}</Text>
                 <InputText
                   name="phone_number"
                   onChangeText={handleChange('phone_number')}
                   onBlur={handleBlur('phone_number')}
                   error={touched.phone_number && errors.phone_number}
                   value={values.phone_number}
-                  placeholder="contoh: +628123456789"
+                  placeholder={t('phoneNumberPlaceholder')}
                   type="phone-pad"
                   maxLength={18}
                 />
                 { touched.phone_number && errors.phone_number && (
-                  <HelperText text={errors.phone_number} />
+                  <HelperText text={t(errors.phone_number)} />
                 )}
                 <CustomButton
                   onPress={handleSubmit}
-                  title="Simpan"
-                  buttonStyle={{ marginTop: 24 }}
-                  enabled={isValid && !errors.name
+                  title={t('changeProfileTitle')}
+                  buttonStyle={{ marginTop: SIZES.padding5 }}
+                  enabled={isValid && !errors.full_name
                   && !errors.city && !errors.address && !errors.phone_number}
                 />
               </View>
             </>
           )}
         </Formik>
-        {/* ) : (
-          <Loading size="large" color="grey" />
-        )} */}
       </View>
     </ScrollView>
   );
@@ -155,6 +148,9 @@ export default ChangeProfile;
 
 const styles = StyleSheet.create({
   inputLabel: {
-    fontFamily: 'Poppins-Regular', fontSize: 14, color: neutral5, marginTop: 16,
+    marginLeft: 3,
+    ...FONTS.bodyNormalRegular,
+    color: COLORS.neutral5,
+    marginTop: SIZES.padding3,
   },
 });

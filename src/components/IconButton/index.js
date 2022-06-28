@@ -2,17 +2,15 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { RectButton } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {
-  neutral1, neutral4, primaryPurple1, primaryPurple4,
-} from '../../constant/color';
+import { COLORS, FONTS, SIZES } from '../../constant';
 
 function IconButton({
   icon, text, active, onPress,
 }) {
   return (
     <RectButton style={[active ? styles.btnCategoryActive : styles.btnCategory]} onPress={onPress} oneC>
-      <Icon name={icon} color={active ? neutral1 : neutral4} size={20} />
-      <Text style={active ? styles.btnTextActive : styles.btnText}>
+      <Icon name={icon} color={active ? COLORS.neutral1 : COLORS.neutral4} size={20} />
+      <Text style={[FONTS.bodyNormalRegular, active ? styles.btnTextActive : styles.btnText]}>
         {text}
       </Text>
     </RectButton>
@@ -27,35 +25,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    backgroundColor: primaryPurple4,
-    borderRadius: 12,
-    marginRight: 16,
+    paddingVertical: SIZES.padding1,
+    paddingHorizontal: SIZES.padding3,
+    backgroundColor: COLORS.primaryPurple4,
+    borderRadius: SIZES.radius1,
+    marginRight: SIZES.padding3,
   },
   btnCategory: {
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     alignContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    backgroundColor: primaryPurple1,
-    borderRadius: 12,
-    marginRight: 16,
+    paddingVertical: SIZES.padding1,
+    paddingHorizontal: SIZES.padding3,
+    backgroundColor: COLORS.primaryPurple1,
+    borderRadius: SIZES.radius1,
+    marginRight: SIZES.padding3,
   },
   btnTextActive: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 16,
-    color: neutral1,
-    marginLeft: 8,
+    color: COLORS.neutral1,
+    marginLeft: SIZES.base,
     textAlignVertical: 'center',
   },
   btnText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 16,
-    color: neutral4,
-    marginLeft: 8,
+    color: COLORS.neutral4,
+    marginLeft: SIZES.base,
     textAlignVertical: 'center',
   },
 });

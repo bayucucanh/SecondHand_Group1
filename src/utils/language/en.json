@@ -1,0 +1,13 @@
+{
+    "translation": {
+        "loginTitle":"Login",
+        "emailTitle":"Email",
+        "emailPlaceholder":"Contoh: johndee@gmail.com",
+        "emailAlertRequired":"Email required",
+        "passwordTitle":"Password",
+        "passwordPlaceholder":"Masukkan password",
+        "loginButton":"Masuk",
+        "belumPunyaAkun":"Belum punya akun",
+        "goToRegister":"Daftar di sini"
+    }
+  }

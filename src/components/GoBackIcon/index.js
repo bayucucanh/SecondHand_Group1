@@ -4,7 +4,7 @@ import {
 import React, { useCallback } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { neutral1 } from '../../constant/color';
+import { COLORS, SIZES } from '../../constant';
 
 function GoBackIcon({ iconColor, size, style }) {
   const navigation = useNavigation();
@@ -14,7 +14,7 @@ function GoBackIcon({ iconColor, size, style }) {
     <TouchableOpacity
       onPress={handleGoBack}
       style={{
-        position: 'absolute', left: 16, backgroundColor: neutral1, borderRadius: 150, ...style,
+        position: 'absolute', left: SIZES.padding2, backgroundColor: COLORS.neutral1, borderRadius: 100, ...style,
       }}
     >
       <Icon name="arrow-left" color={iconColor} size={size} />
