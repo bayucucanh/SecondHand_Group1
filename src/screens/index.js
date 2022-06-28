@@ -6,9 +6,9 @@ import Profile from './Profile';
 import ChangeProfile from './ChangeProfile';
 import Jual from './Jual';
 import Product from './Product';
-import NotLogin from './NotLogin';
 import Success from './auth/Success';
+import NotLogin from './NotLogin';
 
 export {
-  Login, Register, Success, Home, Splash, Profile, ChangeProfile, Jual, Product, NotLogin,
+  Login, Register, Home, Splash, Profile, ChangeProfile, Jual, Product, NotLogin, Success,
 };

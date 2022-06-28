@@ -177,6 +177,7 @@ function Register({ navigation }) {
                 enabled={isValid && !errors.full_name
                   && !errors.city && !errors.address && !errors.phone_number}
                 buttonStyle={{ marginTop: SIZES.padding5 }}
+                isLoading={isLoading}
               />
             </View>
           )}
