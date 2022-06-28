@@ -14,18 +14,18 @@ export const failedLogin = () => ({
 });
 
 export const loginUser = (email, password, navigation) => async (dispatch) => {
-  dispatch(setLoading(true))
+  dispatch(setLoading(true));
   await login(email, password)
     .then((response) => {
       dispatch(successLogin(response.data));
-      dispatch(successRegister(false))
-      dispatch(setLoading(false))
+      dispatch(successRegister(false));
+      dispatch(setLoading(false));
       Auth.setAccount(response.data);
       navigation.replace('MainApp');
     })
     .catch((err) => {
       dispatch(failedLogin());
-      dispatch(setLoading(false))
+      dispatch(setLoading(false));
       console.log(err.message);
     });
 };

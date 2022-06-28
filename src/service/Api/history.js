@@ -1,4 +1,5 @@
+// eslint-disable-next-line
 import axios from '../../utils/axios';
 
-export const getHistory = async () => await axios.get('/history');
-export const detailHistory = async (id) => await axios.get(`/history${id}`);
+export const getHistory = () => axios.get('/history');
+export const detailHistory = (id) => axios.get(`/history${id}`);

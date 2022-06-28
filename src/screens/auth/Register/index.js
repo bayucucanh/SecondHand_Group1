@@ -21,9 +21,10 @@ import {
 } from '../../../components';
 
 function Register({ navigation }) {
-  const isLoading = useSelector((state) => state.global.isLoading);
   const { t, i18n } = useTranslation();
+
   const isRegSukses = useSelector((state) => state.register.userData);
+  const isLoading = useSelector((state) => state.global.isLoading);
   const dispatch = useDispatch();
 
   const onRegister = async (values) => {

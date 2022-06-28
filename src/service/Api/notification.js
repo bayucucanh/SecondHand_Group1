@@ -1,4 +1,5 @@
+// eslint-disable-next-line
 import axios from '../../utils/axios';
 
-export const getNotif = async () => await axios.get('/notification');
-export const detailNotif = async (id) => await axios.get(`/notification${id}`);
+export const getNotif = () => axios.get('/notification');
+export const detailNotif = (id) => axios.get(`/notification${id}`);

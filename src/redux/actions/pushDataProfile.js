@@ -1,5 +1,5 @@
 import { UPDATE_USER_SUCCESS, UPDATE_USER_FAILED } from '../types';
-import { updateProfile } from '../../service/Api/auth'
+import { updateProfile } from '../../service/Api/auth';
 import { setLoading } from './globalAction';
 
 export const successPutProfile = (value) => ({
@@ -14,16 +14,16 @@ export const failedPutProfile = () => ({
 export const putDataProfile = (accessToken, payload) => async (dispatch) => {
   const data = new FormData();
   data.append('full_name', 'hah');
-  dispatch(setLoading(true))
+  dispatch(setLoading(true));
   await updateProfile(accessToken, payload)
     .then((value) => {
       dispatch(successPutProfile(value.data));
-      dispatch(setLoading(false))
+      dispatch(setLoading(false));
       console.log('Put profile data berhasil');
     })
     .catch((err) => {
       dispatch(failedPutProfile());
-      dispatch(setLoading(false))
+      dispatch(setLoading(false));
       console.log(err);
     });
 };

@@ -15,16 +15,16 @@ export const failedGetProduct = () => ({
 });
 
 export const getDataProduct = (url) => async (dispatch) => {
-  dispatch(setLoading(true))
+  dispatch(setLoading(true));
   await getBuyerProduct(url)
     .then((value) => {
       dispatch(successGetProduct(value.data));
-      dispatch(setLoading(false))
+      dispatch(setLoading(false));
       console.log('Get data product berhasil');
     })
     .catch((err) => {
       dispatch(failedGetProduct());
-      dispatch(setLoading(false))
+      dispatch(setLoading(false));
       console.log(err.message);
     });
 };

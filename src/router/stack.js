@@ -64,11 +64,11 @@ function Router() {
           options={{ headerShown: false }}
         />
 
-          <Stack.Screen
-            name="Success"
-            component={Success}
-            options={{ headerShown: false }}
-          />
+        <Stack.Screen
+          name="Success"
+          component={Success}
+          options={{ headerShown: false }}
+        />
       </>
       )}
       <Stack.Screen

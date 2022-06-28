@@ -1,3 +1,4 @@
+/* eslint default-param-last: ["error"] */
 import { LOADING, REFRESH } from '../types';
 
 const initialGlobalState = {
@@ -5,7 +6,7 @@ const initialGlobalState = {
   isRefresh: false,
 };
 
-const GlobalReducer = (state = initialGlobalState, action) => {
+const GlobalReducer = (state = initialGlobalState, action = {}) => {
   switch (action.type) {
     case LOADING:
       return {
