@@ -4,7 +4,7 @@ import {
 import React, { useCallback } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { neutral5, primaryPurple4 } from '../../constant/color';
+import { COLORS, FONTS, SIZES } from '../../constant';
 import GoBackIcon from '../GoBackIcon';
 
 function Header({ title }) {
@@ -19,8 +19,8 @@ function Header({ title }) {
       alignItems: 'center',
     }}
     >
-      <GoBackIcon iconColor={primaryPurple4} size={24} />
-      <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 18, color: neutral5 }}>{title}</Text>
+      <GoBackIcon iconColor={COLORS.primaryPurple4} size={SIZES.icon} />
+      <Text style={[FONTS.bodyLargeMedium, { color: COLORS.neutral5 }]}>{title}</Text>
     </View>
   );
 }

@@ -7,7 +7,7 @@ import {
   FlatList,
 } from 'react-native';
 import React from 'react';
-import { neutral3, neutral5 } from '../../constant/color';
+import { COLORS, SIZES, FONTS } from '../../constant';
 import { formatRupiah } from '../../utils/formatCurrency';
 import styles from '../../constant/styles';
 
@@ -20,20 +20,18 @@ function ProductCard({
         style={{
           width: 140,
           height: 100,
-          backgroundColor: neutral5,
-          borderRadius: 8,
+          backgroundColor: COLORS.neutral5,
+          borderRadius: SIZES.base,
         }}
         source={{
           uri: imageUrl,
         }}
       />
       <Text
-        style={{
-          fontFamily: 'Poppins-Regular',
-          fontSize: 14,
-          marginTop: 8,
-          color: neutral5,
-        }}
+        style={[FONTS.bodyLargeRelugar, {
+          marginTop: SIZES.base,
+          color: COLORS.neutral5,
+        }]}
         numberOfLines={1}
         ellipsizeMode="tail"
       >
@@ -45,11 +43,9 @@ function ProductCard({
         keyExtractor={(item, index) => item.id + index.toString()}
         renderItem={({ item }) => (
           <Text
-            style={{
-              fontFamily: 'Poppins-Regular',
-              fontSize: 10,
-              color: neutral3,
-            }}
+            style={[FONTS.bodySmallRegular, {
+              color: COLORS.neutral3,
+            }]}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
@@ -59,12 +55,10 @@ function ProductCard({
         )}
       />
       <Text
-        style={{
-          fontFamily: 'Poppins-Regular',
-          fontSize: 14,
-          marginVertical: 8,
-          color: neutral5,
-        }}
+        style={[FONTS.bodyNormalRegular, {
+          marginVertical: SIZES.base,
+          color: COLORS.neutral5,
+        }]}
       >
         {formatRupiah(basePrice)}
       </Text>
@@ -73,14 +67,3 @@ function ProductCard({
 }
 
 export default ProductCard;
-
-// const styles = StyleSheet.create({
-//   wrapper: {
-//     borderRadius: 8,
-//     padding: 12,
-//     backgroundColor: 'white',
-//     elevation: 4,
-//     maxWidth: 160,
-//     marginBottom: 10,
-//   },
-// });

@@ -1,20 +1,20 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import { neutral5, primaryPurple4 } from '../../constant/color';
+import { COLORS, FONTS, SIZES } from '../../constant';
 import Separator from '../Separator';
 
 function TextButton({ onPress, text, icon }) {
   return (
     <>
       <TouchableOpacity
-        style={{ flexDirection: 'row', marginVertical: 18 }}
+        style={{ flexDirection: 'row', marginVertical: SIZES.padding4 }}
         onPress={onPress}
       >
-        <Icon name={icon} color={primaryPurple4} size={24} />
-        <Text style={{
-          fontFamily: 'Poppins-Medium', fontSize: 18, color: neutral5, marginLeft: 16,
-        }}
+        <Icon name={icon} color={COLORS.primaryPurple4} size={SIZES.icon} />
+        <Text style={[FONTS.titleNormalMedium, {
+          color: COLORS.neutral5, marginLeft: SIZES.padding5,
+        }]}
         >
           {text}
         </Text>
