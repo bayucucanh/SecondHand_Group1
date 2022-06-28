@@ -1,10 +1,17 @@
-import { View, Text, Button } from 'react-native';
+import { Text, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { RectButton } from 'react-native-gesture-handler';
-import { COLORS, FONTS, SIZES } from '../../constant';
+import {
+  COLORS, FONTS, SIZES,
+} from '../../constant';
 
 function CustomButton({
-  title, enabled, onPress, buttonStyle, textStyle,
+  title,
+  enabled,
+  onPress,
+  buttonStyle,
+  textStyle,
+  isLoading,
 }) {
   return (
     <RectButton
@@ -20,15 +27,19 @@ function CustomButton({
       enabled={enabled}
       onPress={onPress}
     >
-      <Text style={[FONTS.bodyLargeMedium, {
-        color: COLORS.neutral1,
-        marginLeft: SIZES.base,
-        textAlignVertical: 'center',
-        ...textStyle,
-      }]}
-      >
-        {title}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator color="white" />
+      ) : (
+        <Text style={[FONTS.bodyLargeMedium, {
+          color: COLORS.neutral1,
+          marginLeft: SIZES.base,
+          textAlignVertical: 'center',
+          ...textStyle,
+        }]}
+        >
+          {title}
+        </Text>
+      )}
     </RectButton>
   );
 }
