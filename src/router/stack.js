@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Login, Register, Splash, ChangeProfile, Product, NotLogin,
+  Login, Register, Splash, ChangeProfile, Product, Success, NotLogin,
 } from '../screens/index';
 import Auth from '../service/Auth';
 import MainApp from './MainApp';
@@ -61,6 +61,12 @@ function Router() {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="Success"
+          component={Success}
           options={{ headerShown: false }}
         />
       </>

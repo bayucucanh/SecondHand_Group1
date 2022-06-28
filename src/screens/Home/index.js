@@ -1,10 +1,8 @@
 import {
   Text,
-  TextInput,
   View,
   StyleSheet,
   ScrollView,
-  StatusBar,
   FlatList,
   LogBox,
 } from 'react-native';
@@ -20,7 +18,6 @@ import {
   getDataProduct,
   getDataCategories,
 } from '../../redux/actions';
-import { API_GET_PRODUCT } from '../../config/api';
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -39,14 +36,14 @@ function Home() {
 
   const getProductBySearch = useCallback((nameProduct) => {
     setSearchProduct(nameProduct);
-    dispatch(getDataProduct(`${API_GET_PRODUCT}?search=${nameProduct}`));
+    dispatch(getDataProduct(`?search=${nameProduct}`));
   }, []);
 
   const getProductByCategory = useCallback(
     (categoryId) => {
       setBtnActive(categoryId);
       setBtnAllActive(false);
-      dispatch(getDataProduct(`${API_GET_PRODUCT}?category_id=${categoryId}`));
+      dispatch(getDataProduct(`?category_id=${categoryId}`));
     },
     [dispatch, btnActive],
   );
@@ -54,7 +51,7 @@ function Home() {
   const getAllProduct = useCallback(() => {
     setBtnActive(false);
     setBtnAllActive(true);
-    dispatch(getDataProduct(`${API_GET_PRODUCT}`));
+    dispatch(getDataProduct('/'));
   }, [dispatch, btnActive]);
 
   const headerFlatlist = () => (

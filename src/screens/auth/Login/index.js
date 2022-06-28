@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   StyleSheet,
   Text,
@@ -24,13 +23,14 @@ function Login() {
   const { t, i18n } = useTranslation();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.global.isLoading);
 
   const onLogin = (value) => {
     dispatch(loginUser(value.email, value.password, navigation));
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} testID="Login">
       <Header />
       <View style={{ marginHorizontal: SIZES.padding5, marginTop: SIZES.padding5, flex: 1 }}>
         <Text style={[FONTS.headingLargeBold, { color: COLORS.neutral5 }]}>{t('loginTitle')}</Text>
@@ -92,6 +92,7 @@ function Login() {
                 title={t('loginButton')}
                 enabled={isValid && !errors.email && !errors.password}
                 buttonStyle={{ marginTop: SIZES.padding5 }}
+                isLoading={isLoading}
               />
             </>
           )}

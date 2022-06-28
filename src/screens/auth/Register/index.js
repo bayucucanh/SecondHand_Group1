@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import PhoneInput from 'react-native-phone-number-input';
@@ -24,14 +24,8 @@ function Register({ navigation }) {
   const { t, i18n } = useTranslation();
 
   const isRegSukses = useSelector((state) => state.register.userData);
+  const isLoading = useSelector((state) => state.global.isLoading);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isRegSukses) {
-      // navigation.replace('Login');
-      console.log('Success');
-    }
-  }, [isRegSukses, navigation]);
 
   const onRegister = async (values) => {
     console.log('hahaa');
@@ -56,7 +50,7 @@ function Register({ navigation }) {
       image_url: null,
       city: values.city,
     };
-    dispatch(checkRegister(data));
+    dispatch(checkRegister(data, navigation));
   };
 
   return (

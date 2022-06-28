@@ -7,7 +7,8 @@ import ChangeProfile from './ChangeProfile';
 import Jual from './Jual';
 import Product from './Product';
 import NotLogin from './NotLogin';
+import Success from './auth/Success';
 
 export {
-  Login, Register, Home, Splash, Profile, ChangeProfile, Jual, Product, NotLogin,
+  Login, Register, Success, Home, Splash, Profile, ChangeProfile, Jual, Product, NotLogin,
 };
