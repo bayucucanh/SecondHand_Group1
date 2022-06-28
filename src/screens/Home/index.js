@@ -19,7 +19,7 @@ import {
   getDataCategories,
 } from '../../redux/actions';
 
-function Home() {
+function Home({ navigation }) {
   const { t, i18n } = useTranslation();
   const [btnActive, setBtnActive] = useState('');
   const [btnAllActive, setBtnAllActive] = useState(true);
@@ -154,6 +154,7 @@ function Home() {
               basePrice={item.base_price}
               imageUrl={item.image_url}
               style={{ maxWidth: 160 }}
+              onPress={() => navigation.navigate('Detail', { productId: item.id })}
             />
           )}
         />
