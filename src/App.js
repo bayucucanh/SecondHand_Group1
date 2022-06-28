@@ -4,8 +4,12 @@ import codePush from 'react-native-code-push';
 import crashlytics from '@react-native-firebase/crashlytics';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import {
+  Text, View,
+} from 'react-native';
 import Router from './router';
 import { Store, Persistor } from './redux/store';
+import { LoginImage } from './assets';
 
 const CodePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_START,

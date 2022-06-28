@@ -9,8 +9,8 @@ import {
 import React, { useEffect, useState, useCallback } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { alertDanger, neutral1, neutral5 } from '../../constant/color';
+import { useTranslation } from 'react-i18next';
+import { COLORS, SIZES, FONTS } from '../../constant';
 import { IconButton, ProductCard, SearchBar } from '../../components';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
@@ -20,17 +20,16 @@ import {
 } from '../../redux/actions';
 
 function Home() {
+  const { t, i18n } = useTranslation();
   const [btnActive, setBtnActive] = useState('');
   const [btnAllActive, setBtnAllActive] = useState(true);
   const [searchProduct, setSearchProduct] = useState('');
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.login.userData.access_token);
   const dataProduct = useSelector((state) => state.home.dataProduct);
   const dataCategories = useSelector((state) => state.home.categories);
 
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    dispatch(getDataProfile(accessToken));
+    // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     dispatch(getDataCategories());
     getAllProduct();
   }, [dispatch]);
@@ -55,118 +54,111 @@ function Home() {
     dispatch(getDataProduct('/'));
   }, [dispatch, btnActive]);
 
-  return (
-    <ScrollView style={styles.container}>
-      <FocusAwareStatusBar barStyle="dark-content" color="#FFE9C9" />
-      <LinearGradient colors={['#FFE9C9', '#FFFFFF']} locations={[0.6, 1]}>
-        <SearchBar onChangeText={getProductBySearch} value={searchProduct} />
-        <View
-          style={{
-            flexDirection: 'row',
-            marginVertical: 32,
-            paddingHorizontal: 24,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Text
-              style={{
-                fontFamily: 'Poppins-Bold',
-                fontSize: 20,
-                color: 'black',
-              }}
-            >
-              Bulan Ramadhan Banyak diskon!
-            </Text>
-            <Text
-              style={{
-                fontFamily: 'Poppins-Regular',
-                fontSize: 14,
-                color: neutral5,
-                marginTop: 12,
-              }}
-            >
-              Diskon Hingga
-            </Text>
-            <Text
-              style={{
-                fontFamily: 'Poppins-Medium',
-                fontSize: 18,
-                color: alertDanger,
-              }}
-            >
-              60%
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: 'blue',
-              width: 127,
-              height: 127,
-            }}
-          />
-        </View>
-        <View style={{ marginHorizontal: 24 }}>
-          <Text
-            style={{
-              fontFamily: 'Poppins-Medium',
-              fontSize: 16,
-              color: neutral5,
-            }}
-          >
-            Telusuri Kategori
-          </Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <IconButton
-              icon="category"
-              text="Semua"
-              active={btnAllActive}
-              onPress={() => getAllProduct()}
-            />
-            {dataCategories?.map((item) => (
-              <IconButton
-                key={item.id}
-                icon="category"
-                text={item.name}
-                active={btnActive === item.id}
-                onPress={() => getProductByCategory(item.id)}
-              />
-            ))}
-          </ScrollView>
-        </View>
-      </LinearGradient>
+  const headerFlatlist = () => (
+    <LinearGradient colors={['#FFE9C9', '#FFFFFF']} locations={[0.6, 1]}>
+      <SearchBar onChangeText={getProductBySearch} value={searchProduct} />
       <View
         style={{
-          marginTop: 16,
-          marginHorizontal: 24,
-          marginBottom: 38,
           flexDirection: 'row',
-          justifyContent: 'space-around',
-          flex: 1,
+          marginVertical: SIZES.padding6,
+          paddingHorizontal: SIZES.padding5,
         }}
       >
-        {dataProduct.length === 0 ? (
-          <Text style={{ fontSize: 15 }}>Tidak ada produk</Text>
-        ) : (
-          <FlatList
-            data={dataProduct}
-            numColumns={2}
-            columnWrapperStyle={{ flex: 1, justifyContent: 'space-between' }}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => item.id + index.toString()}
-            renderItem={({ item }) => (
-              <ProductCard
-                name={item.name}
-                categories={item.Categories}
-                basePrice={item.base_price}
-                imageUrl={item.image_url}
-                style={{ maxWidth: 160 }}
-              />
-            )}
-          />
-        )}
+        <View style={{ flex: 1 }}>
+          <Text
+            style={{
+              ...FONTS.titleLargeBold,
+              color: 'black',
+            }}
+          >
+            Bulan Ramadhan Banyak diskon!
+          </Text>
+          <Text
+            style={{
+              ...FONTS.bodyLargeRegular,
+              color: COLORS.neutral5,
+              marginTop: SIZES.h1,
+            }}
+          >
+            Diskon Hingga
+          </Text>
+          <Text
+            style={{
+              ...FONTS.bodyLargeMedium,
+              color: COLORS.alertDanger,
+            }}
+          >
+            60%
+          </Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: 'blue',
+            width: 127,
+            height: 127,
+          }}
+        />
       </View>
-      <View />
-    </ScrollView>
+      <View style={{ marginHorizontal: SIZES.padding5 }}>
+        <Text
+          style={{
+            ...FONTS.bodyLargeMedium,
+            color: COLORS.neutral5,
+          }}
+        >
+          {t('searchCategoryTitle')}
+        </Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: SIZES.padding3 }}>
+          <IconButton
+            icon="search"
+            text="Semua"
+            active={btnAllActive}
+            onPress={() => getAllProduct()}
+          />
+          {dataCategories?.map((item) => (
+            <IconButton
+              key={item.id}
+              icon="category"
+              text={item.name}
+              active={btnActive === item.id}
+              onPress={() => getProductByCategory(item.id)}
+            />
+          ))}
+        </ScrollView>
+      </View>
+    </LinearGradient>
+  );
+
+  return (
+    <View style={styles.container}>
+      <FocusAwareStatusBar barStyle="dark-content" color="#FFE9C9" />
+      {dataProduct.length === 0 ? (
+        <Text style={{ fontSize: 15 }}>Tidak ada produk</Text>
+      ) : (
+        <FlatList
+          data={dataProduct}
+          numColumns={2}
+          columnWrapperStyle={{
+            flex: 1,
+            marginHorizontal: SIZES.padding5,
+            marginBottom: SIZES.padding4,
+            justifyContent: 'space-between',
+          }}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => item.id + index.toString()}
+          ListHeaderComponent={headerFlatlist}
+          renderItem={({ item }) => (
+            <ProductCard
+              name={item.name}
+              categories={item.Categories}
+              basePrice={item.base_price}
+              imageUrl={item.image_url}
+              style={{ maxWidth: 160 }}
+            />
+          )}
+        />
+      )}
+    </View>
   );
 }
 
@@ -175,6 +167,6 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: neutral1,
+    backgroundColor: COLORS.neutral1,
   },
 });

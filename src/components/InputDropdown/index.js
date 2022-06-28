@@ -1,9 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {
-  alertDanger, neutral2, neutral3, neutral5,
-} from '../../constant/color';
+import { COLORS, FONTS, SIZES } from '../../constant';
 
 function InputDropdown({
   data, setFieldValue, initialData, placeholder, multiple, schema, mode, name, error,
@@ -13,14 +11,14 @@ function InputDropdown({
   const [items, setItems] = useState(data);
   const checkError = () => {
     if (error) {
-      return alertDanger;
+      return COLORS.alertDanger;
     }
-    if (value.length === 0) {
-      return neutral2;
+    if (value == null || value.length === 0) {
+      return COLORS.neutral2;
     } if (value) {
-      return neutral5;
+      return COLORS.neutral5;
     }
-    return neutral2;
+    return COLORS.neutral2;
   };
 
   return (
@@ -42,19 +40,17 @@ function InputDropdown({
         listMode="MODAL"
         badgeDotColors={['#e76f51', '#00b4d8', '#e9c46a', '#e76f51', '#8ac926', '#00b4d8', '#e9c46a']}
         placeholder={placeholder}
-        style={{
-          borderRadius: 16,
+        style={[FONTS.bodyNormalRegular, {
+          borderRadius: SIZES.radius2,
           borderWidth: 2,
           borderColor: checkError(),
           justifyContent: 'center',
-          paddingHorizontal: 16,
-          fontFamily: 'Poppins-Regular',
-          fontSize: 14,
-        }}
-        placeholderStyle={styles.placeholderStyle}
-        searchTextInputStyle={styles.textStyle}
-        labelStyle={styles.textStyle}
-        listItemLabelStyle={styles.textStyle}
+          paddingHorizontal: SIZES.padding3,
+        }]}
+        placeholderStyle={[FONTS.bodyNormalRegular, styles.placeholderStyle]}
+        searchTextInputStyle={[FONTS.bodyNormalRegular, styles.textStyle]}
+        labelStyle={[FONTS.bodyNormalRegular, styles.textStyle]}
+        listItemLabelStyle={[FONTS.bodyNormalRegular, styles.textStyle]}
       />
     </View>
   );
@@ -64,13 +60,9 @@ export default InputDropdown;
 
 const styles = StyleSheet.create({
   placeholderStyle: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    color: neutral3,
+    color: COLORS.neutral3,
   },
   textStyle: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    color: neutral5,
+    color: COLORS.neutral5,
   },
 });

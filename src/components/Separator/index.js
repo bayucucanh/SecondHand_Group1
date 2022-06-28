@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { lightGray } from '../../constant/color';
+import { COLORS } from '../../constant';
 
 function Separator() {
   return (
-    <View style={{ backgroundColor: lightGray, height: 2 }} />
+    <View style={{ backgroundColor: COLORS.lightGray, height: 2 }} />
   );
 }
 

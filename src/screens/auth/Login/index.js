@@ -4,18 +4,24 @@ import {
   Text,
   View,
   TouchableOpacity,
-  TextInput,
+  ScrollView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { loginUser } from '../../../redux/actions';
 import { loginValidationSchema } from '../../../utils';
-import { InputText, CustomButton, Header } from '../../../components';
+import {
+  InputText, CustomButton, Header, HelperText,
+} from '../../../components';
 import { COLORS, FONTS, SIZES } from '../../../constant';
+import '../../../utils/language/i18n';
 
 function Login() {
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.global.isLoading);
@@ -25,10 +31,10 @@ function Login() {
   };
 
   return (
-    <View style={styles.container} testID="Login">
+    <ScrollView contentContainerStyle={styles.container} testID="Login">
       <Header />
-      <View style={{ marginHorizontal: SIZES.padding }}>
-        <Text style={styles.title}>Login to your account!!</Text>
+      <View style={{ marginHorizontal: SIZES.padding5, marginTop: SIZES.padding5, flex: 1 }}>
+        <Text style={[FONTS.headingLargeBold, { color: COLORS.neutral5 }]}>{t('loginTitle')}</Text>
         <Formik
           validationSchema={loginValidationSchema}
           initialValues={{ email: '', password: '' }}
@@ -38,85 +44,74 @@ function Login() {
             handleChange,
             handleBlur,
             handleSubmit,
+            touched,
             values,
             errors,
             isValid,
           }) => (
             <>
-              <View style={[styles.inputContainer, { marginTop: 10 }]}>
-                <Text
-                  style={{
-                    ...FONTS.body3,
-                    color: COLORS.black,
-                    marginBottom: 5,
-                    marginLeft: 3,
-                  }}
-                >
-                  Email
+              <View style={{ marginTop: SIZES.padding5 }}>
+                <Text style={styles.text}>
+                  {t('emailTitle')}
                 </Text>
                 <InputText
                   name="email"
-                  placeholder="Email Address"
+                  placeholder={t('emailPlaceholder')}
                   style={styles.textInput}
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
                   value={values.email}
+                  error={touched.email && errors.email}
                   keyboardType="email-address"
                 />
               </View>
-              {errors.email && (
-                <Text style={styles.errorText}>{errors.email}</Text>
+              {touched.email && errors.email && (
+              <HelperText text={t(errors.email)} />
               )}
 
-              <View style={[styles.inputContainer, { marginTop: 10 }]}>
-                <Text
-                  style={{
-                    ...FONTS.body3,
-                    color: COLORS.black,
-                    marginBottom: 5,
-                    marginLeft: 3,
-                  }}
-                >
-                  Password
+              <View style={[styles.inputContainer, { marginTop: SIZES.padding3 }]}>
+                <Text style={styles.text}>
+                  {t('passwordTitle')}
                 </Text>
                 <InputText
                   style={styles.textInput}
                   name="password"
-                  placeholder="Password"
+                  placeholder={t('passwordPlaceholder')}
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
+                  error={touched.password && errors.password}
                   value={values.password}
                   secureTextEntry
                 />
               </View>
-              {errors.password && (
-                <Text style={styles.errorText}>{errors.password}</Text>
+              {touched.password && errors.password && (
+                <HelperText text={t(errors.password)} />
               )}
 
               <CustomButton
                 onPress={handleSubmit}
-                title="Login"
-                enabled={isValid}
+                title={t('loginButton')}
+                enabled={isValid && !errors.email && !errors.password}
+                buttonStyle={{ marginTop: SIZES.padding5 }}
                 isLoading={isLoading}
               />
-
-              <View style={styles.goToRegister}>
-                <Text style={{ color: '#000', marginRight: 5 }}>
-                  Don&apos;t have an account?
-                </Text>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Register')}
-                >
-                  <Text style={{ color: '#7126b5', fontWeight: 'bold' }}>
-                    Sign Up!
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </>
           )}
         </Formik>
       </View>
-    </View>
+      <View style={styles.goToRegister}>
+        <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral5, marginRight: 5 }}>
+          {t('belumPunyaAkun')}
+        </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Register')}
+        >
+          <Text style={{ ...FONTS.bodyNormalBold, color: COLORS.primaryPurple4 }}>
+            {t('goToRegister')}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -124,26 +119,22 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // paddingHorizontal: SIZES.radius,
+    flexGrow: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     backgroundColor: COLORS.white,
+    paddingTop: SIZES.padding4,
   },
-  title: {
-    ...FONTS.title,
+  text: {
+    ...FONTS.bodyNormalRegular,
     color: COLORS.black,
-    marginTop: 71,
-    marginBottom: 50,
-    fontWeight: '800',
-  },
-  errorText: {
-    ...FONTS.body4,
-    color: COLORS.danger,
-    marginLeft: 5,
-    marginTop: 5,
+    marginLeft: 3,
   },
   goToRegister: {
+    bottom: 0,
+    paddingVertical: SIZES.padding4,
     flexDirection: 'row',
-    marginTop: 20,
+    width: '100%',
     justifyContent: 'center',
   },
 });

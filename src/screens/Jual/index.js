@@ -6,31 +6,33 @@ import { Formik } from 'formik';
 import Icon from 'react-native-vector-icons/Feather';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import {
   CustomButton,
   Header, HelperText, InputDropdown, InputText, PhotoProfile,
 } from '../../components';
 import {
-  neutral1, neutral2, neutral3, neutral5, primaryPurple4,
-} from '../../constant/color';
+  COLORS, FONTS, SIZES,
+} from '../../constant';
 import { productValidationSchema, profileValidationSchema } from '../../utils';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 
 function Jual() {
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation();
 
   const dataCategories = useSelector((state) => state.home.categories);
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={{ backgroundColor: neutral1 }}
+      style={{ backgroundColor: COLORS.neutral1 }}
     >
       <View style={{
-        flex: 1, paddingTop: 20, marginBottom: 32,
+        flex: 1, paddingTop: 20, marginBottom: SIZES.padding6,
       }}
       >
         <FocusAwareStatusBar barStyle="dark-content" color="white" />
-        <Header title="Lengkapi Detail Produk" />
+        <Header title={t('sellTitle')} />
         <Formik
           validationSchema={productValidationSchema}
           initialValues={{
@@ -53,10 +55,10 @@ function Jual() {
             isValid,
             touched,
           }) => (
-            <View style={{ marginHorizontal: 24 }}>
-              <Text style={styles.inputLabel}>Nama Produk</Text>
+            <View style={{ marginHorizontal: SIZES.padding5 }}>
+              <Text style={styles.inputLabel}>{t('productNameTitle')}</Text>
               <InputText
-                placeholder="Nama Produk"
+                placeholder={t('productNamePlaceholder')}
                 name="name"
                 onChangeText={handleChange('name')}
                 onBlur={handleBlur('name')}
@@ -64,11 +66,11 @@ function Jual() {
                 value={values.name}
               />
               {touched.name && errors.name && (
-              <HelperText text={errors.name} />
+              <HelperText text={t(errors.name)} />
               )}
-              <Text style={styles.inputLabel}>Harga Produk</Text>
+              <Text style={styles.inputLabel}>{t('priceTitle')}</Text>
               <InputText
-                placeholder="Rp 0,00"
+                placeholder={t('pricePlaceholder')}
                 name="base_price"
                 onChangeText={handleChange('base_price')}
                 onBlur={handleBlur('base_price')}
@@ -77,10 +79,10 @@ function Jual() {
                 type="number-pad"
               />
               {touched.base_price && errors.base_price && (
-              <HelperText text={errors.base_price} />
+              <HelperText text={t(errors.base_price)} />
               )}
 
-              <Text style={styles.inputLabel}>Kategori</Text>
+              <Text style={styles.inputLabel}>{t('categoryTitle')}</Text>
               <InputDropdown
                 data={dataCategories}
                 setFieldValue={setFieldValue}
@@ -93,42 +95,42 @@ function Jual() {
                 multiple
                 mode="BADGE"
                 name="category_ids"
-                placeholder="Pilih kategori"
+                placeholder={t('categoryPlaceholder')}
                 error={touched.category_ids && errors.category_ids}
               />
               { touched.category_ids && errors.category_ids && (
-              <HelperText text={errors.category_ids} />
+              <HelperText text={t(errors.category_ids)} />
               )}
 
-              <Text style={styles.inputLabel}>Deskripsi</Text>
+              <Text style={styles.inputLabel}>{t('descriptionTitle')}</Text>
               <InputText
                 name="description"
                 onChangeText={handleChange('description')}
                 onBlur={handleBlur('description')}
                 error={touched.description && errors.description}
                 value={values.description}
-                placeholder="Contoh: Jalan Ikan Hiu 33"
+                placeholder={t('descriptionPlaceholder')}
                 style={{ textAlignVertical: 'top', height: 80 }}
               />
               { touched.description && errors.description && (
-              <HelperText text={errors.description} />
+              <HelperText text={t(errors.description)} />
               )}
-              <Text style={styles.inputLabel}>Foto Produk</Text>
+              <Text style={styles.inputLabel}>{t('photoProductTitle')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 24 }}>
                 <PhotoProfile
                   style={{
                     width: 96,
                     height: 96,
-                    backgroundColor: neutral1,
+                    backgroundColor: COLORS.neutral1,
                     borderStyle: 'dashed',
-                    borderColor: neutral2,
+                    borderColor: COLORS.neutral2,
                     borderWidth: 2,
                     marginRight: 28,
                     marginTop: -24,
                     marginBottom: -12,
                   }}
                   icon="plus"
-                  colorIcon={neutral2}
+                  colorIcon={COLORS.neutral2}
                 />
               </View>
               <View style={{
@@ -137,17 +139,17 @@ function Jual() {
               >
                 <View style={{
                   flex: 1,
-                  marginRight: 8,
-                  borderColor: neutral5,
+                  marginRight: SIZES.base,
+                  borderColor: COLORS.primaryPurple4,
                   borderWidth: 2,
-                  borderRadius: 12,
+                  borderRadius: SIZES.radius2,
                 }}
                 >
                   <CustomButton
                     onPress={() => navigation.navigate('Product', { values })}
-                    title="Preview"
-                    buttonStyle={{ backgroundColor: neutral1, borderColor: primaryPurple4, borderWidth: 2 }}
-                    textStyle={{ color: neutral5 }}
+                    title={t('sellPreviewButton')}
+                    buttonStyle={{ backgroundColor: COLORS.neutral1, borderColor: COLORS.primaryPurple4, borderWidth: 2 }}
+                    textStyle={{ color: COLORS.neutral5 }}
                 //     enabled={isValid && !errors.name
                 //   && !errors.city && !errors.address && !errors.phone_number}
                   />
@@ -156,7 +158,7 @@ function Jual() {
                 <View style={{ flex: 1, marginLeft: 8 }}>
                   <CustomButton
                     onPress={handleSubmit}
-                    title="Simpan"
+                    title={t('sellPostButton')}
                     enabled={false}
                 //     enabled={isValid && !errors.name
                 //   && !errors.city && !errors.address && !errors.phone_number}
@@ -175,6 +177,9 @@ export default Jual;
 
 const styles = StyleSheet.create({
   inputLabel: {
-    fontFamily: 'Poppins-Regular', fontSize: 14, color: neutral5, marginTop: 16,
+    marginLeft: 3,
+    ...FONTS.bodyNormalRegular,
+    color: COLORS.neutral5,
+    marginTop: SIZES.padding3,
   },
 });

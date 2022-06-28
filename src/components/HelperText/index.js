@@ -1,16 +1,14 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { alertDanger } from '../../constant/color';
+import { COLORS, FONTS, SIZES } from '../../constant';
 
 function HelperText({ text }) {
   return (
-    <Text style={{
-      fontFamily: 'Poppins-Medium',
-      fontSize: 14,
-      color: alertDanger,
+    <Text style={[FONTS.bodyNormalMedium, {
+      color: COLORS.alertDanger,
       paddingHorizontal: 16,
-      marginTop: 8,
-    }}
+      marginTop: SIZES.base,
+    }]}
     >
       {text}
     </Text>

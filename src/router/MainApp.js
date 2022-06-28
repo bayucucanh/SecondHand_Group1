@@ -3,20 +3,23 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
+import { useSelector } from 'react-redux';
 import {
-  Home, Profile, Jual, Product,
+  Home, Profile, Jual, Product, NotLogin,
 } from '../screens/index';
-import { primaryPurple4 } from '../constant/color';
+import { COLORS, SIZES } from '../constant';
 
 const Tab = createBottomTabNavigator();
 
 function MainApp() {
+  const login = useSelector((state) => state.login.isLogin);
+
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: primaryPurple4,
+          tabBarActiveTintColor: COLORS.primaryPurple4,
           tabBarStyle: {
             height: 62,
             paddingTop: 10,
@@ -36,31 +39,33 @@ function MainApp() {
             tabBarLabel: 'Home',
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <Icon name="home" color={color} size={24} />
+              <Icon name="home" color={color} size={SIZES.icon} />
             ),
           }}
         />
-        <Tab.Screen
-          name="Jual"
-          component={Jual}
-          options={{
-            tabBarLabel: 'Jual',
-            tabBarVisible: false,
-            headerShown: false,
-            tabBarStyle: { display: 'none' },
-            tabBarIcon: ({ color }) => (
-              <Icon name="plus-circle" color={color} size={24} />
-            ),
-          }}
-        />
+        {login && (
+          <Tab.Screen
+            name="Jual"
+            component={Jual}
+            options={{
+              tabBarLabel: 'Jual',
+              tabBarVisible: false,
+              headerShown: false,
+              tabBarStyle: { display: 'none' },
+              tabBarIcon: ({ color }) => (
+                <Icon name="plus-circle" color={color} size={SIZES.icon} />
+              ),
+            }}
+          />
+        )}
         <Tab.Screen
           name="Profile"
-          component={Profile}
+          component={login ? Profile : NotLogin}
           options={{
             tabBarLabel: 'Akun',
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <Icon name="user" color={color} size={24} />
+              <Icon name="user" color={color} size={SIZES.icon} />
             ),
           }}
         />
