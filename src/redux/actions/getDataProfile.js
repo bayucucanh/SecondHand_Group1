@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { GET_USER_SUCCESS, GET_USER_FAILED } from '../types';
-import { API_GET_PROFILE } from '../../config/api';
+import { getProfile } from '../../service/Api/auth'
+import { setLoading } from './globalAction';
 
 export const successGetProfile = (value) => ({
   type: GET_USER_SUCCESS,
@@ -12,18 +12,16 @@ export const failedGetProfile = () => ({
 });
 
 export const getDataProfile = (payload) => async (dispatch) => {
-  await axios
-    .get(API_GET_PROFILE, {
-      headers: {
-        access_token: payload,
-      },
-    })
+  dispatch(setLoading(true))
+  await getProfile(payload)
     .then((value) => {
       dispatch(successGetProfile(value.data));
+      dispatch(setLoading(false))
       console.log('Get profile data berhasil');
     })
     .catch((err) => {
       dispatch(failedGetProfile());
+      dispatch(setLoading(false))
       console.log(err.message);
     });
 };

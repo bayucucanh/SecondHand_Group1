@@ -1,7 +1,7 @@
 import { REGISTER_SUCCESS, REGISTER_FAILED } from '../types';
 
 const initialState = {
-  registerSuccess: true,
+  registerSuccess: false,
 };
 
 const RegisterReducer = (state = initialState, action = {}) => {

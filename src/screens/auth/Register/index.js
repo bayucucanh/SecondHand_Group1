@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import PhoneInput from 'react-native-phone-number-input';
@@ -19,15 +19,8 @@ import { COLORS, FONTS, SIZES } from '../../../constant';
 import { InputText, CustomButton, Header } from '../../../components';
 
 function Register({ navigation }) {
-  const isRegSukses = useSelector((state) => state.register.userData);
+  const isLoading = useSelector((state) => state.global.isLoading);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isRegSukses) {
-      navigation.replace('Success');
-      console.log('Success');
-    }
-  }, [isRegSukses, navigation]);
 
   const onRegister = async (values) => {
     console.log('hahaa');
@@ -53,7 +46,7 @@ function Register({ navigation }) {
       image_url: null,
       city: values.city,
     };
-    dispatch(checkRegister(data));
+    dispatch(checkRegister(data, navigation));
   };
 
   return (
@@ -189,10 +182,11 @@ function Register({ navigation }) {
                 </Text>
                 <InputDropdown
                   data={regions}
-                  city={setFieldValue}
+                  setFieldValue={setFieldValue}
                   value={values.city}
                   initialData={values.city}
                   name="city"
+                  placeholder="Pilih kota"
                 />
                 {errors.city && (
                   <Text style={styles.errorText}>{errors.city}</Text>
@@ -223,29 +217,18 @@ function Register({ navigation }) {
                   onPress={handleSubmit}
                   title="Sign Up"
                   enabled={isValid}
+                  isLoading={isLoading}
                 />
-                <TouchableOpacity
-                  onPress={handleSubmit}
-                  style={{
-                    marginTop: 20,
-                    borderWidth: 1,
-                    width: 100,
-                    height: 40,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Text>Submit</Text>
-                </TouchableOpacity>
-                <View style={{ flexDirection: 'row', marginTop: 10 }}>
+
+                <View style={{ flexDirection: 'row', marginVertical: 30, justifyContent: 'center', }}>
                   <Text style={{ color: '#000', marginRight: 5 }}>
-                    Don&apos;t have an account?
+                    Already have an account?
                   </Text>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('Register')}
+                    onPress={() => navigation.navigate('Login')}
                   >
-                    <Text style={{ color: '#b12441', fontWeight: 'bold' }}>
-                      Register Now
+                    <Text style={{ color: '#7126b5', fontWeight: 'bold' }}>
+                      Login
                     </Text>
                   </TouchableOpacity>
                 </View>

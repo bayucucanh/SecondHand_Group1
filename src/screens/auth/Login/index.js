@@ -18,6 +18,7 @@ import { COLORS, FONTS, SIZES } from '../../../constant';
 function Login() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.global.isLoading);
 
   const onLogin = (value) => {
     dispatch(loginUser(value.email, value.password, navigation));
@@ -96,6 +97,7 @@ function Login() {
                 onPress={handleSubmit}
                 title="Login"
                 enabled={isValid}
+                isLoading={isLoading}
               />
 
               <View style={styles.goToRegister}>
