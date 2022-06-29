@@ -32,14 +32,14 @@ function Jual() {
     formdata.append('name', values.name);
     formdata.append('description', values.description);
     formdata.append('base_price', values.base_price);
-    formdata.append('category_ids', JSON.stringify(values.category_ids));
+    formdata.append('category_ids', values.category_ids.toString());
     formdata.append('location', values.location);
     formdata.append('image', {
       uri: values.image.uri,
       type: 'image/jpeg',
       name: values.image.fileName,
     });
-    console.log(formdata);
+    // console.log(values.category_ids.toString());
     await dispatch(addDataProduct(accessToken, formdata));
   };
 
