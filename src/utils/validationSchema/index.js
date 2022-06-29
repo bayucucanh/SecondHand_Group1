@@ -96,6 +96,7 @@ export const productValidationSchema = yup.object().shape({
     .required('descriptionAlertRequired'),
   base_price: yup
     .number()
+    .typeError('priceAlertNumber')
     .required('priceAlertRequired'),
   category_ids: yup
     .array()
@@ -105,10 +106,14 @@ export const productValidationSchema = yup.object().shape({
     .string()
     .trim()
     .required(),
-  image: yup
-    .string()
-    .trim()
-    .required('photoProductRequired'),
+  image: yup.object().shape({
+    height: yup.string().required('photoProductRequired'),
+    width: yup.string().required('photoProductRequired'),
+    type: yup.string().required('photoProductRequired'),
+    fileName: yup.string().required('photoProductRequired'),
+    fileSize: yup.string().required('photoProductRequired'),
+    uri: yup.string().required('photoProductRequired'),
+  }),
 });
 
 export const bidPriceSchema = yup.object().shape({

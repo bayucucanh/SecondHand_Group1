@@ -5,14 +5,14 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { COLORS, SIZES } from '../../constant';
 
 function PhotoProfile({
-  image, setFieldValue, disabled = false, style, icon, colorIcon, styleImage,
+  name, image, setFieldValue, disabled = false, style, icon, colorIcon, styleImage,
 }) {
   const [photo, setPhoto] = useState(image);
-  const [hasPhoto, setHasPhoto] = useState(false);
+  const [hasPhoto, setHasPhoto] = useState(image != null);
   const getImage = () => {
     launchImageLibrary(
       {
-        maxWidth: 112, maxHeight: 112,
+        maxWidth: 500, maxHeight: 500,
       },
       (response) => {
         if (response.didCancel || response.error) {
@@ -23,7 +23,7 @@ function PhotoProfile({
           const Uri = { uri: source.uri };
           setPhoto(Uri);
           setHasPhoto(true);
-          setFieldValue('image_url', source, true);
+          setFieldValue(name, source, true);
         }
       },
     );
@@ -46,7 +46,7 @@ function PhotoProfile({
             ...style,
           }}
         >
-          {image ? (
+          {hasPhoto ? (
             <Image
               source={photo}
               style={{
