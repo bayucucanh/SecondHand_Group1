@@ -1,5 +1,11 @@
 import {
-  StyleSheet, Text, View, ScrollView, Image, Button,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  Button,
+  FlatList,
 } from 'react-native';
 import React, {
   useEffect, useState, useRef, useMemo, useCallback,
@@ -16,11 +22,18 @@ import {
   InputText,
   BottomSheetComponent,
 } from '../../components';
+import { getDetailData } from '../../redux/actions';
 import styles from '../../constant/styles';
+import formatRupiah from '../../utils/formatCurrency';
 
-function Detail({ route }) {
+function Detail({ route, navigation }) {
+  const dispatch = useDispatch();
+
   const { productId } = route.params;
   const profileData = useSelector((state) => state.profile.profileData);
+  const login = useSelector((state) => state.login.isLogin);
+  const detailData = useSelector((state) => state.detail.detailProduct);
+
   const { t, i18n } = useTranslation();
 
   // ref
@@ -32,7 +45,17 @@ function Detail({ route }) {
 
   useEffect(() => {
     console.log('Product Id', productId);
-  }, [productId]);
+    dispatch(getDetailData(productId));
+    console.log('Detail Product', detailData.User);
+  }, [productId, dispatch]);
+
+  const checkLogin = () => {
+    if (login) {
+      handleSnapPress(2);
+    } else {
+      navigation.navigate('NotLogin');
+    }
+  };
 
   return (
     <>
@@ -41,10 +64,7 @@ function Detail({ route }) {
         style={{ backgroundColor: COLORS.neutral1 }}
       >
         <View style={{ flex: 1, marginBottom: SIZES.padding5 }}>
-          <Image
-            source={{ uri: 'https://images.tokopedia.net/img/cache/1200/BgtCLw/2022/6/10/391dd7fd-2aef-426f-9e76-448bccab0e4a.jpg?ect=4g' }}
-            style={{ height: 300 }}
-          />
+          <Image source={{ uri: detailData.image_url }} style={{ height: 300 }} />
           <GoBackIcon iconColor={COLORS.neutral5} size={28} style={{ top: 28 }} />
           <View style={{ marginHorizontal: SIZES.padding5 }}>
             <View
@@ -58,13 +78,26 @@ function Detail({ route }) {
               ]}
             >
               <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>
-                Nama barang
+                {detailData.name}
               </Text>
-              <Text
-                style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}
-              >
-                Kategori
-              </Text>
+              <FlatList
+                data={detailData.Categories}
+                horizontal
+                keyExtractor={(item, index) => item.id + index.toString()}
+                renderItem={({ item, index }) => (
+                  <Text
+                    key={item.id}
+                    style={{
+                      ...FONTS.bodyNormalRegular,
+                      color: COLORS.neutral3,
+                    }}
+                  >
+                    {index > 0 ? ',' : ''}
+                    {' '}
+                    {item.name}
+                  </Text>
+                )}
+              />
               <Text
                 style={{
                   ...FONTS.bodyLargeRegular,
@@ -72,7 +105,7 @@ function Detail({ route }) {
                   color: COLORS.neutral5,
                 }}
               >
-                Rp. Harga
+                {formatRupiah(detailData.base_price)}
               </Text>
             </View>
             <View
@@ -88,7 +121,7 @@ function Detail({ route }) {
             >
               <View style={{ justifyContent: 'center' }}>
                 <PhotoProfile
-                  image={{ uri: profileData.image_url }}
+                  image={{ uri: detailData.User.image_url }}
                   style={{ width: 48, height: 48 }}
                   styleImage={{ width: 48, height: 48 }}
                 />
@@ -97,12 +130,12 @@ function Detail({ route }) {
                 <Text
                   style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
                 >
-                  {profileData.full_name}
+                  {detailData.User.full_name}
                 </Text>
                 <Text
                   style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}
                 >
-                  {profileData.city}
+                  {detailData.User.city}
                 </Text>
               </View>
             </View>
@@ -126,7 +159,7 @@ function Detail({ route }) {
                   color: COLORS.neutral3,
                 }}
               >
-                Deskripsi Barang
+                {detailData.description}
               </Text>
             </View>
           </View>
@@ -146,14 +179,15 @@ function Detail({ route }) {
           buttonStyle={{ width: '100%' }}
           title="Saya Tertarik dan Ingin Nego Produk"
           enabled
-          onPress={() => handleSnapPress(2)}
+          onPress={() => checkLogin()}
         />
       </View>
       <BottomSheetComponent
         sheetRef={sheetRef}
         handleSnapPress={handleSnapPress}
-        productName="Sweater"
-        price="Rp. 900.0000"
+        productName={detailData.name}
+        price={detailData.base_price}
+        imageUrl={detailData.image_url}
         title="Harga Tawar"
         placeholder={t('pricePlaceholder')}
       />

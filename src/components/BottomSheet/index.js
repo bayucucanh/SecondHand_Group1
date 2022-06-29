@@ -10,9 +10,10 @@ import InputText from '../InputText';
 import HelperText from '../HelperText';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import { bidPriceSchema } from '../../utils';
+import formatRupiah from '../../utils/formatCurrency';
 
 function BottomSheetComponent({
-  productName, price, sheetRef, handleSnapPress, title, placeholder,
+  productName, price, sheetRef, handleSnapPress, title, placeholder, imageUrl,
 }) {
   const { t, i18n } = useTranslation();
 
@@ -93,7 +94,7 @@ function BottomSheetComponent({
               <View style={{ justifyContent: 'center' }}>
                 <Image
                   source={{
-                    uri: 'https://merekbagus.com/wp-content/uploads/2020/10/Merk-tas-lokal-Doris-Dorothea.jpg',
+                    uri: imageUrl,
                   }}
                   style={{ width: 48, height: 48 }}
                 />
@@ -110,7 +111,7 @@ function BottomSheetComponent({
                     color: COLORS.neutral3,
                   }}
                 >
-                  {price}
+                  {formatRupiah(price)}
                 </Text>
               </View>
             </View>
