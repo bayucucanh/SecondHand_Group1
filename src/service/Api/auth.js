@@ -18,7 +18,6 @@ export const getProfile = (payload) => axios.get('/auth/user', {
 
 export const updateProfile = (accessToken, payload) => axios.put('/auth/user', payload, {
   headers: {
-    Accept: 'application/json',
     'Content-Type': 'multipart/form-data',
     access_token: accessToken,
   },

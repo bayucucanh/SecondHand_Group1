@@ -16,27 +16,31 @@ import {
 } from '../../constant';
 import { productValidationSchema, profileValidationSchema } from '../../utils';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
+import { addDataProduct } from '../../redux/actions/pushDataProduct';
 
 function Jual() {
   const { t, i18n } = useTranslation();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
+  const accessToken = useSelector((state) => state.login.userData.access_token);
   const dataCategories = useSelector((state) => state.home.categories);
   const dataProfile = useSelector((state) => state.profile.profileData);
 
   const onPost = async (values) => {
     const formdata = new FormData();
-    formdata.append('name', values.full_name);
-    formdata.append('description', values.city);
-    formdata.append('base_price', values.address);
-    formdata.append('category_ids', values.phone_number);
-    formdata.append('location', values.phone_number);
+    formdata.append('name', values.name);
+    formdata.append('description', values.description);
+    formdata.append('base_price', values.base_price);
+    formdata.append('category_ids', JSON.stringify(values.category_ids));
+    formdata.append('location', values.location);
     formdata.append('image', {
-      uri: values.image_url.uri,
+      uri: values.image.uri,
       type: 'image/jpeg',
-      name: values.image_url.fileName,
+      name: values.image.fileName,
     });
-    // await dispatch(putDataProfile(accessToken, formdata));
+    console.log(formdata);
+    await dispatch(addDataProduct(accessToken, formdata));
   };
 
   return (

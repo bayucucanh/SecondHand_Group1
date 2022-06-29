@@ -1,6 +1,7 @@
 import { Text, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { RectButton } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   COLORS, FONTS, SIZES,
 } from '../../constant';
@@ -11,9 +12,11 @@ function CustomButton({
   onPress,
   buttonStyle,
   textStyle,
-  isLoading,
+  // isLoading,
   type,
 }) {
+  const isLoading = useSelector((state) => state.global.isLoading);
+
   return (
     <RectButton
       style={type ? {
