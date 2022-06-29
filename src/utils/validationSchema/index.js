@@ -10,11 +10,11 @@ export const loginValidationSchema = yup.object().shape({
   password: yup
     .string()
     .trim()
-    .min(8, 'passwordAlertMin')
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
-      'passwordAlertMatch',
-    )
+    // .min(8, 'passwordAlertMin')
+    // .matches(
+    //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+    //   'passwordAlertMatch',
+    // )
     .required('passwordAlertRequired'),
 });
 

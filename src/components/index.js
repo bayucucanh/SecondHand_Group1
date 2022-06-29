@@ -13,6 +13,7 @@ import TextButton from './TextButton';
 import TextHeader from './TextHeader';
 import GoBackIcon from './GoBackIcon';
 import BottomSheetComponent from './BottomSheet';
+import NotificationCard from './NotificationCard';
 
 export {
   Header,
@@ -30,4 +31,5 @@ export {
   TextHeader,
   GoBackIcon,
   BottomSheetComponent,
+  NotificationCard,
 };
