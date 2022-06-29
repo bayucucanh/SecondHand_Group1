@@ -49,6 +49,7 @@
       "productNameAlertRequired":"Nama produk tidak boleh kosong",
       "priceTitle":"Harga Produk",
       "pricePlaceholder":"Rp. 0.00",
+      "priceAlertNumber":"Harga produk harus berisi angka",
       "priceAlertRequired":"Harga produk tidak boleh kosong",
       "bidPriceAlertRequired": "Harga Tawar tidak boleh kosong",
       "categoryTitle":"Kategori",

@@ -12,10 +12,19 @@ function CustomButton({
   buttonStyle,
   textStyle,
   isLoading,
+  type,
 }) {
   return (
     <RectButton
-      style={{
+      style={type ? {
+        height: 48,
+        alignItems: 'center',
+        alignContent: 'center',
+        paddingVertical: SIZES.padding1,
+        backgroundColor: COLORS.neutral1,
+        borderRadius: SIZES.radius2,
+        ...buttonStyle,
+      } : {
         height: 48,
         alignItems: 'center',
         alignContent: 'center',
@@ -30,7 +39,9 @@ function CustomButton({
       {isLoading ? (
         <ActivityIndicator color="white" />
       ) : (
-        <Text style={[FONTS.bodyLargeMedium, {
+        <Text style={[FONTS.bodyLargeMedium, type ? {
+          color: enabled ? COLORS.neutral5 : COLORS.neutral2,
+        } : {
           color: COLORS.neutral1,
           marginLeft: SIZES.base,
           textAlignVertical: 'center',

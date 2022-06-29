@@ -12,8 +12,6 @@ export const failedPutProfile = () => ({
 });
 
 export const putDataProfile = (accessToken, payload) => async (dispatch) => {
-  const data = new FormData();
-  data.append('full_name', 'hah');
   dispatch(setLoading(true));
   await updateProfile(accessToken, payload)
     .then((value) => {

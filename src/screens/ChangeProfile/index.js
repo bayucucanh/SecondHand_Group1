@@ -27,7 +27,7 @@ function ChangeProfile() {
     formdata.append('city', values.city);
     formdata.append('address', values.address);
     formdata.append('phone_number', values.phone_number);
-    formdata.append('image', {
+    formdata.append('image_url', {
       uri: values.image_url.uri,
       type: 'image/jpeg',
       name: values.image_url.fileName,
@@ -68,6 +68,7 @@ function ChangeProfile() {
             <>
               <View style={{ marginVertical: SIZES.padding5 }}>
                 <PhotoProfile
+                  name="image_url"
                   image={{ uri: values.image_url }}
                   setFieldValue={setFieldValue}
                   icon="camera"
