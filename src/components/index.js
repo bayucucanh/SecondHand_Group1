@@ -12,6 +12,7 @@ import Separator from './Separator';
 import TextButton from './TextButton';
 import TextHeader from './TextHeader';
 import GoBackIcon from './GoBackIcon';
+import NotificationCard from './NotificationCard';
 
 export {
   Header,
@@ -28,4 +29,5 @@ export {
   TextButton,
   TextHeader,
   GoBackIcon,
+  NotificationCard,
 };

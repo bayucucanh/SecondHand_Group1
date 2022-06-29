@@ -65,6 +65,11 @@
       "sellPostButton":"Terbitkan",
       "searchCategoryTitle":"Telusuri Kategori",
       "searchBarPlaceholder":"Cari di Second Chance",
-      "notLogin":"Sepertinya kamu belum masuk ke akun kamu"
+      "notLogin":"Sepertinya kamu belum masuk ke akun kamu",
+      "notificationTitle":"Notifikasi",
+      "productOffer":"Penawaran produk",
+      "successPost":"Berhasil di terbitkan",
+      "successOfferPrice":"Berhasil ditawar",
+      "offeringContact":"Kamu akan segera dihubungi penjual via whatsapp"
     }
   }
