@@ -118,7 +118,7 @@ function Home() {
           {dataCategories?.map((item) => (
             <IconButton
               key={item.id}
-              icon="category"
+              icon="search"
               text={item.name}
               active={btnActive === item.id}
               onPress={() => getProductByCategory(item.id)}

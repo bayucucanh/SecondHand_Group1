@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { RectButton } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Feather';
 import { COLORS, FONTS, SIZES } from '../../constant';
 
 function IconButton({

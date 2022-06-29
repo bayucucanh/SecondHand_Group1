@@ -27,6 +27,9 @@ const DaftarJual = () => {
     }
     else if (title == 'terjual') {
       return <Terjual />
+    } 
+    else {
+      return <Produk />
     }
   }
 
@@ -52,10 +55,10 @@ const DaftarJual = () => {
   }
 
   return (
-    <View style={stylesIn.container}>
+    <ScrollView style={stylesIn.container}>
       <Text style={stylesIn.judul}>Daftar Jual Saya</Text>
       <View style={[styles.card, {
-        marginTop: SIZES.padding3, paddingHorizontal: SIZES.padding5, paddingVertical: SIZES.padding3, flexDirection: 'row',
+        marginTop: SIZES.padding3, paddingHorizontal: SIZES.padding5, paddingVertical: SIZES.padding3, flexDirection: 'row', marginHorizontal: 5
       }]}
       >
         <View style={{ justifyContent: 'center' }}>
@@ -81,23 +84,23 @@ const DaftarJual = () => {
           onPress={() => produk()}
         />
         <IconButton
-          icon="search"
+          icon="heart"
           text="Diminati"
           active={btnDiminatiActive}
           onPress={() => diminati()}
         />
         <IconButton
-          icon="search"
+          icon="dollar-sign"
           text="Terjual"
           active={btnTerjualActive}
           onPress={() => terjual()} />
       </ScrollView>
-      <View>
+      <View style={{ flex: 1 }}>
         {
           listIconBtn()
         }
       </View>
-    </View >
+    </ScrollView >
   )
 }
 
@@ -107,7 +110,7 @@ export default DaftarJual
 const stylesIn = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
-    paddingHorizontal: 15
+    paddingHorizontal: 12
   },
   judul: {
     color: COLORS.black,
