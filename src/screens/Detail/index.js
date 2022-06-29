@@ -6,7 +6,6 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import {
   COLORS, SIZES, FONTS, style,
 } from '../../constant';
@@ -15,6 +14,7 @@ import {
   PhotoProfile,
   CustomButton,
   InputText,
+  BottomSheetComponent,
 } from '../../components';
 import styles from '../../constant/styles';
 
@@ -26,36 +26,13 @@ function Detail({ route }) {
   // ref
   const sheetRef = useRef(null);
 
-  // variables
-  const snapPoints = useMemo(() => ['1%', '10%', '64%'], []);
-
-  // callbacks
-  const handleSheetChanges = useCallback((index) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
   const handleSnapPress = useCallback((index) => {
     sheetRef.current?.snapToIndex(index);
   }, []);
 
-  const handleClosePress = () => sheetRef.current.close();
-
   useEffect(() => {
     console.log('Product Id', productId);
   }, [productId]);
-
-  // renders
-  const renderBackdrop = useCallback(
-    (props) => (
-      <BottomSheetBackdrop
-        {...props}
-        pressBehavior="close"
-        disappearsOnIndex={1}
-        appearsOnIndex={2}
-      />
-    ),
-    [],
-  );
 
   return (
     <>
@@ -172,76 +149,14 @@ function Detail({ route }) {
           onPress={() => handleSnapPress(2)}
         />
       </View>
-      <BottomSheet
-        index={0}
-        ref={sheetRef}
-        snapPoints={snapPoints}
-        enableHandlePanningGesture
-        enableContentPanningGesture
-        enableOverDrag
-        animateOnMount
-        backdropComponent={renderBackdrop}
-        onChange={handleSheetChanges}
-      >
-        <View
-          style={{ flex: 1, backgroundColor: COLORS.white, padding: SIZES.h2 }}
-        >
-          <Text style={{ color: COLORS.black, ...FONTS.bodyNormalMedium }}>
-            Masukan Harga Tawarmu
-          </Text>
-          <Text style={{ color: COLORS.neutral3, ...FONTS.bodyNormalMedium }}>
-            Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu akan
-            segera dihubungi penjual.
-          </Text>
-          <View
-            style={[
-              styles.card,
-              {
-                marginTop: SIZES.padding3,
-                paddingHorizontal: SIZES.padding5,
-                paddingVertical: SIZES.padding3,
-                flexDirection: 'row',
-              },
-            ]}
-          >
-            <View style={{ justifyContent: 'center' }}>
-              <PhotoProfile
-                source={{ uri: 'https://merekbagus.com/wp-content/uploads/2020/10/Merk-tas-lokal-Doris-Dorothea.jpg' }}
-                style={{ width: 48, height: 48 }}
-                styleImage={{ width: 48, height: 48 }}
-              />
-            </View>
-            <View style={{ paddingLeft: SIZES.padding3 }}>
-              <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>
-                Nama Barang
-              </Text>
-              <Text
-                style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}
-              >
-                Rp. Harga
-              </Text>
-            </View>
-          </View>
-          <View style={{ marginVertical: SIZES.h2 }}>
-            <Text style={{ ...FONTS.bodyNormalBold }}>Harga Tawar</Text>
-            <InputText
-              placeholder={t('pricePlaceholder')}
-              name="name"
-              style={{ marginTop: 4 }}
-              // onChangeText={handleChange('name')}
-              // onBlur={handleBlur('name')}
-              // error={touched.name && errors.name}
-              // value={values.name}
-            />
-          </View>
-          <CustomButton
-            buttonStyle={{ width: '100%' }}
-            title="Kirim"
-            enabled
-            onPress={() => console.log('Data dikirim')}
-          />
-        </View>
-      </BottomSheet>
+      <BottomSheetComponent
+        sheetRef={sheetRef}
+        handleSnapPress={handleSnapPress}
+        productName="Sweater"
+        price="Rp. 900.0000"
+        title="Harga Tawar"
+        placeholder={t('pricePlaceholder')}
+      />
     </>
   );
 }
