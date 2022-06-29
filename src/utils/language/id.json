@@ -50,6 +50,7 @@
       "priceTitle":"Harga Produk",
       "pricePlaceholder":"Rp. 0.00",
       "priceAlertRequired":"Harga produk tidak boleh kosong",
+      "bidPriceAlertRequired": "Harga Tawar tidak boleh kosong",
       "categoryTitle":"Kategori",
       "categoryPlaceholder":"Pilih kategori",
       "categoryAlertMin":"Kategori harus minimal 1",

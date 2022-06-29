@@ -4,7 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   FlatList,
-  LogBox,
+  Image,
 } from 'react-native';
 import React, { useEffect, useState, useCallback } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,8 +18,9 @@ import {
   getDataProduct,
   getDataCategories,
 } from '../../redux/actions';
+import { Box } from '../../assets';
 
-function Home() {
+function Home({ navigation }) {
   const { t, i18n } = useTranslation();
   const [btnActive, setBtnActive] = useState('');
   const [btnAllActive, setBtnAllActive] = useState(true);
@@ -91,9 +92,9 @@ function Home() {
             60%
           </Text>
         </View>
-        <View
+        <Image
+          source={Box}
           style={{
-            backgroundColor: 'blue',
             width: 127,
             height: 127,
           }}
@@ -108,7 +109,11 @@ function Home() {
         >
           {t('searchCategoryTitle')}
         </Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: SIZES.padding3 }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ marginVertical: SIZES.padding3 }}
+        >
           <IconButton
             icon="search"
             text="Semua"
@@ -154,6 +159,7 @@ function Home() {
               basePrice={item.base_price}
               imageUrl={item.image_url}
               style={{ maxWidth: 160 }}
+              onPress={() => navigation.navigate('Detail', { productId: item.id })}
             />
           )}
         />

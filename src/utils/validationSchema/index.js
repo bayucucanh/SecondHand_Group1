@@ -110,3 +110,9 @@ export const productValidationSchema = yup.object().shape({
     .trim()
     .required('photoProductRequired'),
 });
+
+export const bidPriceSchema = yup.object().shape({
+  bid_price: yup
+    .number()
+    .required('bidPriceAlertRequired'),
+});

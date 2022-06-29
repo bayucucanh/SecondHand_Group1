@@ -12,6 +12,7 @@ import Separator from './Separator';
 import TextButton from './TextButton';
 import TextHeader from './TextHeader';
 import GoBackIcon from './GoBackIcon';
+import BottomSheetComponent from './BottomSheet';
 import NotificationCard from './NotificationCard';
 
 export {
@@ -29,5 +30,6 @@ export {
   TextButton,
   TextHeader,
   GoBackIcon,
+  BottomSheetComponent,
   NotificationCard,
 };
