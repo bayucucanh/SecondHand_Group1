@@ -9,7 +9,7 @@ import Produk from './components/Produk'
 import Diminati from './components/Diminati';
 import Terjual from './components/Terjual';
 
-const DaftarJual = () => {
+const DaftarJual = ({ navigation }) => {
   const profileData = useSelector((state) => state.profile.profileData);
 
   const [btnProdukActive, setBtnPodukActive] = useState(true);
@@ -71,7 +71,7 @@ const DaftarJual = () => {
             </Text>
             <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{profileData.city}</Text>
           </View>
-          <TouchableOpacity style={stylesIn.btnEdit}>
+          <TouchableOpacity style={stylesIn.btnEdit} onPress={() => navigation.navigate("ChangeProfile")}>
             <Text style={{ color: COLORS.black }}>Edit</Text>
           </TouchableOpacity>
         </View>
