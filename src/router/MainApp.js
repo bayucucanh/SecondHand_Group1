@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 import { useSelector } from 'react-redux';
 import {
-  Home, Profile, Jual, Product, NotLogin,
+  Home, Profile, Jual, Product, NotLogin, DaftarJual
 } from '../screens/index';
 import { COLORS, SIZES } from '../constant';
 
@@ -58,6 +58,19 @@ function MainApp() {
             }}
           />
         )}
+
+        <Tab.Screen
+          name="DaftarJual"
+          component={DaftarJual}
+          options={{
+            tabBarLabel: 'DaftarJual',
+            headerShown: false,
+            tabBarIcon: ({ color }) => (
+              <Icon name="list" color={color} size={SIZES.icon} />
+            ),
+          }}
+        />
+
         <Tab.Screen
           name="Profile"
           component={login ? Profile : NotLogin}
