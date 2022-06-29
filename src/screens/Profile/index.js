@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useIsFocused } from '@react-navigation/native';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import { version as appVersion } from '../../../package.json';
 import Auth from '../../service/Auth';
@@ -16,6 +17,7 @@ import {
 
 function Profile({ navigation }) {
   const { t, i18n } = useTranslation();
+  const isFocused = useIsFocused();
   const accessToken = useSelector((state) => state.login.userData.access_token);
 
   const profileData = useSelector((state) => state.profile.profileData);
@@ -23,8 +25,10 @@ function Profile({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDataProfile(accessToken));
-  }, []);
+    if (isFocused) {
+      dispatch(getDataProfile(accessToken));
+    }
+  }, [isFocused]);
 
   const onLogout = () => {
     Auth.logout();
