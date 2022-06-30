@@ -67,7 +67,7 @@ function MainApp() {
                   // Prevent default action
                   e.preventDefault();
                   // Any custom code here
-                  navigation.navigate('Jual');
+                  navigation.navigate('JualFull');
                 },
               }}
               options={{

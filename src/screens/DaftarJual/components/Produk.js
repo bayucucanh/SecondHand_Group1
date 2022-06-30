@@ -2,19 +2,23 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 import styles2 from '../../../constant/styles';
 import ProductCard from '../../../components/ProductCard';
+import { COLORS, FONTS, SIZES } from '../../../constant';
 
 function Produk() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.cardTambah}>
-        <TouchableOpacity style={styles.tambahProduk}>
-          <Icon name="plus" size={30} />
-          <Text>Tambah Produk</Text>
+        <TouchableOpacity style={styles.tambahProduk} onPress={() => navigation.navigate('JualFull')}>
+          <Icon name="plus" size={30} style={{ color: COLORS.neutral3 }} />
+          <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>Tambah Produk</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ marginRight: 5 }}>
+      <View style={{ marginBottom: SIZES.padding3 }}>
         <ProductCard
           name="Sepatu"
           categories="haha"
@@ -31,6 +35,8 @@ export default Produk;
 
 const styles = StyleSheet.create({
   container: {
+    flexWrap: 'wrap',
+    marginVertical: SIZES.base,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -38,12 +44,14 @@ const styles = StyleSheet.create({
     maxWidth: 160,
   },
   tambahProduk: {
-    borderWidth: 1,
+    borderWidth: 2,
+    borderRadius: SIZES.radius1,
     alignItems: 'center',
-    paddingVertical: 80,
+    justifyContent: 'center',
     width: 150,
+    height: SIZES.height * 0.3,
     borderStyle: 'dashed',
-    borderColor: 'gray',
+    borderColor: COLORS.neutral2,
     marginLeft: 5,
   },
 });
