@@ -7,6 +7,7 @@ import GlobalReducers from './GlobalReducer';
 import DetailReducer from './DetailReducer';
 import AllBidReducer from './AllBidReducer';
 import SellReducer from './SellReducer';
+import SellerProductListReducer from './SellerProductListReducer';
 
 const AllReducers = combineReducers({
   login: LoginReducer,
@@ -16,6 +17,7 @@ const AllReducers = combineReducers({
   global: GlobalReducers,
   detail: DetailReducer,
   allBid: AllBidReducer,
+  sellerProduct: SellerProductListReducer,
   sell: SellReducer,
 });
 

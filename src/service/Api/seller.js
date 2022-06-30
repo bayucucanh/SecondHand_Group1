@@ -14,7 +14,11 @@ export const addCategory = (name) => axios.post('/seller/category', { name });
 export const deleteCategory = (id) => axios.delete(`/seller/category/${id}`);
 
 // seller/product
-export const getProduct = () => axios.get('/seller/product');
+export const getProduct = (accessToken) => axios.get('/seller/product', {
+  headers: {
+    access_token: accessToken,
+  },
+});
 export const detailProduct = (id) => axios.get(`/seller/product/${id}`);
 export const addProduct = (accessToken, payload) => axios.post('/seller/product', payload, {
   headers: {
