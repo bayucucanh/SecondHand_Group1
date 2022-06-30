@@ -12,6 +12,7 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useIsFocused } from '@react-navigation/native';
 import {
   COLORS, SIZES, FONTS, style,
 } from '../../constant';
@@ -29,9 +30,10 @@ import formatRupiah from '../../utils/formatCurrency';
 
 function Detail({ route, navigation }) {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const { productId } = route.params;
-  const accessToken = useSelector((state) => state.login.userData.access_token);
+  const accessToken = useSelector((state) => state.login.userData);
   const login = useSelector((state) => state.login.isLogin);
   const detailData = useSelector((state) => state.detail.detailProduct);
   const allBidProduct = useSelector((state) => state.allBid.allBidProduct);
@@ -39,6 +41,7 @@ function Detail({ route, navigation }) {
 
   const { t, i18n } = useTranslation();
   const [status, setStatus] = useState('');
+  const [token, setToken] = useState('');
 
   // ref
   const sheetRef = useRef(null);
@@ -50,7 +53,10 @@ function Detail({ route, navigation }) {
   useEffect(() => {
     console.log('Product Id', productId);
     dispatch(getDetailData(productId));
-    dispatch(getAllBidProduct(accessToken));
+    if (login) {
+      setToken(accessToken.access_token);
+      dispatch(getAllBidProduct(token));
+    }
     setStatus(filterBid[0]?.status);
     console.log('All Bid', status);
   }, [productId, dispatch]);
@@ -204,7 +210,7 @@ function Detail({ route, navigation }) {
         </View>
         <BottomSheetComponent
           navigation={navigation}
-          accessToken={accessToken}
+          accessToken={token}
           productId={productId}
           statusBid={status}
           sheetRef={sheetRef}
