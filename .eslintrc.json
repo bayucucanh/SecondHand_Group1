@@ -34,12 +34,13 @@
          // disable prop types check
          "react/prop-types": 0,
          "no-console":"off",
-         "linebreak-style": ["error", "windows", "linux"],
+         "linebreak-style": ["error", "windows"],
          "no-unused-vars": "off",
          "max-len": "off",
          "import/prefer-default-export": "off",
          "default-param-last": 0,
-         "import/no-named-as-default": 0
+         "import/no-named-as-default": 0,
+         "eqeqeq": "off"
     },
     "settings": {
         "import/resolver": {

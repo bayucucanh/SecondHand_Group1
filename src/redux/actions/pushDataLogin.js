@@ -21,7 +21,7 @@ export const loginUser = (email, password, navigation) => async (dispatch) => {
       dispatch(successRegister(false));
       dispatch(setLoading(false));
       Auth.setAccount(response.data);
-      navigation.replace('Notification');
+      navigation.replace('MainApp');
     })
     .catch((err) => {
       dispatch(failedLogin());
