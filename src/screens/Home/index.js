@@ -146,6 +146,7 @@ function Home({ navigation }) {
         ) : (
           <FlatList
             data={dataProduct}
+            initialNumToRender={7}
             numColumns={2}
             columnWrapperStyle={{
               flex: 1,
