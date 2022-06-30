@@ -5,17 +5,22 @@ import React, { useMemo, useCallback } from 'react';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import CustomButton from '../CustomButton';
 import InputText from '../InputText';
 import HelperText from '../HelperText';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import { bidPriceSchema } from '../../utils';
+import styles from '../../constant/styles';
 import formatRupiah from '../../utils/formatCurrency';
+import { bidProduct } from '../../redux/actions';
 
 function BottomSheetComponent({
-  productName, price, sheetRef, handleSnapPress, title, placeholder, imageUrl,
+  productName, price, sheetRef, productId, title, placeholder, imageUrl, accessToken, statusBid, navigation,
 }) {
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
 
   // variables
   const snapPoints = useMemo(() => ['1%', '1%', '64%'], []);
@@ -26,6 +31,14 @@ function BottomSheetComponent({
   }, []);
 
   const handleClosePress = () => sheetRef.current.close();
+
+  const submitBid = (bid) => {
+    const data = {
+      product_id: productId,
+      bid_price: bid,
+    };
+    dispatch(bidProduct(data, accessToken, navigation));
+  };
 
   // renders
   const renderBackdrop = useCallback(
@@ -55,7 +68,7 @@ function BottomSheetComponent({
       <Formik
         validationSchema={bidPriceSchema}
         initialValues={{ bid_price: '' }}
-        onSubmit={(values) => console.log(values.bid_price)}
+        onSubmit={(values) => submitBid(values.bid_price)}
       >
         {({
           handleChange,
@@ -134,8 +147,8 @@ function BottomSheetComponent({
             <CustomButton
               onPress={handleSubmit}
               buttonStyle={{ width: '100%' }}
-              title="Kirim"
-              enabled={isValid && !errors.bid_price}
+              title={statusBid ? 'Menunggu respon penjual' : 'Kirim'}
+              enabled={isValid && !errors.bid_price && statusBid !== 'pending'}
             />
           </View>
         )}
@@ -145,5 +158,3 @@ function BottomSheetComponent({
 }
 
 export default BottomSheetComponent;
-
-const styles = StyleSheet.create({});
