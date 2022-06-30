@@ -5,6 +5,7 @@ import Separator from '../Separator';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import PhotoProfile from '../PhotoProfile';
 import CustomButton from '../CustomButton';
+import NotificationCard from '../NotificationCard';
 
 function BidderCard({
   image, date, name, price, offeringPrice, isSeen, status,
@@ -13,55 +14,18 @@ function BidderCard({
 
   return (
     <>
+      <NotificationCard
+        image={image}
+        name={name}
+        date={date}
+        price={price}
+        status={status}
+        offeringPrice={offeringPrice}
+        isSeen={isSeen}
+        bidderInfo
+      />
       <View style={{
-        marginTop: SIZES.padding5, flexDirection: 'row',
-      }}
-      >
-        <PhotoProfile image={{ uri: image }} style={{ width: 48, height: 48, marginRight: SIZES.padding3 }} styleImage={{ width: 48, height: 48 }} />
-        <View style={{ flex: 1 }}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{
-              flexDirection: 'row', justifyContent: 'space-between', width: '95%',
-            }}
-            >
-              <Text style={{ ...FONTS.bodySmallRegular }}>
-                {status === 'bid' ? t('productOffer') : t('successPost')}
-              </Text>
-              <Text style={{ ...FONTS.bodySmallRegular }}>{date}</Text>
-            </View>
-            {isSeen && (
-            <View style={{
-              width: SIZES.base,
-              height: SIZES.base,
-              backgroundColor: COLORS.alertDanger,
-              marginTop: 4,
-              marginLeft: SIZES.base,
-              borderRadius: 100,
-            }}
-            />
-            )}
-
-          </View>
-          <View>
-            <Text style={{ ...FONTS.bodyLargeRegular, color: COLORS.neutral5 }}>{name}</Text>
-            <Text style={{
-              ...FONTS.bodyLargeRegular,
-              color: COLORS.neutral5,
-            }}
-            >
-              {price}
-            </Text>
-            <Text style={{ ...FONTS.bodyLargeRegular, color: COLORS.neutral5 }}>
-              {t('offerPrice')}
-              {' '}
-              {offeringPrice}
-            </Text>
-
-          </View>
-        </View>
-      </View>
-      <View style={{
-        flexDirection: 'row', justifyContent: 'space-between', marginVertical: SIZES.padding3,
+        flexDirection: 'row', justifyContent: 'space-between', marginBottom: SIZES.padding3,
       }}
       >
         <View style={{
@@ -69,7 +33,7 @@ function BidderCard({
           marginRight: SIZES.base,
           borderColor: COLORS.primaryPurple4,
           borderWidth: 2,
-          borderRadius: SIZES.radius2,
+          borderRadius: SIZES.radius2 + 10,
         }}
         >
           <CustomButton
@@ -81,7 +45,15 @@ function BidderCard({
           />
 
         </View>
-        <View style={{ flex: 1, marginLeft: 8 }}>
+        <View style={{
+          flex: 1,
+          marginRight: SIZES.base,
+          borderColor: COLORS.primaryPurple4,
+          borderWidth: 2,
+          borderRadius: SIZES.radius2 + 10,
+          overflow: 'hidden',
+        }}
+        >
           <CustomButton
                 //   onPress={}
             title={t('sellPostButton')}
