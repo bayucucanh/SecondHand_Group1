@@ -1,11 +1,13 @@
 import {
   StyleSheet, Text, View, Image,
 } from 'react-native';
-import React, { useMemo, useCallback } from 'react';
+import React, {
+  useMemo, useCallback, useEffect, useState,
+} from 'react';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import CustomButton from '../CustomButton';
 import InputText from '../InputText';
@@ -21,9 +23,12 @@ function BottomSheetComponent({
 }) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
+  const [status, setStatus] = useState('');
+
+  const allBidProduct = useSelector((state) => state.allBid.allBidProduct);
 
   // variables
-  const snapPoints = useMemo(() => ['1%', '1%', '64%'], []);
+  const snapPoints = useMemo(() => ['1%', '1%', '70%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index) => {
@@ -31,6 +36,12 @@ function BottomSheetComponent({
   }, []);
 
   const handleClosePress = () => sheetRef.current.close();
+
+  useEffect(() => {
+    setStatus(filterBid[0]?.status);
+  });
+
+  const filterBid = allBidProduct.filter((item) => item.product_id === productId);
 
   const submitBid = (bid) => {
     const data = {
@@ -147,8 +158,8 @@ function BottomSheetComponent({
             <CustomButton
               onPress={handleSubmit}
               buttonStyle={{ width: '100%' }}
-              title={statusBid ? 'Menunggu respon penjual' : 'Kirim'}
-              enabled={isValid && !errors.bid_price && statusBid !== 'pending'}
+              title={status ? 'Menunggu respon penjual' : 'Kirim'}
+              enabled={isValid && !errors.bid_price && status !== 'pending'}
             />
           </View>
         )}
