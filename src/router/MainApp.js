@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import {
-  Home, Profile, Jual, NotLogin, Notification,
+  Home, Profile, Jual, NotLogin, Notification, DaftarJual
 } from '../screens/index';
 import { COLORS, SIZES } from '../constant';
 
@@ -80,6 +80,19 @@ function MainApp() {
             />
           </>
         )}
+
+        <Tab.Screen
+          name="DaftarJual"
+          component={DaftarJual}
+          options={{
+            tabBarLabel: 'DaftarJual',
+            headerShown: false,
+            tabBarIcon: ({ color }) => (
+              <Icon name="list" color={color} size={SIZES.icon} />
+            ),
+          }}
+        />
+
         <Tab.Screen
           name="Profile"
           component={login ? Profile : NotLogin}

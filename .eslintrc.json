@@ -34,7 +34,7 @@
          // disable prop types check
          "react/prop-types": 0,
          "no-console":"off",
-         "linebreak-style": ["error", "windows"],
+         "linebreak-style": ["error", "windows", "linux"],
          "no-unused-vars": "off",
          "max-len": "off",
          "import/prefer-default-export": "off",
