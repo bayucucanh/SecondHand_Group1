@@ -83,7 +83,7 @@ function Router() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Jual"
+        name="JualFull"
         component={Jual}
         options={{ headerShown: false }}
       />
