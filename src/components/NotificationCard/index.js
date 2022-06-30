@@ -6,14 +6,14 @@ import { COLORS, FONTS, SIZES } from '../../constant';
 import PhotoProfile from '../PhotoProfile';
 
 function NotificationCard({
-  image, date, name, price, offeringPrice, isSeen, status,
+  image, date, name, price, offeringPrice, isSeen, status, accepted, bidderInfo,
 }) {
   const { t, i18n } = useTranslation();
 
   return (
     <>
       <View style={{
-        marginTop: SIZES.padding5, flexDirection: 'row', marginVertical: SIZES.padding4,
+        marginTop: SIZES.padding5, flexDirection: 'row', marginBottom: SIZES.padding3,
       }}
       >
         <PhotoProfile image={{ uri: image }} style={{ width: 48, height: 48, marginRight: SIZES.padding3 }} styleImage={{ width: 48, height: 48 }} />
@@ -46,7 +46,7 @@ function NotificationCard({
             <Text style={{
               ...FONTS.bodyLargeRegular,
               color: COLORS.neutral5,
-              textDecorationLine: offeringPrice && 'line-through',
+              textDecorationLine: accepted && 'line-through',
             }}
             >
               {price}
@@ -54,19 +54,21 @@ function NotificationCard({
             {offeringPrice && (
             <>
               <Text style={{ ...FONTS.bodyLargeRegular, color: COLORS.neutral5 }}>
-                {t('successOfferPrice')}
+                {accepted ? t('successOfferPrice') : t('offerPrice')}
                 {' '}
                 {offeringPrice}
               </Text>
-              <Text style={{ ...FONTS.bodySmallRegular }}>
-                {t('offeringContact')}
-              </Text>
+              {accepted && (
+                <Text style={{ ...FONTS.bodySmallRegular }}>
+                  {t('offeringContact')}
+                </Text>
+              )}
             </>
             )}
           </View>
         </View>
       </View>
-      <Separator />
+      {!bidderInfo && (<Separator />)}
     </>
   );
 }
