@@ -14,6 +14,7 @@ import TextHeader from './TextHeader';
 import GoBackIcon from './GoBackIcon';
 import BottomSheetComponent from './BottomSheet';
 import NotificationCard from './NotificationCard';
+import BidderCard from './BidderCard';
 
 export {
   Header,
@@ -32,4 +33,5 @@ export {
   GoBackIcon,
   BottomSheetComponent,
   NotificationCard,
+  BidderCard,
 };

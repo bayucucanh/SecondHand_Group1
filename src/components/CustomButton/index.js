@@ -14,24 +14,25 @@ function CustomButton({
   textStyle,
   // isLoading,
   type,
+  size,
 }) {
   const isLoading = useSelector((state) => state.global.isLoading);
 
   return (
     <RectButton
       style={type ? {
-        height: 48,
+        height: size === 'small' ? 36 : 48,
         alignItems: 'center',
         alignContent: 'center',
-        paddingVertical: SIZES.padding1,
+        paddingVertical: size === 'small' ? 6 : SIZES.padding1,
         backgroundColor: COLORS.neutral1,
         borderRadius: SIZES.radius2,
         ...buttonStyle,
       } : {
-        height: 48,
+        height: size === 'small' ? 36 : 48,
         alignItems: 'center',
         alignContent: 'center',
-        paddingVertical: SIZES.padding1,
+        paddingVertical: size === 'small' ? 6 : SIZES.padding1,
         backgroundColor: enabled ? COLORS.primaryPurple4 : COLORS.neutral2,
         borderRadius: SIZES.radius2,
         ...buttonStyle,

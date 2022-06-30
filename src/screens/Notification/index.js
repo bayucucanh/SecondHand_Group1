@@ -26,6 +26,7 @@ function Notification() {
         price="Rp. 250.000"
         status="bid"
         offeringPrice="Rp. 200.000"
+        accepted
         isSeen
       />
       <NotificationCard
