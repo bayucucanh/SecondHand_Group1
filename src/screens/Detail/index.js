@@ -36,11 +36,9 @@ function Detail({ route, navigation }) {
   const accessToken = useSelector((state) => state.login.userData);
   const login = useSelector((state) => state.login.isLogin);
   const detailData = useSelector((state) => state.detail.detailProduct);
-  const allBidProduct = useSelector((state) => state.allBid.allBidProduct);
   const loading = useSelector((state) => state.global.isLoading);
 
   const { t, i18n } = useTranslation();
-  const [status, setStatus] = useState('');
   const [token, setToken] = useState('');
 
   // ref
@@ -54,14 +52,11 @@ function Detail({ route, navigation }) {
     console.log('Product Id', productId);
     dispatch(getDetailData(productId));
     if (login) {
+      console.log('Access token', accessToken.access_token);
       setToken(accessToken.access_token);
-      dispatch(getAllBidProduct(token));
+      dispatch(getAllBidProduct(accessToken.access_token));
     }
-    setStatus(filterBid[0]?.status);
-    console.log('All Bid', status);
   }, [productId, dispatch]);
-
-  const filterBid = allBidProduct.filter((item) => item.product_id === productId);
 
   const checkLogin = () => {
     if (login) {
@@ -212,7 +207,6 @@ function Detail({ route, navigation }) {
           navigation={navigation}
           accessToken={token}
           productId={productId}
-          statusBid={status}
           sheetRef={sheetRef}
           handleSnapPress={handleSnapPress}
           productName={detailData.name}

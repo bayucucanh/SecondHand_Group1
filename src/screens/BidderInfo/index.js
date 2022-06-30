@@ -4,7 +4,9 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLORS, FONTS, SIZES } from '../../constant';
-import { BidderCard, Header, NotificationCard, PhotoProfile } from '../../components';
+import {
+  BidderCard, Header, NotificationCard, PhotoProfile,
+} from '../../components';
 import styles from '../../constant/styles';
 
 function BidderInfo() {
@@ -13,7 +15,7 @@ function BidderInfo() {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-     style={{ backgroundColor: COLORS.neutral1 }}
+      style={{ backgroundColor: COLORS.neutral1 }}
     >
       <View style={{
         flex: 1, backgroundColor: COLORS.neutral1, paddingBottom: SIZES.padding6, paddingTop: 20,
