@@ -202,7 +202,7 @@ function Detail({ route, navigation }) {
           <CustomButton
             buttonStyle={{ width: '100%' }}
             title={login === true && filterBid[0]?.status ? 'Menunggu respon penjual' : 'Saya Tertarik dan Ingin Nego Produk'}
-            enabled={!(login === true || filterBid[0]?.status !== 'pending')}
+            enabled={!(login === true && filterBid[0]?.status)}
             onPress={() => checkLogin()}
           />
         </View>
