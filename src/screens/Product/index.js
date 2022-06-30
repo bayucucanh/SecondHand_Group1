@@ -13,6 +13,7 @@ function Product({ route }) {
 
   const { values } = route.params;
   const profileData = useSelector((state) => state.profile.profileData);
+  const categoryData = useSelector((state) => state.home.categories);
 
   return (
     <>
@@ -25,14 +26,21 @@ function Product({ route }) {
         }}
         >
           <Image
-            source={{ uri: 'https://picsum.photos/360/300' }}
+            source={{ uri: values.image.uri }}
             style={{ height: 300 }}
           />
           <GoBackIcon iconColor={COLORS.neutral5} size={28} style={{ top: 28 }} />
           <View style={{ marginHorizontal: SIZES.padding5 }}>
             <View style={[styles.card, { marginTop: -40, paddingHorizontal: SIZES.padding5, paddingVertical: SIZES.padding3 }]}>
               <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>{values.name}</Text>
-              <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{values.category_ids}</Text>
+              <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>
+                {categoryData.map((item) => (
+                  values.category_ids.map((item1) => (
+                    item.id === item1
+                    && (`${item.name}, `)
+                  ))
+                ))}
+              </Text>
               <Text style={{ ...FONTS.bodyLargeRegular, fontSize: 18, color: COLORS.neutral5 }}>{values.base_price}</Text>
             </View>
             <View style={[styles.card, {

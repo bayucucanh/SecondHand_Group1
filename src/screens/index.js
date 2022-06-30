@@ -10,7 +10,8 @@ import Success from './auth/Success';
 import NotLogin from './NotLogin';
 import Detail from './Detail';
 import Notification from './Notification';
+import DaftarJual from './DaftarJual';
 
 export {
-  Login, Register, Home, Splash, Profile, ChangeProfile, Jual, Product, NotLogin, Success, Detail, Notification,
+  Login, Register, Home, Splash, Profile, ChangeProfile, Jual, Product, NotLogin, Success, Detail, Notification, DaftarJual
 };

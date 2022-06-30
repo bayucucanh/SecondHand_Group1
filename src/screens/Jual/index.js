@@ -16,12 +16,33 @@ import {
 } from '../../constant';
 import { productValidationSchema, profileValidationSchema } from '../../utils';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
+import { addDataProduct } from '../../redux/actions/pushDataProduct';
 
 function Jual() {
   const { t, i18n } = useTranslation();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
+  const accessToken = useSelector((state) => state.login.userData.access_token);
   const dataCategories = useSelector((state) => state.home.categories);
+  const dataProfile = useSelector((state) => state.profile.profileData);
+
+  const onPost = async (values) => {
+    const formdata = new FormData();
+    formdata.append('name', values.name);
+    formdata.append('description', values.description);
+    formdata.append('base_price', values.base_price);
+    formdata.append('category_ids', values.category_ids.toString());
+    formdata.append('location', values.location);
+    formdata.append('image', {
+      uri: values.image.uri,
+      type: 'image/jpeg',
+      name: values.image.fileName,
+    });
+    // console.log(values.category_ids.toString());
+    await dispatch(addDataProduct(accessToken, formdata));
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -40,10 +61,10 @@ function Jual() {
             description: '',
             base_price: '',
             category_ids: [],
-            location: '',
+            location: dataProfile.city,
             image: '',
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => onPost(values)}
         >
           {({
             handleChange,
@@ -52,8 +73,9 @@ function Jual() {
             setFieldValue,
             values,
             errors,
-            isValid,
             touched,
+            dirty,
+            isValid,
           }) => (
             <View style={{ marginHorizontal: SIZES.padding5 }}>
               <Text style={styles.inputLabel}>{t('productNameTitle')}</Text>
@@ -118,17 +140,19 @@ function Jual() {
               <Text style={styles.inputLabel}>{t('photoProductTitle')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 24 }}>
                 <PhotoProfile
+                  name="image"
                   style={{
                     width: 96,
                     height: 96,
                     backgroundColor: COLORS.neutral1,
                     borderStyle: 'dashed',
                     borderColor: COLORS.neutral2,
-                    borderWidth: 2,
+                    borderWidth: values.image === '' ? 2 : 0,
                     marginRight: 28,
                     marginTop: -24,
                     marginBottom: -12,
                   }}
+                  setFieldValue={setFieldValue}
                   icon="plus"
                   colorIcon={COLORS.neutral2}
                 />
@@ -140,7 +164,9 @@ function Jual() {
                 <View style={{
                   flex: 1,
                   marginRight: SIZES.base,
-                  borderColor: COLORS.primaryPurple4,
+                  borderColor: (isValid && !errors.name
+                  && !errors.base_price && !errors.description && !errors.category_ids
+                  && !errors.image && dirty) ? COLORS.primaryPurple4 : COLORS.neutral2,
                   borderWidth: 2,
                   borderRadius: SIZES.radius2,
                 }}
@@ -148,10 +174,10 @@ function Jual() {
                   <CustomButton
                     onPress={() => navigation.navigate('Product', { values })}
                     title={t('sellPreviewButton')}
-                    buttonStyle={{ backgroundColor: COLORS.neutral1, borderColor: COLORS.primaryPurple4, borderWidth: 2 }}
-                    textStyle={{ color: COLORS.neutral5 }}
-                //     enabled={isValid && !errors.name
-                //   && !errors.city && !errors.address && !errors.phone_number}
+                    type
+                    enabled={isValid && !errors.name
+                      && !errors.base_price && !errors.description && !errors.category_ids
+                     && !errors.image && dirty}
                   />
 
                 </View>
@@ -159,9 +185,10 @@ function Jual() {
                   <CustomButton
                     onPress={handleSubmit}
                     title={t('sellPostButton')}
-                    enabled={false}
-                //     enabled={isValid && !errors.name
-                //   && !errors.city && !errors.address && !errors.phone_number}
+                    // enabled={false}
+                    enabled={isValid && !errors.name
+                       && !errors.base_price && !errors.description && !errors.category_ids
+                      && !errors.image && dirty}
                   />
                 </View>
               </View>

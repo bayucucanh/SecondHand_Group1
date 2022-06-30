@@ -16,7 +16,12 @@ export const deleteCategory = (id) => axios.delete(`/seller/category/${id}`);
 // seller/product
 export const getProduct = () => axios.get('/seller/product');
 export const detailProduct = (id) => axios.get(`/seller/product/${id}`);
-export const addProduct = (data) => axios.post('/seller/product', data);
+export const addProduct = (accessToken, payload) => axios.post('/seller/product', payload, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    access_token: accessToken,
+  },
+});
 export const updateProduct = (id, data) => axios.put(`/seller/product/${id}`, data);
 export const deleteProduct = (id) => axios.delete(`/seller/product/${id}`);
 
