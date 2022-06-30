@@ -28,6 +28,8 @@
 
          // prevent eslint to complain about the "styles" variable being used before it was defined
          "no-use-before-define": ["error", { "variables": false }],
+
+         "react/jsx-props-no-spreading": "off",
  
          // disable prop types check
          "react/prop-types": 0,
