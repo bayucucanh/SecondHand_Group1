@@ -46,7 +46,8 @@ function Produk() {
             basePrice={item.base_price}
             imageUrl={item.image_url}
             style={{ maxWidth: 160 }}
-            onPress={() => navigation.navigate('Detail', { productId: item.id })}
+            // onPress={() => console.log(item.Categories)}
+            onPress={() => navigation.navigate('Product', { values: item, list: true })}
           />
         </View>
       ))}

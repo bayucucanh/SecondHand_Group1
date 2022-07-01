@@ -8,10 +8,10 @@ import { COLORS, FONTS, SIZES } from '../../constant';
 import { CustomButton, GoBackIcon, PhotoProfile } from '../../components';
 import styles from '../../constant/styles';
 
-function Product({ route }) {
+function Product({ route, navigation }) {
   const { t, i18n } = useTranslation();
 
-  const { values } = route.params;
+  const { values, list } = route.params;
   const profileData = useSelector((state) => state.profile.profileData);
   const categoryData = useSelector((state) => state.home.categories);
 
@@ -26,7 +26,7 @@ function Product({ route }) {
         }}
         >
           <Image
-            source={{ uri: values.image.uri }}
+            source={{ uri: values.image_url || values.image.uri }}
             style={{ height: 300 }}
           />
           <GoBackIcon iconColor={COLORS.neutral5} size={28} style={{ top: 28 }} />
@@ -35,10 +35,17 @@ function Product({ route }) {
               <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>{values.name}</Text>
               <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>
                 {categoryData.map((item) => (
-                  values.category_ids.map((item1) => (
-                    item.id === item1
+                  values.category_ids ? (
+                    values.category_ids.map((item1) => (
+                      item.id === item1
                     && (`${item.name}, `)
-                  ))
+                    ))
+                  ) : (
+                    values.Categories.map((item1) => (
+                      item.id === item1.id
+                      && (`${item.name}, `)
+                    ))
+                  )
                 ))}
               </Text>
               <Text style={{ ...FONTS.bodyLargeRegular, fontSize: 18, color: COLORS.neutral5 }}>{values.base_price}</Text>
@@ -73,21 +80,57 @@ function Product({ route }) {
         </View>
 
       </ScrollView>
-      <View style={{
-        width: '100%',
-        position: 'absolute',
-        bottom: 23,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 24,
-      }}
-      >
-        <CustomButton
-          buttonStyle={{ width: '100%' }}
-          title="Terbitkan"
-          enabled
-        />
-      </View>
+      {!list ? (
+        <View style={{
+          width: '100%',
+          position: 'absolute',
+          bottom: 23,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 24,
+        }}
+        >
+          <CustomButton
+            buttonStyle={{ width: '100%' }}
+            title="Terbitkan"
+            enabled
+          />
+        </View>
+      ) : (
+        <View style={{
+          bottom: 23,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginHorizontal: 24,
+          position: 'absolute',
+        }}
+        >
+          <View style={{
+            flex: 1,
+            marginRight: SIZES.base,
+            borderColor: COLORS.primaryPurple4,
+            borderWidth: 2,
+            borderRadius: SIZES.radius2,
+          }}
+          >
+            <CustomButton
+              onPress={() => navigation.navigate('JualFull', { data: values })}
+              title={t('edit')}
+              type
+              enabled
+            />
+
+          </View>
+          <View style={{ flex: 1, marginLeft: 8 }}>
+            <CustomButton
+              // onPress={handleSubmit}
+              title={t('delete')}
+              // enabled={false}
+              enabled
+            />
+          </View>
+        </View>
+      )}
     </>
   );
 }

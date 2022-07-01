@@ -7,8 +7,8 @@ import { COLORS, SIZES } from '../../constant';
 function PhotoProfile({
   name, image, setFieldValue, disabled = false, style, icon, colorIcon, styleImage,
 }) {
-  const [photo, setPhoto] = useState(image);
-  const [hasPhoto, setHasPhoto] = useState(image != null);
+  const [photo, setPhoto] = useState(image.uri != '' ? image : '');
+  const [hasPhoto, setHasPhoto] = useState(image.uri != '');
   const getImage = () => {
     launchImageLibrary(
       {

@@ -17,11 +17,13 @@ import {
 import { productValidationSchema, profileValidationSchema } from '../../utils';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import { addDataProduct } from '../../redux/actions/pushDataProduct';
+import { putDataProduct } from '../../redux/actions/updateDataProduct';
 
-function Jual() {
+function Jual({ route }) {
   const { t, i18n } = useTranslation();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { data } = route.params;
 
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const dataCategories = useSelector((state) => state.home.categories);
@@ -34,14 +36,33 @@ function Jual() {
     formdata.append('base_price', values.base_price);
     formdata.append('category_ids', values.category_ids.toString());
     formdata.append('location', values.location);
-    formdata.append('image', {
-      uri: values.image.uri,
-      type: 'image/jpeg',
-      name: values.image.fileName,
-    });
-    // console.log(values.category_ids.toString());
-    await dispatch(addDataProduct(accessToken, formdata));
+    if (data !== false) {
+      if (values.image != data.image_url) {
+        formdata.append('image', {
+          uri: values.image.uri,
+          type: 'image/jpeg',
+          name: values.image.fileName,
+        });
+      }
+      await dispatch(putDataProduct(accessToken, data.id, formdata));
+    } else {
+      formdata.append('image', {
+        uri: values.image.uri,
+        type: 'image/jpeg',
+        name: values.image.fileName,
+      });
+      await dispatch(addDataProduct(accessToken, formdata));
+    }
   };
+
+  const checkEnabled = (isValid, errors, dirty) => (data !== false ? (
+    !errors.name && !errors.base_price
+    && !errors.description && !errors.category_ids
+  ) : (
+    isValid && !errors.name && !errors.base_price
+    && !errors.description && !errors.category_ids
+    && !errors.image && dirty
+  ));
 
   return (
     <ScrollView
@@ -57,14 +78,14 @@ function Jual() {
         <Formik
           validationSchema={productValidationSchema}
           initialValues={{
-            name: '',
-            description: '',
-            base_price: '',
-            category_ids: [],
+            name: data.name ? data.name : '',
+            description: data.description ? data.description : '',
+            base_price: data.base_price ? `${data.base_price}` : '',
+            category_ids: data.Categories ? data.Categories.map((item) => item.id) : [],
             location: dataProfile.city,
-            image: '',
+            image: data.image_url ? data.image_url : '',
           }}
-          onSubmit={(values) => onPost(values)}
+          onSubmit={() => console.log('asd')}
         >
           {({
             handleChange,
@@ -140,6 +161,7 @@ function Jual() {
               <Text style={styles.inputLabel}>{t('photoProductTitle')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginVertical: 24 }}>
                 <PhotoProfile
+                  image={{ uri: values.image }}
                   name="image"
                   style={{
                     width: 96,
@@ -164,9 +186,7 @@ function Jual() {
                 <View style={{
                   flex: 1,
                   marginRight: SIZES.base,
-                  borderColor: (isValid && !errors.name
-                  && !errors.base_price && !errors.description && !errors.category_ids
-                  && !errors.image && dirty) ? COLORS.primaryPurple4 : COLORS.neutral2,
+                  borderColor: (checkEnabled(isValid, errors, dirty)) ? COLORS.primaryPurple4 : COLORS.neutral2,
                   borderWidth: 2,
                   borderRadius: SIZES.radius2,
                 }}
@@ -175,20 +195,16 @@ function Jual() {
                     onPress={() => navigation.navigate('Product', { values })}
                     title={t('sellPreviewButton')}
                     type
-                    enabled={isValid && !errors.name
-                      && !errors.base_price && !errors.description && !errors.category_ids
-                     && !errors.image && dirty}
+                    enabled={checkEnabled(isValid, errors, dirty)}
                   />
 
                 </View>
                 <View style={{ flex: 1, marginLeft: 8 }}>
                   <CustomButton
-                    onPress={handleSubmit}
+                    onPress={() => onPost(values)}
                     title={t('sellPostButton')}
                     // enabled={false}
-                    enabled={isValid && !errors.name
-                       && !errors.base_price && !errors.description && !errors.category_ids
-                      && !errors.image && dirty}
+                    enabled={checkEnabled(isValid, errors, dirty)}
                   />
                 </View>
               </View>

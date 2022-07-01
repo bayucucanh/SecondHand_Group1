@@ -1,5 +1,5 @@
 import {
-  POST_PRODUCT_SUCCESS, POST_PRODUCT_FAILED,
+  POST_PRODUCT_SUCCESS, POST_PRODUCT_FAILED, PUT_PRODUCT_SUCCESS, PUT_PRODUCT_FAILED,
 } from '../types';
 
 const initialState = {
@@ -14,6 +14,15 @@ const SellReducer = (state = initialState, action = {}) => {
         productData: action.payload,
       };
     case POST_PRODUCT_FAILED:
+      return {
+        ...state,
+      };
+    case PUT_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        productData: action.payload,
+      };
+    case PUT_PRODUCT_FAILED:
       return {
         ...state,
       };

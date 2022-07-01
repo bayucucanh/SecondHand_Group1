@@ -26,7 +26,12 @@ export const addProduct = (accessToken, payload) => axios.post('/seller/product'
     access_token: accessToken,
   },
 });
-export const updateProduct = (id, data) => axios.put(`/seller/product/${id}`, data);
+export const updateProduct = (accessToken, id, payload) => axios.put(`/seller/product/${id}`, payload, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    access_token: accessToken,
+  },
+});
 export const deleteProduct = (id) => axios.delete(`/seller/product/${id}`);
 
 // seller/order
