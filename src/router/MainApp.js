@@ -78,20 +78,19 @@ function MainApp() {
                 ),
               }}
             />
+            <Tab.Screen
+              name="DaftarJual"
+              component={DaftarJual}
+              options={{
+                tabBarLabel: 'DaftarJual',
+                headerShown: false,
+                tabBarIcon: ({ color }) => (
+                  <Icon name="list" color={color} size={SIZES.icon} />
+                ),
+              }}
+            />
           </>
         )}
-
-        <Tab.Screen
-          name="DaftarJual"
-          component={DaftarJual}
-          options={{
-            tabBarLabel: 'DaftarJual',
-            headerShown: false,
-            tabBarIcon: ({ color }) => (
-              <Icon name="list" color={color} size={SIZES.icon} />
-            ),
-          }}
-        />
 
         <Tab.Screen
           name="Profile"
