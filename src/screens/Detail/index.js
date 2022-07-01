@@ -33,6 +33,9 @@ function Detail({ route, navigation }) {
   const isFocused = useIsFocused();
 
   const { productId } = route.params;
+
+  const allBidProduct = useSelector((state) => state.allBid.allBidProduct);
+
   const accessToken = useSelector((state) => state.login.userData);
   const login = useSelector((state) => state.login.isLogin);
   const detailData = useSelector((state) => state.detail.detailProduct);
@@ -49,14 +52,14 @@ function Detail({ route, navigation }) {
   }, []);
 
   useEffect(() => {
-    console.log('Product Id', productId);
     dispatch(getDetailData(productId));
     if (login) {
-      console.log('Access token', accessToken.access_token);
       setToken(accessToken.access_token);
       dispatch(getAllBidProduct(accessToken.access_token));
     }
   }, [productId, dispatch]);
+
+  const filterBid = allBidProduct.filter((item) => item.product_id === productId);
 
   const checkLogin = () => {
     if (login) {
@@ -198,8 +201,8 @@ function Detail({ route, navigation }) {
         >
           <CustomButton
             buttonStyle={{ width: '100%' }}
-            title="Saya Tertarik dan Ingin Nego Produk"
-            enabled
+            title={login === true && filterBid[0]?.status ? 'Menunggu respon penjual' : 'Saya Tertarik dan Ingin Nego Produk'}
+            enabled={!(login === true && filterBid[0]?.status)}
             onPress={() => checkLogin()}
           />
         </View>
