@@ -1,18 +1,12 @@
 import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  Button,
-  FlatList,
+  Text, View, ScrollView, Image, FlatList,
 } from 'react-native';
 import React, {
-  useEffect, useState, useRef, useMemo, useCallback,
+  useEffect, useState, useRef, useCallback,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useIsFocused } from '@react-navigation/native';
+import { Formik } from 'formik';
 import {
   COLORS, SIZES, FONTS, style,
 } from '../../constant';
@@ -23,30 +17,26 @@ import {
   InputText,
   BottomSheetComponent,
   Loading,
+  HelperText,
 } from '../../components';
-import { getDetailData, getAllBidProduct } from '../../redux/actions';
+import { getDetailData, getAllBidProduct, bidProduct } from '../../redux/actions';
 import styles from '../../constant/styles';
 import formatRupiah from '../../utils/formatCurrency';
+import { bidPriceSchema } from '../../utils';
 
 function Detail({ route, navigation }) {
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
 
   const { productId } = route.params;
 
-  const allBidProduct = useSelector((state) => state.allBid.allBidProduct);
-
+  const allBidProduct = useSelector((state) => state.allBid.allBidProduct.filter((item) => item.product_id === productId));
   const accessToken = useSelector((state) => state.login.userData);
   const login = useSelector((state) => state.login.isLogin);
   const detailData = useSelector((state) => state.detail.detailProduct);
   const loading = useSelector((state) => state.global.isLoading);
-
   const { t, i18n } = useTranslation();
-  const [token, setToken] = useState('');
 
-  // ref
   const sheetRef = useRef(null);
-
   const handleSnapPress = useCallback((index) => {
     sheetRef.current?.snapToIndex(index);
   }, []);
@@ -54,20 +44,112 @@ function Detail({ route, navigation }) {
   useEffect(() => {
     dispatch(getDetailData(productId));
     if (login) {
-      setToken(accessToken.access_token);
       dispatch(getAllBidProduct(accessToken.access_token));
     }
-  }, [productId, dispatch]);
+  }, [productId, dispatch, login]);
 
-  const filterBid = allBidProduct.filter((item) => item.product_id === productId);
-
-  const checkLogin = () => {
-    if (login) {
-      handleSnapPress(2);
-    } else {
-      navigation.navigate('NotLogin');
-    }
+  const submitBid = (bid) => {
+    const data = {
+      product_id: productId,
+      bid_price: bid,
+    };
+    dispatch(bidProduct(data, accessToken.access_token, navigation));
   };
+
+  function BottomSheetComp() {
+    return (
+      <Formik
+        validationSchema={bidPriceSchema}
+        initialValues={{ bid_price: '' }}
+        onSubmit={(values) => submitBid(values.bid_price)}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          touched,
+          values,
+          errors,
+          isValid,
+        }) => (
+          <ScrollView>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: COLORS.white,
+                padding: SIZES.h2,
+              }}
+            >
+              <Text style={{ color: COLORS.black, ...FONTS.bodyNormalMedium }}>
+                Masukan Harga Tawarmu
+              </Text>
+              <Text style={{ color: COLORS.neutral3, ...FONTS.bodyNormalMedium }}>
+                Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu
+                akan segera dihubungi penjual.
+              </Text>
+              <View
+                style={[
+                  styles.card,
+                  {
+                    marginTop: SIZES.padding3,
+                    paddingHorizontal: SIZES.padding5,
+                    paddingVertical: SIZES.padding3,
+                    flexDirection: 'row',
+                  },
+                ]}
+              >
+                <View style={{ justifyContent: 'center' }}>
+                  <Image
+                    source={{
+                      uri: detailData.image_url,
+                    }}
+                    style={{ width: 48, height: 48 }}
+                  />
+                </View>
+                <View style={{ paddingLeft: SIZES.padding3 }}>
+                  <Text
+                    style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
+                  >
+                    {detailData.name}
+                  </Text>
+                  <Text
+                    style={{
+                      ...FONTS.bodyNormalRegular,
+                      color: COLORS.neutral3,
+                    }}
+                  >
+                    {formatRupiah(detailData.base_price)}
+                  </Text>
+                </View>
+              </View>
+              <View style={{ marginVertical: SIZES.h2 }}>
+                <Text style={{ ...FONTS.bodyNormalBold }}>Harga Tawar</Text>
+                <InputText
+                  placeholder="Masukan harga tawarmu"
+                  name="bid_price"
+                  style={{ marginTop: 4 }}
+                  onChangeText={handleChange('bid_price')}
+                  onBlur={handleBlur('bid_price')}
+                  error={touched.bid_price && errors.bid_price}
+                  value={values.bid_price}
+                  type="number-pad"
+                />
+                {touched.bid_price && errors.bid_price && (
+                  <HelperText text={t(errors.bid_price)} />
+                )}
+              </View>
+              <CustomButton
+                onPress={handleSubmit}
+                buttonStyle={{ width: '100%' }}
+                title="Kirim"
+                enabled={isValid && !errors.bid_price}
+              />
+            </View>
+          </ScrollView>
+        )}
+      </Formik>
+    );
+  }
 
   if (!loading) {
     return (
@@ -201,22 +283,18 @@ function Detail({ route, navigation }) {
         >
           <CustomButton
             buttonStyle={{ width: '100%' }}
-            title={login === true && filterBid[0]?.status ? 'Menunggu respon penjual' : 'Saya Tertarik dan Ingin Nego Produk'}
-            enabled={!(login === true && filterBid[0]?.status)}
-            onPress={() => checkLogin()}
+            title={
+              login && allBidProduct[0]?.status
+                ? 'Menunggu respon penjual'
+                : 'Saya Tertarik dan Ingin Nego Produk'
+            }
+            enabled={!(login && allBidProduct[0]?.status)}
+            onPress={() => (login ? handleSnapPress(2) : navigation.navigate('NotLogin'))}
           />
         </View>
         <BottomSheetComponent
-          navigation={navigation}
-          accessToken={token}
-          productId={productId}
           sheetRef={sheetRef}
-          handleSnapPress={handleSnapPress}
-          productName={detailData.name}
-          price={detailData.base_price}
-          imageUrl={detailData.image_url}
-          title="Harga Tawar"
-          placeholder={t('pricePlaceholder')}
+          component={BottomSheetComp}
         />
       </>
     );
