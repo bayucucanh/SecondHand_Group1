@@ -7,3 +7,4 @@ export * from './getSellerCategory';
 export * from './getDetailProduct';
 export * from './pushBidPrice';
 export * from './getAllBidProduct';
+export * from './getSellerOrder';
