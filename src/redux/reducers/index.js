@@ -8,6 +8,7 @@ import DetailReducer from './DetailReducer';
 import AllBidReducer from './AllBidReducer';
 import SellReducer from './SellReducer';
 import SellerProductListReducer from './SellerProductListReducer';
+import SellerOrderReducer from './SellerOrder';
 
 const AllReducers = combineReducers({
   login: LoginReducer,
@@ -19,6 +20,7 @@ const AllReducers = combineReducers({
   allBid: AllBidReducer,
   sellerProduct: SellerProductListReducer,
   sell: SellReducer,
+  sellerOrder: SellerOrderReducer,
 });
 
 export default AllReducers;

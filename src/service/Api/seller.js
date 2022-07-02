@@ -35,7 +35,11 @@ export const updateProduct = (accessToken, id, payload) => axios.put(`/seller/pr
 export const deleteProduct = (id) => axios.delete(`/seller/product/${id}`);
 
 // seller/order
-export const getSellerOrder = () => axios.get('/seller/order');
+export const getSellerOrder = (accessToken) => axios.get('/seller/order', {
+  headers: {
+    access_token: accessToken,
+  },
+});
 export const detailSellerOrder = (id) => axios.get(`/seller/order/${id}`);
 export const updateSellerOrder = (id, status) => axios.patch(`/seller/order/${id}`, { status });
 export const getSellerOrderProduct = (id) => axios.get(`/seller/order/product/${id}`);
