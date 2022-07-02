@@ -40,7 +40,9 @@
          "import/prefer-default-export": "off",
          "default-param-last": 0,
          "import/no-named-as-default": 0,
-         "eqeqeq": "off"
+         "eqeqeq": "off",
+         "react/no-unstable-nested-components": "off",
+         "react/jsx-no-bind": "off"
     },
     "settings": {
         "import/resolver": {
