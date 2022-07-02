@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Separator from '../Separator';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import PhotoProfile from '../PhotoProfile';
+import formatRupiah from '../../utils/formatCurrency';
 
 function NotificationCard({
   image, date, name, price, offeringPrice, isSeen, status, accepted, bidderInfo,
@@ -49,7 +50,7 @@ function NotificationCard({
               textDecorationLine: accepted && 'line-through',
             }}
             >
-              {price}
+              {formatRupiah(price)}
             </Text>
             {offeringPrice && (
             <>
