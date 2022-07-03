@@ -9,7 +9,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { loginUser } from '../../../redux/actions';
 import { loginValidationSchema } from '../../../utils';
