@@ -29,7 +29,8 @@ function NotificationCard({
             }}
             >
               <Text style={{ ...FONTS.bodySmallRegular }}>
-                {status === 'accepted' ? t('productOffer') : t('successPost')}
+                {/* {status === 'accepted' ? t('productOffer') : t('successPost')} */}
+                {t('productOffer')}
               </Text>
               <Text style={{ ...FONTS.bodySmallRegular }}>{date}</Text>
             </View>

@@ -32,7 +32,7 @@ function Produk() {
     <View style={styles.container}>
       {productList.length < 5 && (
         <View style={styles.cardTambah}>
-          <TouchableOpacity style={styles.tambahProduk} onPress={() => navigation.navigate('JualFull')}>
+          <TouchableOpacity style={styles.tambahProduk} onPress={() => navigation.navigate('JualFull', { data: false })}>
             <Icon name="plus" size={30} style={{ color: COLORS.neutral3 }} />
             <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{t('addProduct')}</Text>
           </TouchableOpacity>
