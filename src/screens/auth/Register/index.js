@@ -146,7 +146,7 @@ function Register({ navigation }) {
               </Text>
               <InputDropdown
                 data={regions}
-                city={setFieldValue}
+                setFieldValue={setFieldValue}
                 value={values.city}
                 initialData={values.city}
                 name="city"

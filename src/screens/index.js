@@ -8,9 +8,14 @@ import Jual from './Jual';
 import Product from './Product';
 import Success from './auth/Success';
 import NotLogin from './NotLogin';
+import Detail from './Detail';
 import Notification from './Notification';
+import DaftarJual from './DaftarJual';
+import BidderInfo from './BidderInfo';
 
 export {
-  Login, Register, Home, Splash, Profile, ChangeProfile, Jual, Product, NotLogin,
-  Success, Notification,
+  Login, Register, Home, Splash, Profile,
+  ChangeProfile, Jual, Product, NotLogin,
+  Success, Detail, Notification, DaftarJual,
+  BidderInfo,
 };

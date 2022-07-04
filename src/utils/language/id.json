@@ -49,7 +49,9 @@
       "productNameAlertRequired":"Nama produk tidak boleh kosong",
       "priceTitle":"Harga Produk",
       "pricePlaceholder":"Rp. 0.00",
+      "priceAlertNumber":"Harga produk harus berisi angka",
       "priceAlertRequired":"Harga produk tidak boleh kosong",
+      "bidPriceAlertRequired": "Harga Tawar tidak boleh kosong",
       "categoryTitle":"Kategori",
       "categoryPlaceholder":"Pilih kategori",
       "categoryAlertMin":"Kategori harus minimal 1",
@@ -70,6 +72,9 @@
       "productOffer":"Penawaran produk",
       "successPost":"Berhasil di terbitkan",
       "successOfferPrice":"Berhasil ditawar",
-      "offeringContact":"Kamu akan segera dihubungi penjual via whatsapp"
+      "offeringContact":"Kamu akan segera dihubungi penjual via whatsapp",
+      "sellListTitle":"Daftar Jual saya",
+      "offerPrice":"Ditawar",
+      "addProduct":"Tambah Produk"
     }
   }

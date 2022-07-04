@@ -18,7 +18,7 @@ import { putDataProfile } from '../../redux/actions/pushDataProfile';
 function ChangeProfile() {
   const { t, i18n } = useTranslation();
   const profileData = useSelector((state) => state.profile.profileData);
-  // const accessToken = useSelector((state) => state.login.userData.access_token);
+  const accessToken = useSelector((state) => state.login.userData.access_token);
   const dispatch = useDispatch();
 
   const onUpdate = async (values) => {
@@ -27,12 +27,15 @@ function ChangeProfile() {
     formdata.append('city', values.city);
     formdata.append('address', values.address);
     formdata.append('phone_number', values.phone_number);
-    formdata.append('image', {
-      uri: values.image_url.uri,
-      type: 'image/jpeg',
-      name: values.image_url.fileName,
-    });
-    // await dispatch(putDataProfile(accessToken, formdata));
+    if (values.image_url !== profileData.image_url) {
+      formdata.append('image', {
+        uri: values.image_url.uri,
+        type: 'image/jpeg',
+        name: values.image_url.fileName,
+      });
+    }
+    console.log(values.image_url);
+    await dispatch(putDataProfile(accessToken, formdata));
   };
 
   return (
@@ -68,6 +71,7 @@ function ChangeProfile() {
             <>
               <View style={{ marginVertical: SIZES.padding5 }}>
                 <PhotoProfile
+                  name="image_url"
                   image={{ uri: values.image_url }}
                   setFieldValue={setFieldValue}
                   icon="camera"

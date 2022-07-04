@@ -4,22 +4,25 @@ import {
   StyleSheet,
   ScrollView,
   FlatList,
-  LogBox,
+  Image,
 } from 'react-native';
 import React, { useEffect, useState, useCallback } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { COLORS, SIZES, FONTS } from '../../constant';
-import { IconButton, ProductCard, SearchBar } from '../../components';
+import {
+  IconButton, Loading, ProductCard, SearchBar,
+} from '../../components';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
   getDataProfile,
   getDataProduct,
   getDataCategories,
 } from '../../redux/actions';
+import { Box } from '../../assets';
 
-function Home() {
+function Home({ navigation }) {
   const { t, i18n } = useTranslation();
   const [btnActive, setBtnActive] = useState('');
   const [btnAllActive, setBtnAllActive] = useState(true);
@@ -27,6 +30,7 @@ function Home() {
   const dispatch = useDispatch();
   const dataProduct = useSelector((state) => state.home.dataProduct);
   const dataCategories = useSelector((state) => state.home.categories);
+  const loading = useSelector((state) => state.global.isLoading);
 
   useEffect(() => {
     // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -91,9 +95,9 @@ function Home() {
             60%
           </Text>
         </View>
-        <View
+        <Image
+          source={Box}
           style={{
-            backgroundColor: 'blue',
             width: 127,
             height: 127,
           }}
@@ -108,7 +112,11 @@ function Home() {
         >
           {t('searchCategoryTitle')}
         </Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: SIZES.padding3 }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ marginVertical: SIZES.padding3 }}
+        >
           <IconButton
             icon="search"
             text="Semua"
@@ -118,7 +126,7 @@ function Home() {
           {dataCategories?.map((item) => (
             <IconButton
               key={item.id}
-              icon="category"
+              icon="search"
               text={item.name}
               active={btnActive === item.id}
               onPress={() => getProductByCategory(item.id)}
@@ -129,37 +137,42 @@ function Home() {
     </LinearGradient>
   );
 
-  return (
-    <View style={styles.container}>
-      <FocusAwareStatusBar barStyle="dark-content" color="#FFE9C9" />
-      {dataProduct.length === 0 ? (
-        <Text style={{ fontSize: 15 }}>Tidak ada produk</Text>
-      ) : (
-        <FlatList
-          data={dataProduct}
-          numColumns={2}
-          columnWrapperStyle={{
-            flex: 1,
-            marginHorizontal: SIZES.padding5,
-            marginBottom: SIZES.padding4,
-            justifyContent: 'space-between',
-          }}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => item.id + index.toString()}
-          ListHeaderComponent={headerFlatlist}
-          renderItem={({ item }) => (
-            <ProductCard
-              name={item.name}
-              categories={item.Categories}
-              basePrice={item.base_price}
-              imageUrl={item.image_url}
-              style={{ maxWidth: 160 }}
-            />
-          )}
-        />
-      )}
-    </View>
-  );
+  if (!loading) {
+    return (
+      <View style={styles.container}>
+        <FocusAwareStatusBar barStyle="dark-content" color="#FFE9C9" />
+        {dataProduct.length === 0 ? (
+          <Text style={{ fontSize: 15 }}>Tidak ada produk</Text>
+        ) : (
+          <FlatList
+            data={dataProduct}
+            initialNumToRender={7}
+            numColumns={2}
+            columnWrapperStyle={{
+              flex: 1,
+              marginHorizontal: SIZES.padding5,
+              marginBottom: SIZES.padding4,
+              justifyContent: 'space-between',
+            }}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => item.id + index.toString()}
+            ListHeaderComponent={headerFlatlist}
+            renderItem={({ item }) => (
+              <ProductCard
+                name={item.name}
+                categories={item.Categories}
+                basePrice={item.base_price}
+                imageUrl={item.image_url}
+                style={{ maxWidth: 160 }}
+                onPress={() => navigation.navigate('Detail', { productId: item.id })}
+              />
+            )}
+          />
+        )}
+      </View>
+    );
+  }
+  return <Loading />;
 }
 
 export default Home;

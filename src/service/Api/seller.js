@@ -14,14 +14,36 @@ export const addCategory = (name) => axios.post('/seller/category', { name });
 export const deleteCategory = (id) => axios.delete(`/seller/category/${id}`);
 
 // seller/product
-export const getProduct = () => axios.get('/seller/product');
+export const getProduct = (accessToken) => axios.get('/seller/product', {
+  headers: {
+    access_token: accessToken,
+  },
+});
 export const detailProduct = (id) => axios.get(`/seller/product/${id}`);
-export const addProduct = (data) => axios.post('/seller/product', data);
-export const updateProduct = (id, data) => axios.put(`/seller/product/${id}`, data);
+export const addProduct = (accessToken, payload) => axios.post('/seller/product', payload, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    access_token: accessToken,
+  },
+});
+export const updateProduct = (accessToken, id, payload) => axios.put(`/seller/product/${id}`, payload, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    access_token: accessToken,
+  },
+});
 export const deleteProduct = (id) => axios.delete(`/seller/product/${id}`);
 
 // seller/order
-export const getSellerOrder = () => axios.get('/seller/order');
-export const detailSellerOrder = (id) => axios.get(`/seller/order/${id}`);
+export const getSellerOrder = (accessToken) => axios.get('/seller/order', {
+  headers: {
+    access_token: accessToken,
+  },
+});
+export const detailSellerOrder = (id, accessToken) => axios.get(`/seller/order/${id}`, {
+  headers: {
+    access_token: accessToken,
+  },
+});
 export const updateSellerOrder = (id, status) => axios.patch(`/seller/order/${id}`, { status });
 export const getSellerOrderProduct = (id) => axios.get(`/seller/order/product/${id}`);

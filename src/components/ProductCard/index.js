@@ -12,10 +12,10 @@ import { formatRupiah } from '../../utils/formatCurrency';
 import styles from '../../constant/styles';
 
 function ProductCard({
-  name, categories, basePrice, imageUrl, style,
+  name, categories, basePrice, imageUrl, style, onPress,
 }) {
   return (
-    <TouchableOpacity style={[styles.card, { ...style }]}>
+    <TouchableOpacity style={[styles.card, { ...style }]} onPress={onPress}>
       <Image
         style={{
           width: 140,

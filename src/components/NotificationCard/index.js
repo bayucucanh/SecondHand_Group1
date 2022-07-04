@@ -1,20 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet, Text, View, TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Separator from '../Separator';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import PhotoProfile from '../PhotoProfile';
+import formatRupiah from '../../utils/formatCurrency';
 
 function NotificationCard({
-  image, date, name, price, offeringPrice, isSeen, status,
+  image, date, name, price, offeringPrice, isSeen, status, accepted, bidderInfo, onPress,
 }) {
   const { t, i18n } = useTranslation();
 
   return (
     <>
-      <View style={{
-        marginTop: SIZES.padding5, flexDirection: 'row', marginVertical: SIZES.padding4,
-      }}
+      <TouchableOpacity
+        style={{
+          marginTop: SIZES.padding5, flexDirection: 'row', marginBottom: SIZES.padding3,
+        }}
+        onPress={onPress}
       >
         <PhotoProfile image={{ uri: image }} style={{ width: 48, height: 48, marginRight: SIZES.padding3 }} styleImage={{ width: 48, height: 48 }} />
         <View style={{ flex: 1 }}>
@@ -24,7 +29,7 @@ function NotificationCard({
             }}
             >
               <Text style={{ ...FONTS.bodySmallRegular }}>
-                {status === 'bid' ? t('productOffer') : t('successPost')}
+                {status === 'accepted' ? t('productOffer') : t('successPost')}
               </Text>
               <Text style={{ ...FONTS.bodySmallRegular }}>{date}</Text>
             </View>
@@ -46,27 +51,29 @@ function NotificationCard({
             <Text style={{
               ...FONTS.bodyLargeRegular,
               color: COLORS.neutral5,
-              textDecorationLine: offeringPrice && 'line-through',
+              textDecorationLine: accepted && 'line-through',
             }}
             >
-              {price}
+              {formatRupiah(price)}
             </Text>
             {offeringPrice && (
             <>
-              <Text style={{ ...FONTS.bodyLargeRegular, color: COLORS.neutral5 }}>
-                {t('successOfferPrice')}
+              <Text style={{ ...FONTS.bodyLargeRegular, color: COLORS.neutral5, textDecorationLine: status === 'declined' ? 'line-through' : 'none' }}>
+                {accepted ? t('successOfferPrice') : t('offerPrice')}
                 {' '}
-                {offeringPrice}
+                {formatRupiah(offeringPrice)}
               </Text>
-              <Text style={{ ...FONTS.bodySmallRegular }}>
-                {t('offeringContact')}
-              </Text>
+              {accepted && (
+                <Text style={{ ...FONTS.bodySmallRegular }}>
+                  {t('offeringContact')}
+                </Text>
+              )}
             </>
             )}
           </View>
         </View>
-      </View>
-      <Separator />
+      </TouchableOpacity>
+      {!bidderInfo && (<Separator />)}
     </>
   );
 }

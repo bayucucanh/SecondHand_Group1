@@ -4,3 +4,7 @@ export * from './pushDataRegister';
 export * from './getDataProfile';
 export * from './getDataProduct';
 export * from './getSellerCategory';
+export * from './getDetailProduct';
+export * from './pushBidPrice';
+export * from './getAllBidProduct';
+export * from './getSellerOrder';

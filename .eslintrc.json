@@ -28,6 +28,8 @@
 
          // prevent eslint to complain about the "styles" variable being used before it was defined
          "no-use-before-define": ["error", { "variables": false }],
+
+         "react/jsx-props-no-spreading": "off",
  
          // disable prop types check
          "react/prop-types": 0,
@@ -36,7 +38,11 @@
          "no-unused-vars": "off",
          "max-len": "off",
          "import/prefer-default-export": "off",
-         "default-param-last": 0
+         "default-param-last": 0,
+         "import/no-named-as-default": 0,
+         "eqeqeq": "off",
+         "react/no-unstable-nested-components": "off",
+         "react/jsx-no-bind": "off"
     },
     "settings": {
         "import/resolver": {
