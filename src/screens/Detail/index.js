@@ -222,7 +222,7 @@ function Detail({ route, navigation }) {
               >
                 <View style={{ justifyContent: 'center' }}>
                   <PhotoProfile
-                    image={{ uri: detailData.User.image_url }}
+                    image={{ uri: detailData.User?.image_url }}
                     style={{ width: 48, height: 48 }}
                     styleImage={{ width: 48, height: 48 }}
                   />
@@ -231,7 +231,7 @@ function Detail({ route, navigation }) {
                   <Text
                     style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
                   >
-                    {detailData.User.full_name}
+                    {detailData.User?.full_name}
                   </Text>
                   <Text
                     style={{
@@ -239,7 +239,7 @@ function Detail({ route, navigation }) {
                       color: COLORS.neutral3,
                     }}
                   >
-                    {detailData.User.city}
+                    {detailData.User?.city}
                   </Text>
                 </View>
               </View>
