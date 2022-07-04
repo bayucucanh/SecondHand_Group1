@@ -38,7 +38,7 @@ function BidderCard({
         >
           <CustomButton
                 //   onPress={}
-            title={t('sellPreviewButton')}
+            title={status === 'accepted' ? 'Status' : 'Tolak'}
             type
             size="small"
             enabled
@@ -56,7 +56,7 @@ function BidderCard({
         >
           <CustomButton
                 //   onPress={}
-            title={t('sellPostButton')}
+            title={status === 'accepted' ? 'Hubungi' : 'Terima'}
             size="small"
             enabled
           />

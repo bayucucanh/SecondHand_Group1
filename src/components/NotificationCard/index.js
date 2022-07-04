@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet, Text, View, TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Separator from '../Separator';
@@ -7,15 +9,17 @@ import PhotoProfile from '../PhotoProfile';
 import formatRupiah from '../../utils/formatCurrency';
 
 function NotificationCard({
-  image, date, name, price, offeringPrice, isSeen, status, accepted, bidderInfo,
+  image, date, name, price, offeringPrice, isSeen, status, accepted, bidderInfo, onPress,
 }) {
   const { t, i18n } = useTranslation();
 
   return (
     <>
-      <View style={{
-        marginTop: SIZES.padding5, flexDirection: 'row', marginBottom: SIZES.padding3,
-      }}
+      <TouchableOpacity
+        style={{
+          marginTop: SIZES.padding5, flexDirection: 'row', marginBottom: SIZES.padding3,
+        }}
+        onPress={onPress}
       >
         <PhotoProfile image={{ uri: image }} style={{ width: 48, height: 48, marginRight: SIZES.padding3 }} styleImage={{ width: 48, height: 48 }} />
         <View style={{ flex: 1 }}>
@@ -25,7 +29,7 @@ function NotificationCard({
             }}
             >
               <Text style={{ ...FONTS.bodySmallRegular }}>
-                {status === 'bid' ? t('productOffer') : t('successPost')}
+                {status === 'accepted' ? t('productOffer') : t('successPost')}
               </Text>
               <Text style={{ ...FONTS.bodySmallRegular }}>{date}</Text>
             </View>
@@ -54,10 +58,10 @@ function NotificationCard({
             </Text>
             {offeringPrice && (
             <>
-              <Text style={{ ...FONTS.bodyLargeRegular, color: COLORS.neutral5 }}>
+              <Text style={{ ...FONTS.bodyLargeRegular, color: COLORS.neutral5, textDecorationLine: status === 'declined' ? 'line-through' : 'none' }}>
                 {accepted ? t('successOfferPrice') : t('offerPrice')}
                 {' '}
-                {offeringPrice}
+                {formatRupiah(offeringPrice)}
               </Text>
               {accepted && (
                 <Text style={{ ...FONTS.bodySmallRegular }}>
@@ -68,7 +72,7 @@ function NotificationCard({
             )}
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
       {!bidderInfo && (<Separator />)}
     </>
   );
