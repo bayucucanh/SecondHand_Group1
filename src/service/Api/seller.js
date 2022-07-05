@@ -50,5 +50,9 @@ export const detailSellerOrder = (id, accessToken) => axios.get(`/seller/order/$
     access_token: accessToken,
   },
 });
-export const updateSellerOrder = (id, status) => axios.patch(`/seller/order/${id}`, { status });
+export const updateSellerOrder = (accessToken, id, status) => axios.patch(`/seller/order/${id}`, status, {
+  headers: {
+    access_token: accessToken,
+  },
+});
 export const getSellerOrderProduct = (id) => axios.get(`/seller/order/product/${id}`);
