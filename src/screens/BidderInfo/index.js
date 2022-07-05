@@ -47,9 +47,9 @@ function BidderInfo({ navigation, route }) {
             </View>
             <View style={{ paddingLeft: SIZES.padding3 }}>
               <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>
-                {sellerDetailOrder.User.full_name}
+                {sellerDetailOrder?.User.full_name}
               </Text>
-              <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{sellerDetailOrder.User.city}</Text>
+              <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{sellerDetailOrder?.User.city}</Text>
             </View>
           </View>
           <Text style={[FONTS.bodyLargeMedium, {
@@ -61,11 +61,11 @@ function BidderInfo({ navigation, route }) {
           </Text>
           <BidderCard
             image="https://picsum.photos/48"
-            name={sellerDetailOrder.Product.name}
+            name={sellerDetailOrder?.Product.name}
             date="20 Apr, 14:04"
-            price={sellerDetailOrder.Product.base_price}
-            status={sellerDetailOrder.status}
-            offeringPrice={sellerDetailOrder.price}
+            price={sellerDetailOrder?.Product.base_price}
+            status={sellerDetailOrder?.status}
+            offeringPrice={sellerDetailOrder?.price}
             isSeen={false}
           />
           {/* <BidderCard

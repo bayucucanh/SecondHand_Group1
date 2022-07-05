@@ -78,12 +78,12 @@ function Jual({ route }) {
         <Formik
           validationSchema={productValidationSchema}
           initialValues={{
-            name: data.name ? data.name : '',
-            description: data.description ? data.description : '',
-            base_price: data.base_price ? `${data.base_price}` : '',
-            category_ids: data.Categories ? data.Categories.map((item) => item.id) : [],
+            name: data?.name ? data?.name : '',
+            description: data?.description ? data?.description : '',
+            base_price: data?.base_price ? `${data?.base_price}` : '',
+            category_ids: data?.Categories ? data?.Categories.map((item) => item.id) : [],
             location: dataProfile.city,
-            image: data.image_url ? data.image_url : '',
+            image: data?.image_url ? data?.image_url : '',
           }}
           onSubmit={() => console.log('asd')}
         >

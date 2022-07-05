@@ -3,16 +3,15 @@ import {
   Text,
   View,
   FlatList,
-  VirtualizedList,
   SafeAreaView,
   LogBox,
   Image,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { getDataSellerOrder } from '../../../redux/actions';
-import { FONTS, SIZES, COLORS } from '../../../constant';
+import { SIZES, COLORS } from '../../../constant';
 import { Loading, NotificationCard } from '../../../components';
 import { DiminatiNull } from '../../../assets/image';
 
