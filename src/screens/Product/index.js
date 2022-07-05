@@ -7,13 +7,16 @@ import { useTranslation } from 'react-i18next';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import { CustomButton, GoBackIcon, PhotoProfile } from '../../components';
 import styles from '../../constant/styles';
+import { deleteDataProduct } from '../../redux/actions/deleteSellerProduct';
 
 function Product({ route, navigation }) {
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
 
   const { values, list } = route.params;
   const profileData = useSelector((state) => state.profile.profileData);
   const categoryData = useSelector((state) => state.home.categories);
+  const accessToken = useSelector((state) => state.login.userData.access_token);
 
   return (
     <>
@@ -123,9 +126,9 @@ function Product({ route, navigation }) {
           </View>
           <View style={{ flex: 1, marginLeft: 8 }}>
             <CustomButton
-              // onPress={handleSubmit}
+              onPress={() => dispatch(deleteDataProduct(accessToken, values.id))}
+              // onPress={() => console.log(values.id)}
               title={t('delete')}
-              // enabled={false}
               enabled
             />
           </View>
