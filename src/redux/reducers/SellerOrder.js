@@ -1,10 +1,12 @@
 import {
   GET_SELLER_ORDER_SUCCESS, GET_SELLER_ORDER_FAILED, GET_SELLER_DETAIL_ORDER_SUCCESS, GET_SELLER_DETAIL_ORDER_FAILED,
+  PUT_STATUS_SELLER_ORDER_SUCCESS, PUT_STATUS_SELLER_ORDER_FAILED,
 } from '../types';
 
 const initialState = {
   sellerOrder: [],
   sellerDetailOrder: [],
+  updateStatusOrder: [],
 };
 
 const SellerOrderReducer = (state = initialState, action = {}) => {
@@ -24,6 +26,15 @@ const SellerOrderReducer = (state = initialState, action = {}) => {
         sellerDetailOrder: action.payload,
       };
     case GET_SELLER_DETAIL_ORDER_FAILED:
+      return {
+        ...state,
+      };
+    case PUT_STATUS_SELLER_ORDER_SUCCESS:
+      return {
+        ...state,
+        updateStatusOrder: action.payload,
+      };
+    case PUT_STATUS_SELLER_ORDER_FAILED:
       return {
         ...state,
       };
