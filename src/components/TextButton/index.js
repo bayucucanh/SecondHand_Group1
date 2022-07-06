@@ -4,7 +4,9 @@ import Icon from 'react-native-vector-icons/Feather';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import Separator from '../Separator';
 
-function TextButton({ onPress, text, icon }) {
+function TextButton({
+  onPress, text, icon, isSeparate,
+}) {
   return (
     <>
       <TouchableOpacity
@@ -19,7 +21,7 @@ function TextButton({ onPress, text, icon }) {
           {text}
         </Text>
       </TouchableOpacity>
-      <Separator />
+      {!isSeparate && (<Separator />)}
     </>
   );
 }

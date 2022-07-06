@@ -8,6 +8,8 @@
         "passwordPlaceholder":"Masukkan password",
         "loginButton":"Masuk",
         "belumPunyaAkun":"Belum punya akun",
-        "goToRegister":"Daftar di sini"
+        "goToRegister":"Daftar di sini",
+        "profileTitle":"My Account",
+        "changeLanguage": "Change Language"
     }
   }
