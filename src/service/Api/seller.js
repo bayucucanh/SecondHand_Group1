@@ -4,8 +4,6 @@ import axios from '../../utils/axios';
 // seller/banner
 export const getBanner = () => axios.get('/seller/banner');
 export const detailBanner = (id) => axios.get(`/seller/banner/${id}`);
-export const addBanner = (data) => axios.post('/seller/banner', data);
-export const deleteBanner = (id) => axios.delete(`/seller/banner/${id}`);
 
 // seller/category
 export const getCategory = () => axios.get('/seller/category');

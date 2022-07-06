@@ -10,6 +10,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import PagerView from 'react-native-pager-view';
 import { COLORS, SIZES, FONTS } from '../../constant';
 import {
   IconButton, Loading, ProductCard, SearchBar,
@@ -19,6 +20,7 @@ import {
   getDataProfile,
   getDataProduct,
   getDataCategories,
+  getDataBanner,
 } from '../../redux/actions';
 import { Box } from '../../assets';
 
@@ -30,11 +32,13 @@ function Home({ navigation }) {
   const dispatch = useDispatch();
   const dataProduct = useSelector((state) => state.home.dataProduct);
   const dataCategories = useSelector((state) => state.home.categories);
+  const dataBanner = useSelector((state) => state.home.dataBanner);
   const loading = useSelector((state) => state.global.isLoading);
 
   useEffect(() => {
     // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     dispatch(getDataCategories());
+    dispatch(getDataBanner());
     getAllProduct();
   }, [dispatch]);
 
@@ -60,79 +64,60 @@ function Home({ navigation }) {
 
   const headerFlatlist = () => (
     <LinearGradient colors={['#FFE9C9', '#FFFFFF']} locations={[0.6, 1]}>
-      <SearchBar onChangeText={getProductBySearch} value={searchProduct} />
-      <View
-        style={{
-          flexDirection: 'row',
-          marginVertical: SIZES.padding6,
-          paddingHorizontal: SIZES.padding5,
-        }}
-      >
-        <View style={{ flex: 1 }}>
-          <Text
-            style={{
-              ...FONTS.titleLargeBold,
-              color: 'black',
-            }}
-          >
-            Bulan Ramadhan Banyak diskon!
-          </Text>
-          <Text
-            style={{
-              ...FONTS.bodyLargeRegular,
-              color: COLORS.neutral5,
-              marginTop: SIZES.h1,
-            }}
-          >
-            Diskon Hingga
-          </Text>
+      <View>
+        <SearchBar onChangeText={getProductBySearch} value={searchProduct} />
+        <PagerView style={{ height: SIZES.height * 0.25 }} initialPage={0} showPageIndicator>
+          {dataBanner?.map((item) => (
+            <View
+              key={item.id}
+              style={{
+                marginVertical: SIZES.padding3,
+                marginHorizontal: SIZES.padding3,
+              }}
+            >
+              <Image
+                resizeMode="contain"
+                source={{ uri: item.image_url }}
+                style={{
+                  height: (SIZES.height * 0.25) - (SIZES.padding3 * 2),
+                  width: SIZES.width - (SIZES.padding3 * 2),
+                  borderRadius: SIZES.radius2,
+                }}
+              />
+            </View>
+          ))}
+        </PagerView>
+        <View style={{ marginHorizontal: SIZES.padding5 }}>
           <Text
             style={{
               ...FONTS.bodyLargeMedium,
-              color: COLORS.alertDanger,
+              color: COLORS.neutral5,
             }}
           >
-            60%
+            {t('searchCategoryTitle')}
           </Text>
-        </View>
-        <Image
-          source={Box}
-          style={{
-            width: 127,
-            height: 127,
-          }}
-        />
-      </View>
-      <View style={{ marginHorizontal: SIZES.padding5 }}>
-        <Text
-          style={{
-            ...FONTS.bodyLargeMedium,
-            color: COLORS.neutral5,
-          }}
-        >
-          {t('searchCategoryTitle')}
-        </Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={{ marginVertical: SIZES.padding3 }}
-        >
-          <IconButton
-            icon="search"
-            text="Semua"
-            active={btnAllActive}
-            onPress={() => getAllProduct()}
-          />
-          {dataCategories?.map((item) => (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ marginVertical: SIZES.padding3 }}
+          >
             <IconButton
-              key={item.id}
               icon="search"
-              text={item.name}
-              active={btnActive === item.id}
-              onPress={() => getProductByCategory(item.id)}
+              text="Semua"
+              active={btnAllActive}
+              onPress={() => getAllProduct()}
             />
-          ))}
-        </ScrollView>
+            {dataCategories?.map((item) => (
+              <IconButton
+                key={item.id}
+                icon="search"
+                text={item.name}
+                active={btnActive === item.id}
+                onPress={() => getProductByCategory(item.id)}
+              />
+            ))}
+          </ScrollView>
+        </View>
       </View>
     </LinearGradient>
   );
