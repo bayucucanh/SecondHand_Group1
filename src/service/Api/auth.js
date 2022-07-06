@@ -22,3 +22,10 @@ export const updateProfile = (accessToken, payload) => axios.put('/auth/user', p
     access_token: accessToken,
   },
 });
+
+export const changePassword = (accessToken, payload) => axios.put('/auth/change-password', payload, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    access_token: accessToken,
+  },
+});
