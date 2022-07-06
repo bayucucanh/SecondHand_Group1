@@ -3,11 +3,14 @@ import {
   GET_PRODUCT_SUCCESS,
   GET_CATEGORY_SUCCESS,
   GET_CATEGORY_FAILED,
+  GET_BANNER_SUCCESS,
+  GET_BANNER_FAILED,
 } from '../types';
 
 const initialState = {
   dataProduct: [],
   categories: [],
+  dataBanner: [],
 };
 
 const HomeReducer = (state = initialState, action = {}) => {
@@ -27,6 +30,15 @@ const HomeReducer = (state = initialState, action = {}) => {
         categories: action.payload,
       };
     case GET_CATEGORY_FAILED:
+      return {
+        ...state,
+      };
+    case GET_BANNER_SUCCESS:
+      return {
+        ...state,
+        dataBanner: action.payload,
+      };
+    case GET_BANNER_FAILED:
       return {
         ...state,
       };
