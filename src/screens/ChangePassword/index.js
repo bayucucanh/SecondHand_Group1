@@ -16,11 +16,20 @@ import {
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import Language from '../../service/Language';
 import { changePasswordSchema } from '../../utils';
+import { putChangePassword } from '../../redux/actions/putChangePassword';
 
 function ChangePassword() {
   const { t, i18n } = useTranslation();
   const navigation = useNavigation();
-
+  const accessToken = useSelector((state) => state.login.userData.access_token);
+  const dispatch = useDispatch();
+  const onUpdate = async (values) => {
+    const formdata = new FormData();
+    formdata.append('current_password', values.current_password);
+    formdata.append('new_password', values.new_password);
+    formdata.append('confirm_password', values.confirm_password);
+    await dispatch(putChangePassword(accessToken, formdata));
+  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -40,7 +49,7 @@ function ChangePassword() {
             new_password: '',
             confirm_password: '',
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => onUpdate(values)}
         >
           {({
             handleChange,
