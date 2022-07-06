@@ -121,3 +121,35 @@ export const bidPriceSchema = yup.object().shape({
     .number()
     .required('bidPriceAlertRequired'),
 });
+
+export const changePasswordSchema = yup.object().shape({
+  current_password: yup
+    .string()
+    .trim()
+    // .min(8, 'passwordAlertMin')
+    // .matches(
+    //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+    //   'passwordAlertMatch',
+    // )
+    .required('passwordAlertRequired'),
+  new_password: yup
+    .string()
+    .trim()
+    // .min(8, 'passwordAlertMin')
+    // .matches(
+    //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+    //   'passwordAlertMatch',
+    // )
+    .required('passwordAlertRequired'),
+  confirm_password: yup
+    .string()
+    .trim()
+    .oneOf([yup.ref('new_password'), null], 'passwordConfirmAlert')
+    // .min(8, 'passwordAlertMin')
+    // .matches(
+    //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+    //   'passwordAlertMatch',
+    // )
+    .required('passwordAlertRequired'),
+
+});

@@ -10,6 +10,8 @@ import {
 import Router from './router';
 import { Store, Persistor } from './redux/store';
 import { LoginImage } from './assets';
+import { initI18n } from './utils/language/i18n';
+import Language from './service/Language';
 
 const CodePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
@@ -20,6 +22,10 @@ const CodePushOptions = {
 };
 
 function App() {
+  useEffect(() => {
+    initI18n();
+  }, []);
+
   return (
     <Provider store={Store}>
       <PersistGate loading={null} persistor={Persistor}>
