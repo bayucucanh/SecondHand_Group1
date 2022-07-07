@@ -19,7 +19,12 @@ export const getProduct = (accessToken) => axios.get('/seller/product', {
     access_token: accessToken,
   },
 });
-export const detailProduct = (id) => axios.get(`/seller/product/${id}`);
+export const detailProduct = (accessToken, id) =>
+  axios.get(`/seller/product/${id}`, {
+    headers: {
+      access_token: accessToken,
+    },
+  });
 export const addProduct = (accessToken, payload) => axios.post('/seller/product', payload, {
   headers: {
     'Content-Type': 'multipart/form-data',

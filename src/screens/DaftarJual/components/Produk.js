@@ -47,7 +47,7 @@ function Produk() {
             imageUrl={item.image_url}
             style={{ maxWidth: 160 }}
             // onPress={() => console.log(item.Categories)}
-            onPress={() => navigation.navigate('Product', { values: item, list: true })}
+            onPress={() => navigation.navigate('Product', { id: item.id, list: true })}
           />
         </View>
       ))}
