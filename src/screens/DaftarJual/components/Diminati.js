@@ -3,16 +3,15 @@ import {
   Text,
   View,
   FlatList,
-  VirtualizedList,
   SafeAreaView,
   LogBox,
   Image,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { getDataSellerOrder } from '../../../redux/actions';
-import { FONTS, SIZES, COLORS } from '../../../constant';
+import { SIZES, COLORS } from '../../../constant';
 import { Loading, NotificationCard } from '../../../components';
 import { DiminatiNull } from '../../../assets/image';
 
@@ -25,7 +24,6 @@ function Diminati() {
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     dispatch(getDataSellerOrder(accessToken));
-    console.log('Seller Order', sellerOrderData);
   }, []);
 
   const empty = () => (
@@ -50,7 +48,7 @@ function Diminati() {
             date="20 Apr, 14:04"
             price={item.price}
             status={item.status}
-            isSeen={false}
+            isSeen={true}
             onPress={() => navigation.navigate('BidderInfo', { orderId: item.id })}
           />
         )}

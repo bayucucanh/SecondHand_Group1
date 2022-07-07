@@ -1,22 +1,31 @@
 import {
-  StyleSheet, Text, View, ScrollView, Image,
+  Text, View, ScrollView, Image, LogBox
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import { CustomButton, GoBackIcon, PhotoProfile } from '../../components';
 import styles from '../../constant/styles';
 import { deleteDataProduct } from '../../redux/actions/deleteSellerProduct';
+import { getDetailSellerProduct } from '../../redux/actions/getSellerProduct'
 
 function Product({ route, navigation }) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
-  const { values, list } = route.params;
+  const { id, list } = route.params;
   const profileData = useSelector((state) => state.profile.profileData);
   const categoryData = useSelector((state) => state.home.categories);
   const accessToken = useSelector((state) => state.login.userData.access_token);
+  const values = useSelector((state) => state.sellerProduct.sellerProductDetail)
+
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    dispatch(getDetailSellerProduct(accessToken, id));
+    console.log('Data Detail Produk', values);
+  }, []);
 
   return (
     <>
@@ -29,29 +38,29 @@ function Product({ route, navigation }) {
         }}
         >
           <Image
-            source={{ uri: values.image_url || values.image.uri }}
+            source={{ uri: values?.image_url || values?.image.uri }}
             style={{ height: 300 }}
           />
           <GoBackIcon iconColor={COLORS.neutral5} size={28} style={{ top: 28 }} />
           <View style={{ marginHorizontal: SIZES.padding5 }}>
             <View style={[styles.card, { marginTop: -40, paddingHorizontal: SIZES.padding5, paddingVertical: SIZES.padding3 }]}>
-              <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>{values.name}</Text>
+              <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>{values?.name}</Text>
               <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>
                 {categoryData.map((item) => (
-                  values.category_ids ? (
-                    values.category_ids.map((item1) => (
+                  values?.category_ids ? (
+                    values?.category_ids.map((item1) => (
                       item.id === item1
                     && (`${item.name}, `)
                     ))
                   ) : (
-                    values.Categories.map((item1) => (
+                      values?.Categories.map((item1) => (
                       item.id === item1.id
                       && (`${item.name}, `)
                     ))
                   )
                 ))}
               </Text>
-              <Text style={{ ...FONTS.bodyLargeRegular, fontSize: 18, color: COLORS.neutral5 }}>{values.base_price}</Text>
+              <Text style={{ ...FONTS.bodyLargeRegular, fontSize: 18, color: COLORS.neutral5 }}>{values?.base_price}</Text>
             </View>
             <View style={[styles.card, {
               marginTop: SIZES.padding3, paddingHorizontal: SIZES.padding5, paddingVertical: SIZES.padding3, flexDirection: 'row',
@@ -76,7 +85,7 @@ function Product({ route, navigation }) {
                 ...FONTS.bodyLargeRegular, paddingTop: SIZES.padding3, color: COLORS.neutral3,
               }}
               >
-                {values.description}
+                {values?.description}
               </Text>
             </View>
           </View>
@@ -126,7 +135,7 @@ function Product({ route, navigation }) {
           </View>
           <View style={{ flex: 1, marginLeft: 8 }}>
             <CustomButton
-              onPress={() => dispatch(deleteDataProduct(accessToken, values.id))}
+                onPress={() => dispatch(deleteDataProduct(accessToken, values?.id))}
               // onPress={() => console.log(values.id)}
               title={t('delete')}
               enabled
