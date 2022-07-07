@@ -8,3 +8,4 @@ export * from './getDetailProduct';
 export * from './pushBidPrice';
 export * from './getAllBidProduct';
 export * from './getSellerOrder';
+export * from './getDataNotification'
