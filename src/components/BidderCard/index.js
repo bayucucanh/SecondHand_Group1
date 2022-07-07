@@ -8,7 +8,7 @@ import CustomButton from '../CustomButton';
 import NotificationCard from '../NotificationCard';
 
 function BidderCard({
-  image, date, name, price, offeringPrice, isSeen, status,
+  image, date, name, price, offeringPrice, isSeen, status, onPressDeclined, onPressAccepted,
 }) {
   const { t, i18n } = useTranslation();
 
@@ -37,7 +37,7 @@ function BidderCard({
         }}
         >
           <CustomButton
-                //   onPress={}
+            onPress={onPressDeclined}
             title={status === 'accepted' ? 'Status' : 'Tolak'}
             type
             size="small"
@@ -55,7 +55,7 @@ function BidderCard({
         }}
         >
           <CustomButton
-                //   onPress={}
+            onPress={onPressAccepted}
             title={status === 'accepted' ? 'Hubungi' : 'Terima'}
             size="small"
             enabled

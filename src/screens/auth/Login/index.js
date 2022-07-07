@@ -16,7 +16,6 @@ import {
   InputText, CustomButton, Header, HelperText,
 } from '../../../components';
 import { COLORS, FONTS, SIZES } from '../../../constant';
-import '../../../utils/language/i18n';
 
 function Login() {
   const { t, i18n } = useTranslation();
