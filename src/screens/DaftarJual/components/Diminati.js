@@ -24,7 +24,6 @@ function Diminati() {
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     dispatch(getDataSellerOrder(accessToken));
-    console.log('Seller Order', sellerOrderData);
   }, []);
 
   const empty = () => (
@@ -49,7 +48,7 @@ function Diminati() {
             date="20 Apr, 14:04"
             price={item.price}
             status={item.status}
-            isSeen={false}
+            isSeen={true}
             onPress={() => navigation.navigate('BidderInfo', { orderId: item.id })}
           />
         )}

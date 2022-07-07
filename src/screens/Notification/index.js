@@ -1,16 +1,48 @@
 import {
-  StyleSheet, Text, View, Image,
+  StyleSheet, Text, View, Image, LogBox, FlatList,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SIZES, COLORS, FONTS } from '../../constant';
+import { SIZES, COLORS } from '../../constant';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  NotificationCard, PhotoProfile, Separator, TextHeader,
+  NotificationCard, Loading, TextHeader,
 } from '../../components';
+import { getDataNotification } from '../../redux/actions'
+import { DiminatiNull } from '../../assets/image';
+
 
 function Notification() {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.login.userData.access_token);
+  const notificationData = useSelector((state) => state.notifications.notifikasi);
   const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    dispatch(getDataNotification(accessToken));
+    console.log('Data Notifikasi', notificationData);
+  }, []);
+
+  const empty = () => (
+    <View style={{ alignItems: 'center', marginTop: 90 }}>
+      <Image source={DiminatiNull} style={{ width: 172, height: 121 }} />
+      <Text style={{ color: COLORS.neutral3, textAlign: 'center', fontSize: SIZES.h5 }}>Belum ada notifikasi nih</Text>
+    </View>
+  );
+
+  const navigate = (status, values) => {
+    if (status == "bid") {
+      navigation.navigate('BidderInfo', { orderId: values.id })
+    } else if (status == "create") {
+      navigation.navigate('Product', { values: values.product_id, list: true })
+    } else {
+      console.log('invalid!');
+    }
+  }
 
   return (
     <View style={{
@@ -19,7 +51,27 @@ function Notification() {
     >
       <FocusAwareStatusBar barStyle="dark-content" color="white" />
       <TextHeader text={t('notificationTitle')} />
-      <NotificationCard
+      <FlatList
+        data={notificationData}
+        showsVerticalScrollIndicator={false}
+        refreshing={Loading}
+        keyExtractor={(item, index) => item.id + index.toString()}
+        ListEmptyComponent={empty}
+        renderItem={({ item }) => (
+          <NotificationCard
+            image={item.Product.image_url}
+            name={item.Product.name}
+            date="20 Apr, 14:04"
+            price={item.base_price}
+            status={item.status}
+            offeringPrice={item.bid_price}
+            isSeen={item.read}
+            onPress={() => navigate(item.status, item)}
+          />
+        )}
+      />
+
+      {/* <NotificationCard
         image="https://picsum.photos/48"
         name="Jam Tangan Casio"
         date="20 Apr, 14:04"
@@ -36,7 +88,7 @@ function Notification() {
         price="Rp. 250.000"
         status="post"
         isSeen={false}
-      />
+      /> */}
     </View>
   );
 }

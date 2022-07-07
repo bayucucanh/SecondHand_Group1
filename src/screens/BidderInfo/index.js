@@ -66,26 +66,8 @@ function BidderInfo({ navigation, route }) {
             price={sellerDetailOrder?.Product.base_price}
             status={sellerDetailOrder?.status}
             offeringPrice={sellerDetailOrder?.price}
-            isSeen={false}
+            isSeen={true}
           />
-          {/* <BidderCard
-            image="https://picsum.photos/48"
-            name="Jam Tangan Casio"
-            date="20 Apr, 14:04"
-            price="Rp. 250.000"
-            status="bid"
-            offeringPrice="Rp. 200.000"
-            isSeen={false}
-          />
-          <BidderCard
-            image="https://picsum.photos/48"
-            name="Jam Tangan Casio"
-            date="20 Apr, 14:04"
-            price="Rp. 250.000"
-            status="bid"
-            offeringPrice="Rp. 200.000"
-            isSeen={false}
-          /> */}
         </View>
       </View>
     </ScrollView>
@@ -93,5 +75,3 @@ function BidderInfo({ navigation, route }) {
 }
 
 export default BidderInfo;
-
-// const styles = StyleSheet.create({});
