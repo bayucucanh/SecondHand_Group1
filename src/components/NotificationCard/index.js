@@ -13,7 +13,13 @@ function NotificationCard({
 }) {
   const { t, i18n } = useTranslation();
 
-  const cekStatus = value => {};
+  const cekStatus = value => {
+    if (value == 'create') {
+      return t('successPost')
+    } else {
+      return t('productOffer')
+    }
+  };
 
   return (
     <>
@@ -39,7 +45,7 @@ function NotificationCard({
               }}>
               <Text style={{...FONTS.bodySmallRegular}}>
                 {/* {status === 'accepted' ? t('productOffer') : t('successPost')} */}
-                {t('productOffer')}
+                {cekStatus(status)}
               </Text>
               <Text style={{...FONTS.bodySmallRegular}}>{date}</Text>
             </View>
