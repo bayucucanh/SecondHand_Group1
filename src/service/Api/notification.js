@@ -6,4 +6,11 @@ export const getNotif = (accessToken) => axios.get('/notification', {
     access_token: accessToken,
   },
 });
+
+export const patchNotif = (accessToken, id) => axios.patch(`/notification/${id}`, {
+  headers: {
+    access_token: accessToken,
+  },
+});
+
 export const detailNotif = (id) => axios.get(`/notification${id}`);

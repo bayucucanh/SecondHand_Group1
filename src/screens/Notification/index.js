@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   NotificationCard, Loading, TextHeader,
 } from '../../components';
-import { getDataNotification } from '../../redux/actions'
+import { getDataNotification, patchNotifikasi } from '../../redux/actions'
 import { DiminatiNull } from '../../assets/image';
 
 
@@ -35,12 +35,12 @@ function Notification() {
   );
 
   const navigate = (status, values) => {
-    if (status == "bid") {
-      navigation.navigate('BidderInfo', { orderId: values.id })
-    } else if (status == "create") {
-      navigation.navigate('Product', { values: values.product_id, list: true })
+    if (status == "create") {
+      dispatch(patchNotifikasi(accessToken, values.id));
+      navigation.navigate('Product', { id: values.Product.id, list: true })
     } else {
-      console.log('invalid!');
+      dispatch(patchNotifikasi(accessToken, values.id));
+      // navigation.navigate('BidderInfo', { orderId: values.id , cekId: true })
     }
   }
 
