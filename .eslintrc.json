@@ -42,7 +42,11 @@
          "import/no-named-as-default": 0,
          "eqeqeq": "off",
          "react/no-unstable-nested-components": "off",
-         "react/jsx-no-bind": "off"
+         "react/jsx-no-bind": "off",
+         "prefer-destructuring": ["error", {
+            "array": true,
+            "object": true
+          }]    
     },
     "settings": {
         "import/resolver": {
