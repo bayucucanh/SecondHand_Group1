@@ -3,6 +3,7 @@ import { successRegister } from './pushDataRegister';
 import { login } from '../../service/Api/auth';
 import Auth from '../../service/Auth';
 import { setLoading } from './globalAction';
+import { showDanger, showSuccess } from '../../utils';
 
 export const successLogin = (payload) => ({
   type: LOGIN_SUCCESS,
@@ -21,11 +22,13 @@ export const loginUser = (email, password, navigation) => async (dispatch) => {
       dispatch(successRegister(false));
       dispatch(setLoading(false));
       Auth.setAccount(response.data);
+      showSuccess('Login Berhasil');
       navigation.replace('MainApp');
     })
     .catch((err) => {
       dispatch(failedLogin());
       dispatch(setLoading(false));
+      showDanger('Login Gagal');
       console.log(err.message);
     });
 };
