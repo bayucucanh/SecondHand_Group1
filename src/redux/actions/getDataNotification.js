@@ -1,5 +1,5 @@
 import {
-  GET_NOTIFICATION_SUCCESS, GET_NOTIFICATION_FAILED, PATCH_NOTIFICATION_SUCCESS, PATCH_NOTIFICATION_FAILED
+  GET_NOTIFICATION_SUCCESS, GET_NOTIFICATION_FAILED, PATCH_NOTIFICATION_SUCCESS, PATCH_NOTIFICATION_FAILED,
 } from '../types';
 import { getNotif, patchNotif } from '../../service/Api/notification';
 import { setLoading } from './globalAction';
@@ -16,7 +16,7 @@ export const failedGetNotification = () => ({
 export const successPatchNotification = (values) => ({
   type: PATCH_NOTIFICATION_SUCCESS,
   payload: values,
-})
+});
 
 export const failedPatchNotification = () => ({
   type: PATCH_NOTIFICATION_FAILED,
@@ -35,16 +35,15 @@ export const getDataNotification = (accessToken) => async (dispatch) => {
   });
 };
 
-
 export const patchNotifikasi = (accessToken, id) => async (dispatch) => {
-  dispatch(setLoading(true))
+  dispatch(setLoading(true));
   await patchNotif(accessToken, id).then((response) => {
-    dispatch(successPatchNotification(response.data))
-    dispatch(setLoading(false))
+    dispatch(successPatchNotification(response.data));
+    dispatch(setLoading(false));
     console.log('Patch Notifikasi Berhasil');
   }).catch((err) => {
-    dispatch(failedPatchNotification())
-    dispatch(setLoading(false))
+    dispatch(failedPatchNotification());
+    dispatch(setLoading(false));
     console.log(err.message);
-  })
-}
+  });
+};

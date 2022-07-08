@@ -1,5 +1,5 @@
 import {
-  Text, View, ScrollView, Image, LogBox
+  Text, View, ScrollView, Image, LogBox,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { COLORS, FONTS, SIZES } from '../../constant';
 import { CustomButton, GoBackIcon, PhotoProfile } from '../../components';
 import styles from '../../constant/styles';
 import { deleteDataProduct } from '../../redux/actions/deleteSellerProduct';
-import { getDetailSellerProduct } from '../../redux/actions/getSellerProduct'
+import { getDetailSellerProduct } from '../../redux/actions/getSellerProduct';
 
 function Product({ route, navigation }) {
   const { t, i18n } = useTranslation();
@@ -18,8 +18,7 @@ function Product({ route, navigation }) {
   const profileData = useSelector((state) => state.profile.profileData);
   const categoryData = useSelector((state) => state.home.categories);
   const accessToken = useSelector((state) => state.login.userData.access_token);
-  const values = useSelector((state) => state.sellerProduct.sellerProductDetail)
-
+  const values = useSelector((state) => state.sellerProduct.sellerProductDetail);
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -53,7 +52,7 @@ function Product({ route, navigation }) {
                     && (`${item.name}, `)
                     ))
                   ) : (
-                      values?.Categories.map((item1) => (
+                    values?.Categories.map((item1) => (
                       item.id === item1.id
                       && (`${item.name}, `)
                     ))
@@ -135,7 +134,7 @@ function Product({ route, navigation }) {
           </View>
           <View style={{ flex: 1, marginLeft: 8 }}>
             <CustomButton
-                onPress={() => dispatch(deleteDataProduct(accessToken, values?.id))}
+              onPress={() => dispatch(deleteDataProduct(accessToken, values?.id))}
               // onPress={() => console.log(values.id)}
               title={t('delete')}
               enabled

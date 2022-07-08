@@ -4,6 +4,7 @@ import {
 } from '../types';
 import { addBuyerOrder } from '../../service/Api/buyer';
 import { setLoading } from './globalAction';
+import { showDanger, showSuccess } from '../../utils';
 
 export const successBid = (payload) => ({
   type: BID_PRODUCT_SUCCESS,
@@ -19,11 +20,11 @@ export const bidProduct = (payload, accessToken, navigation) => async (dispatch)
   await addBuyerOrder(payload, accessToken).then((response) => {
     dispatch(successBid(response.data));
     dispatch(setLoading(false));
-    console.log('Bid Success');
+    showSuccess('Harga Tawarmu Berhasil Dikirim');
     navigation.navigate('Notification');
   }).catch((err) => {
     dispatch(failedBid());
     dispatch(setLoading(false));
-    console.log(err.message);
+    showDanger(err.response.data.message);
   });
 };

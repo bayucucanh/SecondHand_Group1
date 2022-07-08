@@ -22,7 +22,7 @@ const AllReducers = combineReducers({
   sellerProduct: SellerProductListReducer,
   sell: SellReducer,
   sellerOrder: SellerOrderReducer,
-  notifications: NotificationReducer
+  notifications: NotificationReducer,
 });
 
 export default AllReducers;

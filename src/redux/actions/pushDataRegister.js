@@ -1,6 +1,7 @@
 import { REGISTER_SUCCESS, REGISTER_FAILED } from '../types';
 import { register } from '../../service/Api/auth';
 import { setLoading } from './globalAction';
+import { showDanger } from '../../utils';
 
 export const successRegister = (value) => ({
   type: REGISTER_SUCCESS,
@@ -23,6 +24,7 @@ export const checkRegister = (payload, navigation) => async (dispatch) => {
     .catch((err) => {
       dispatch(failedRegister());
       dispatch(setLoading(false));
+      showDanger(err.message)
       console.log(err.message);
     });
 };

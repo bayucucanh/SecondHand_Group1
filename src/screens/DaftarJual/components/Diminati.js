@@ -48,7 +48,7 @@ function Diminati() {
             date="20 Apr, 14:04"
             price={item.price}
             status={item.status}
-            isSeen={true}
+            isSeen
             onPress={() => navigation.navigate('BidderInfo', { orderId: item.id })}
           />
         )}
