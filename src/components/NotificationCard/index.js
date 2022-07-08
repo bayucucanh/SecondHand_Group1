@@ -13,12 +13,11 @@ function NotificationCard({
 }) {
   const { t, i18n } = useTranslation();
 
-  const cekStatus = value => {
+  const cekStatus = (value) => {
     if (value == 'create') {
-      return t('successPost')
-    } else {
-      return t('productOffer')
+      return t('successPost');
     }
+    return t('productOffer');
   };
 
   return (
@@ -29,25 +28,27 @@ function NotificationCard({
           flexDirection: 'row',
           marginBottom: SIZES.padding3,
         }}
-        onPress={onPress}>
+        onPress={onPress}
+      >
         <PhotoProfile
-          image={{uri: image}}
-          style={{width: 48, height: 48, marginRight: SIZES.padding3}}
-          styleImage={{width: 48, height: 48}}
+          image={{ uri: image }}
+          style={{ width: 48, height: 48, marginRight: SIZES.padding3 }}
+          styleImage={{ width: 48, height: 48 }}
         />
-        <View style={{flex: 1}}>
-          <View style={{flexDirection: 'row'}}>
+        <View style={{ flex: 1 }}>
+          <View style={{ flexDirection: 'row' }}>
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 width: '95%',
-              }}>
-              <Text style={{...FONTS.bodySmallRegular}}>
+              }}
+            >
+              <Text style={{ ...FONTS.bodySmallRegular }}>
                 {/* {status === 'accepted' ? t('productOffer') : t('successPost')} */}
                 {cekStatus(status)}
               </Text>
-              <Text style={{...FONTS.bodySmallRegular}}>{date}</Text>
+              <Text style={{ ...FONTS.bodySmallRegular }}>{date}</Text>
             </View>
             {!isSeen && (
               <View
@@ -63,7 +64,7 @@ function NotificationCard({
             )}
           </View>
           <View>
-            <Text style={{...FONTS.bodyLargeRegular, color: COLORS.neutral5}}>
+            <Text style={{ ...FONTS.bodyLargeRegular, color: COLORS.neutral5 }}>
               {name}
             </Text>
             <Text
@@ -71,7 +72,8 @@ function NotificationCard({
                 ...FONTS.bodyLargeRegular,
                 color: COLORS.neutral5,
                 textDecorationLine: accepted && 'line-through',
-              }}>
+              }}
+            >
               {formatRupiah(price)}
             </Text>
             {offeringPrice && (
@@ -82,12 +84,14 @@ function NotificationCard({
                     color: COLORS.neutral5,
                     textDecorationLine:
                       status === 'declined' ? 'line-through' : 'none',
-                  }}>
-                  {accepted ? t('successOfferPrice') : t('offerPrice')}{' '}
+                  }}
+                >
+                  {accepted ? t('successOfferPrice') : t('offerPrice')}
+                  {' '}
                   {formatRupiah(offeringPrice)}
                 </Text>
                 {accepted && (
-                  <Text style={{...FONTS.bodySmallRegular}}>
+                  <Text style={{ ...FONTS.bodySmallRegular }}>
                     {t('offeringContact')}
                   </Text>
                 )}

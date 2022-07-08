@@ -3,16 +3,15 @@ import {
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SIZES, COLORS } from '../../constant';
-import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import { SIZES, COLORS } from '../../constant';
+import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
   NotificationCard, Loading, TextHeader,
 } from '../../components';
-import { getDataNotification, patchNotifikasi } from '../../redux/actions'
+import { getDataNotification, patchNotifikasi } from '../../redux/actions';
 import { DiminatiNull } from '../../assets/image';
-
 
 function Notification() {
   const navigation = useNavigation();
@@ -35,14 +34,14 @@ function Notification() {
   );
 
   const navigate = (status, values) => {
-    if (status == "create") {
+    if (status == 'create') {
       dispatch(patchNotifikasi(accessToken, values.id));
-      navigation.navigate('Product', { id: values.Product.id, list: true })
+      navigation.navigate('Product', { id: values.Product.id, list: true });
     } else {
       dispatch(patchNotifikasi(accessToken, values.id));
       // navigation.navigate('BidderInfo', { orderId: values.id , cekId: true })
     }
-  }
+  };
 
   return (
     <View style={{
