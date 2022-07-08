@@ -24,7 +24,7 @@ export const checkRegister = (payload, navigation) => async (dispatch) => {
     .catch((err) => {
       dispatch(failedRegister());
       dispatch(setLoading(false));
-      showDanger(err.message)
+      showDanger(err.message);
       console.log(err.message);
     });
 };
