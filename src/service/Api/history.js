@@ -6,7 +6,8 @@ export const getHistory = (accessToken) => axios.get('/history', {
     access_token: accessToken,
   },
 });
-export const detailHistory = (accessToken, id) => axios.get(`/history${id}`, {
+
+export const detailHistory = (accessToken, id) => axios.get(`/history/${id}`, {
   headers: {
     access_token: accessToken,
   },

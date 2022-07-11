@@ -13,7 +13,7 @@ import { Header, Loading, NotificationCard } from '../../components';
 import { getDataHistory } from '../../redux/actions';
 import { sortByDate } from '../../utils';
 
-function History() {
+function History({ navigation }) {
   const dispatch = useDispatch();
 
   // Selector
@@ -55,6 +55,7 @@ function History() {
                 date={item?.transaction_date}
                 price={item?.price}
                 status={item?.status}
+                onPress={() => navigation.navigate('DetailHistory', { historyId: item.id })}
               />
             )}
           />

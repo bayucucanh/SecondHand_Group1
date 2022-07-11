@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Login, Register, Splash, ChangeProfile, Product, NotLogin,
-  Success, Detail, Jual, BidderInfo, Setting, ChangePassword, History,
+  Success, Detail, Jual, BidderInfo, Setting, ChangePassword, History, DetailHistory,
 } from '../screens/index';
 import Auth from '../service/Auth';
 import MainApp from './MainApp';
@@ -120,6 +120,11 @@ function Router() {
       <Stack.Screen
         name="History"
         component={History}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DetailHistory"
+        component={DetailHistory}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

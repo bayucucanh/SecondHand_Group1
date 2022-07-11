@@ -1,4 +1,9 @@
-import { GET_HISTORY_SUCCESS, GET_HISTORY_FAILED } from '../types';
+import {
+  GET_HISTORY_SUCCESS,
+  GET_HISTORY_FAILED,
+  GET_HISTORY_DETAIL_SUCCESS,
+  GET_HISTORY_DETAIL_FAILED,
+} from '../types';
 
 const initialState = {
   allHistory: [],
@@ -13,6 +18,15 @@ const HistoryReducer = (state = initialState, action = {}) => {
         allHistory: action.payload,
       };
     case GET_HISTORY_FAILED:
+      return {
+        ...state,
+      };
+    case GET_HISTORY_DETAIL_SUCCESS:
+      return {
+        ...state,
+        detailHistory: action.payload,
+      };
+    case GET_HISTORY_DETAIL_FAILED:
       return {
         ...state,
       };
