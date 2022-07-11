@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Separator from '../Separator';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import PhotoProfile from '../PhotoProfile';
-import formatRupiah from '../../utils/formatCurrency';
+import { formatRupiah, formatDate } from '../../utils';
 
 function NotificationCard({
   image, date, name, price, offeringPrice, isSeen, status, accepted, bidderInfo, onPress,
@@ -48,7 +48,7 @@ function NotificationCard({
                 {/* {status === 'accepted' ? t('productOffer') : t('successPost')} */}
                 {cekStatus(status)}
               </Text>
-              <Text style={{ ...FONTS.bodySmallRegular }}>{date}</Text>
+              <Text style={{ ...FONTS.bodySmallRegular }}>{formatDate(date)}</Text>
             </View>
             {!isSeen && (
               <View

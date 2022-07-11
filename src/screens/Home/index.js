@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import PagerView from 'react-native-pager-view';
 import { COLORS, SIZES, FONTS } from '../../constant';
 import {
-  IconButton, Loading, ProductCard, SearchBar,
+  IconButton, Loader, Loading, ProductCard, SearchBar,
 } from '../../components';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
@@ -157,7 +157,7 @@ function Home({ navigation }) {
       </View>
     );
   }
-  return <Loading />;
+  return <Loader />;
 }
 
 export default Home;

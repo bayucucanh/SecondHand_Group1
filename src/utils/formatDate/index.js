@@ -1,6 +1,6 @@
-import {monthShort} from '../../constant';
+import { monthShort } from '../../constant';
 
-export const formatDate = params => {
+export const formatDate = (params) => {
   const dates = new Date(params);
   const time = new Date(params).toLocaleTimeString('en', {
     timeStyle: 'short',
@@ -10,6 +10,6 @@ export const formatDate = params => {
   const year = dates.getFullYear();
   const month = dates.getMonth();
   const date = dates.getDate();
-  const total = `${date} ${monthShort[month]} ${year} ${time}`;
+  const total = `${date} ${monthShort[month]} ${year}, ${time}`;
   return total;
 };
