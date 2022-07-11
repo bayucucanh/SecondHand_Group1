@@ -10,6 +10,7 @@ import SellReducer from './SellReducer';
 import SellerProductListReducer from './SellerProductListReducer';
 import SellerOrderReducer from './SellerOrder';
 import NotificationReducer from './NotificationReducer';
+import HistoryReducer from './HistoryReducer';
 
 const AllReducers = combineReducers({
   login: LoginReducer,
@@ -23,6 +24,7 @@ const AllReducers = combineReducers({
   sell: SellReducer,
   sellerOrder: SellerOrderReducer,
   notifications: NotificationReducer,
+  history: HistoryReducer,
 });
 
 export default AllReducers;

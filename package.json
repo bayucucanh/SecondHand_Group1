@@ -35,6 +35,7 @@
     "metro-config": "^0.71.2",
     "prop-types": "^15.8.1",
     "react": "17.0.2",
+    "react-content-loader": "^6.2.0",
     "react-i18next": "^11.17.3",
     "react-native": "0.68.2",
     "react-native-code-push": "^7.0.4",

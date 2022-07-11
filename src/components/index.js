@@ -16,6 +16,7 @@ import BottomSheetComponent from './BottomSheet';
 import NotificationCard from './NotificationCard';
 import BidderCard from './BidderCard';
 import LoadingScreen from './LoadingScreen';
+import Loader from './LoadingSkeleton';
 
 export {
   Header,
@@ -36,4 +37,5 @@ export {
   NotificationCard,
   BidderCard,
   LoadingScreen,
+  Loader,
 };
