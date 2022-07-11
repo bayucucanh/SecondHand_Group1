@@ -16,3 +16,9 @@ export const formatDate = (params) => {
   }
   return 'Tidak ada tanggal';
 };
+
+export const sortByDate = (a, b) => {
+  const dateA = new Date(a.date).getTime();
+  const dateB = new Date(b.date).getTime();
+  return dateA > dateB ? 1 : -1;
+};

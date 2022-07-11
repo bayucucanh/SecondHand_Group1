@@ -1,10 +1,32 @@
-import { ScrollView, Text, View } from 'react-native';
-import React from 'react';
+import {
+  ScrollView,
+  Text,
+  View,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { SIZES, COLORS, FONTS } from '../../constant';
 import styles from '../../constant/styles';
-import { Header, NotificationCard } from '../../components';
+import { Header, Loading, NotificationCard } from '../../components';
+import { getDataHistory } from '../../redux/actions';
+import { sortByDate } from '../../utils';
 
 function History() {
+  const dispatch = useDispatch();
+
+  // Selector
+  const accessToken = useSelector((state) => state.login.userData.access_token);
+  const allHistory = useSelector((state) => state.history.allHistory);
+
+  useEffect(() => {
+    dispatch(getDataHistory(accessToken));
+    console.log('Semua History', allHistory);
+  }, [dispatch]);
+
+  const renderFooter = () => <ActivityIndicator color="white" style={{ marginLeft: 8 }} />;
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -20,12 +42,21 @@ function History() {
       >
         <Header title="Riwayat Transaksi" />
         <View style={{ marginHorizontal: SIZES.padding5 }}>
-          <NotificationCard
-            image="https://picsum.photos/48"
-            name="Nama Product"
-            date="20 Apr, 14:04"
-            price="17000"
-            status="accepted"
+          <FlatList
+            data={allHistory.sort(sortByDate)}
+            initialNumToRender={4}
+            keyExtractor={(item, index) => item.id + index.toString()}
+            showsVerticalScrollIndicator={false}
+            ListFooterComponent={renderFooter}
+            renderItem={({ item }) => (
+              <NotificationCard
+                image={item?.image_url}
+                name={item?.product_name}
+                date={item?.transaction_date}
+                price={item?.price}
+                status={item?.status}
+              />
+            )}
           />
         </View>
       </View>
