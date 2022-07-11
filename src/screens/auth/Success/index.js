@@ -4,12 +4,14 @@ import {
 import React from 'react';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { AnimSuccess } from '../../../assets/index';
 import { COLORS } from '../../../constant';
 import { CustomButton } from '../../../components';
 
 function Success() {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -17,7 +19,7 @@ function Success() {
         <LottieView source={AnimSuccess} autoPlay loop={false} />
       </View>
       <View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 25 }}>
-        <CustomButton title="Continue" onPress={() => navigation.replace('Login')} enabled />
+        <CustomButton title={t('continue')} onPress={() => navigation.goBack()} enabled />
       </View>
     </View>
   );

@@ -5,13 +5,14 @@ import { COLORS, FONTS, SIZES } from '../../constant';
 import Separator from '../Separator';
 
 function TextButton({
-  onPress, text, icon, isSeparate,
+  onPress, text, icon, isSeparate, disabled,
 }) {
   return (
     <>
       <TouchableOpacity
         style={{ flexDirection: 'row', marginVertical: SIZES.padding4 }}
         onPress={onPress}
+        disabled={disabled}
       >
         <Icon name={icon} color={COLORS.primaryPurple4} size={SIZES.icon} />
         <Text style={[FONTS.titleNormalMedium, {

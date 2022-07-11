@@ -11,6 +11,7 @@ function SearchBar({ onChangeText, value }) {
 
   return (
     <View style={{
+      elevation: 4,
       marginHorizontal: SIZES.padding5,
       marginTop: 38,
       backgroundColor: COLORS.neutral1,
@@ -24,7 +25,8 @@ function SearchBar({ onChangeText, value }) {
         onChangeText={onChangeText}
         value={value}
         style={[FONTS.bodyNormalRegular, {
-          width: '90%', alignItems: 'baseline',
+          width: '90%',
+          alignItems: 'baseline',
         }]}
         placeholder={t('searchBarPlaceholder')}
       />
@@ -34,5 +36,3 @@ function SearchBar({ onChangeText, value }) {
 }
 
 export default SearchBar;
-
-const styles = StyleSheet.create({});

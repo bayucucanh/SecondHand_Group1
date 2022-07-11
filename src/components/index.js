@@ -15,6 +15,7 @@ import GoBackIcon from './GoBackIcon';
 import BottomSheetComponent from './BottomSheet';
 import NotificationCard from './NotificationCard';
 import BidderCard from './BidderCard';
+import LoadingScreen from './LoadingScreen';
 import Loader from './LoadingSkeleton';
 
 export {
@@ -35,5 +36,6 @@ export {
   BottomSheetComponent,
   NotificationCard,
   BidderCard,
+  LoadingScreen,
   Loader,
 };

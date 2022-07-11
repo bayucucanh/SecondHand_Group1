@@ -6,17 +6,19 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import FastImage from 'react-native-fast-image';
 import { COLORS, SIZES, FONTS } from '../../constant';
 import { formatRupiah } from '../../utils/formatCurrency';
 import styles from '../../constant/styles';
+import LoadingScreen from '../LoadingScreen';
 
 function ProductCard({
   name, categories, basePrice, imageUrl, style, onPress,
 }) {
   return (
     <TouchableOpacity style={[styles.card, { ...style }]} onPress={onPress}>
-      <Image
+      <FastImage
         style={{
           width: 140,
           height: 100,
@@ -25,6 +27,7 @@ function ProductCard({
         }}
         source={{
           uri: imageUrl,
+          priority: FastImage.priority.high,
         }}
       />
       <Text
@@ -37,23 +40,15 @@ function ProductCard({
       >
         {name}
       </Text>
-      <FlatList
-        data={categories}
-        horizontal
-        keyExtractor={(item, index) => item.id + index.toString()}
-        renderItem={({ item }) => (
-          <Text
-            style={[FONTS.bodySmallRegular, {
-              color: COLORS.neutral3,
-            }]}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-          >
-            {item.name}
-            {', '}
-          </Text>
-        )}
-      />
+      <Text
+        style={[FONTS.bodySmallRegular, {
+          color: COLORS.neutral3,
+        }]}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
+        {categories.map((item) => (categories.length > 1 ? `${item.name}, ` : item.name))}
+      </Text>
       <Text
         style={[FONTS.bodyNormalRegular, {
           marginVertical: SIZES.base,

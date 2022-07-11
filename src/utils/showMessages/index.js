@@ -1,5 +1,5 @@
 import { showMessage } from 'react-native-flash-message';
-import { COLORS } from '../../constant';
+import { COLORS, FONTS, SIZES } from '../../constant';
 
 export function showSuccess(message) {
   showMessage({
@@ -7,6 +7,17 @@ export function showSuccess(message) {
     type: 'success',
     color: COLORS.white,
     icon: 'success',
+    duration: 800,
+    style: {
+      marginTop: SIZES.padding5 * 2 + 6,
+      marginHorizontal: SIZES.padding5,
+      borderRadius: SIZES.radius2,
+      padding: SIZES.padding3,
+    },
+    titleStyle: {
+      ...FONTS.bodyLargeMedium,
+      marginTop: 3,
+    },
   });
 }
 

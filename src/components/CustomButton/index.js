@@ -41,7 +41,7 @@ function CustomButton({
       onPress={onPress}
     >
       {isLoading ? (
-        <ActivityIndicator color="white" />
+        <ActivityIndicator color={type ? COLORS.primaryPurple4 : COLORS.white} />
       ) : (
         <Text style={[FONTS.bodyLargeMedium, type ? {
           color: enabled ? COLORS.neutral5 : COLORS.neutral2,
