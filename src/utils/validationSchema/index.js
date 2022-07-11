@@ -52,8 +52,8 @@ export const registerValidationSchema = yup.object().shape({
   address: yup
     .string()
     .trim()
-    .min(10, 'addressAlertRequired')
-    .max(150, 'addressAlertRequired')
+    .min(1, 'addressAlertMin')
+    .max(150, 'addressAlertMax')
     .required('addressAlertRequired'),
 });
 

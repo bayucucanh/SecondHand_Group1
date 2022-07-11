@@ -67,7 +67,7 @@ function MainApp() {
                   // Prevent default action
                   e.preventDefault();
                   // Any custom code here
-                  navigation.navigate('JualFull', { values: false, list: true });
+                  navigation.navigate('JualFull', { data: false });
                 },
               }}
               options={{
@@ -93,7 +93,7 @@ function MainApp() {
         )}
 
         <Tab.Screen
-          name="Profile"
+          name="Akun"
           component={login ? Profile : NotLogin}
           options={{
             tabBarLabel: 'Akun',

@@ -1,7 +1,7 @@
 import {
   StyleSheet, Text, View, Dimensions, ScrollView, Switch,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -13,17 +13,23 @@ import {
 } from '../../constant';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import Language from '../../service/Language';
+import { getDeviceLang } from '../../utils/language/getDeviceLanguage';
 
 function Setting() {
   const { t, i18n } = useTranslation();
   const navigation = useNavigation();
-  const language = Language.getLanguage();
-  const [isEnabled, setIsEnabled] = useState(language == 'en');
+  const [isEnabled, setIsEnabled] = useState(true);
   const toggleSwitch = () => {
     i18n.changeLanguage(isEnabled ? 'en' : 'id');
     Language.setLanguage(isEnabled ? 'en' : 'id');
     setIsEnabled((previousState) => !previousState);
   };
+
+  useEffect(() => {
+    Language.getLanguage().then((data) => {
+      setIsEnabled(data == 'id');
+    });
+  }, []);
 
   return (
     <ScrollView
@@ -38,7 +44,7 @@ function Setting() {
         <Header title={t('settingTitle')} />
         <View style={{ paddingHorizontal: SIZES.padding5 }}>
           <TextButton onPress={() => navigation.navigate('ChangePassword')} icon="key" text={t('goToChangePassword')} />
-          <TextButton icon="settings" text={t('changeLanguage')} onPress={() => navigation.navigate('Setting')} isSeparate />
+          <TextButton icon="globe" text={t('changeLanguage')} onPress={toggleSwitch} isSeparate />
           <View style={{
             flex: 1,
             flexDirection: 'row',

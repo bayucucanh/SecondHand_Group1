@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
   Text,
   View,
@@ -5,6 +6,7 @@ import {
   ScrollView,
   FlatList,
   Image,
+  LogBox,
 } from 'react-native';
 import React, { useEffect, useState, useCallback } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,7 +27,7 @@ import {
 import { Box } from '../../assets';
 
 function Home({ navigation }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [btnActive, setBtnActive] = useState('');
   const [btnAllActive, setBtnAllActive] = useState(true);
   const [searchProduct, setSearchProduct] = useState('');
@@ -36,7 +38,7 @@ function Home({ navigation }) {
   const loading = useSelector((state) => state.global.isLoading);
 
   useEffect(() => {
-    // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     dispatch(getDataCategories());
     dispatch(getDataBanner());
     getAllProduct();
@@ -62,9 +64,10 @@ function Home({ navigation }) {
     dispatch(getDataProduct('/'));
   }, [dispatch, btnActive]);
 
-  const headerFlatlist = () => (
-    <LinearGradient colors={['#FFE9C9', '#FFFFFF']} locations={[0.6, 1]}>
-      <View>
+  return (
+    <View style={styles.container}>
+      <FocusAwareStatusBar barStyle="dark-content" color={COLORS.white} />
+      <ScrollView nestedScrollEnabled>
         <SearchBar onChangeText={getProductBySearch} value={searchProduct} />
         <PagerView style={{ height: SIZES.height * 0.25 }} initialPage={0} showPageIndicator>
           {dataBanner?.map((item) => (
@@ -117,47 +120,36 @@ function Home({ navigation }) {
               />
             ))}
           </ScrollView>
+          {loading ? (<Loading size="large" color={COLORS.primaryPurple4} />) : dataProduct.length === 0 ? (
+            <Text style={{ fontSize: 15 }}>Tidak ada produk</Text>
+          ) : (
+            <FlatList
+              data={dataProduct}
+              initialNumToRender={7}
+              numColumns={2}
+              columnWrapperStyle={{
+                //   flex: 1,
+                marginBottom: SIZES.padding4,
+                justifyContent: 'space-between',
+              }}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => item.id + index.toString()}
+              renderItem={({ item }) => (
+                <ProductCard
+                  name={item.name}
+                  categories={item.Categories}
+                  basePrice={item.base_price}
+                  imageUrl={item.image_url}
+                  style={{ maxWidth: 160 }}
+                  onPress={() => navigation.navigate('Detail', { productId: item.id })}
+                />
+              )}
+            />
+          ) }
         </View>
-      </View>
-    </LinearGradient>
+      </ScrollView>
+    </View>
   );
-
-  if (!loading) {
-    return (
-      <View style={styles.container}>
-        <FocusAwareStatusBar barStyle="dark-content" color="#FFE9C9" />
-        {dataProduct.length === 0 ? (
-          <Text style={{ fontSize: 15 }}>Tidak ada produk</Text>
-        ) : (
-          <FlatList
-            data={dataProduct}
-            initialNumToRender={7}
-            numColumns={2}
-            columnWrapperStyle={{
-              flex: 1,
-              marginHorizontal: SIZES.padding5,
-              marginBottom: SIZES.padding4,
-              justifyContent: 'space-between',
-            }}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => item.id + index.toString()}
-            ListHeaderComponent={headerFlatlist}
-            renderItem={({ item }) => (
-              <ProductCard
-                name={item.name}
-                categories={item.Categories}
-                basePrice={item.base_price}
-                imageUrl={item.image_url}
-                style={{ maxWidth: 160 }}
-                onPress={() => navigation.navigate('Detail', { productId: item.id })}
-              />
-            )}
-          />
-        )}
-      </View>
-    );
-  }
-  return <Loading />;
 }
 
 export default Home;

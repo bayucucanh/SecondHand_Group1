@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
   FlatList, StyleSheet, Text, View,
 } from 'react-native';
@@ -10,48 +11,50 @@ import { useTranslation } from 'react-i18next';
 import ProductCard from '../../../components/ProductCard';
 import { COLORS, FONTS, SIZES } from '../../../constant';
 import { getDataSellerProduct } from '../../../redux/actions/getSellerProduct';
+import { Loading } from '../../../components';
 
 function Produk() {
   const navigation = useNavigation();
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const isFocused = useIsFocused();
   const accessToken = useSelector((state) => state.login.userData.access_token);
-
+  const isLoading = useSelector((state) => state.global.isLoading);
   const productList = useSelector((state) => state.sellerProduct.sellerProductList);
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (isFocused) {
       dispatch(getDataSellerProduct(accessToken));
     }
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
-      {productList.length < 5 && (
-        <View style={styles.cardTambah}>
-          <TouchableOpacity style={styles.tambahProduk} onPress={() => navigation.navigate('JualFull', { data: false })}>
-            <Icon name="plus" size={30} style={{ color: COLORS.neutral3 }} />
-            <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{t('addProduct')}</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-      {productList.map((item) => (
-        <View key={item.id} style={{ marginBottom: SIZES.padding3 }}>
-          <ProductCard
-            name={item.name}
-            categories={item.Categories}
-            basePrice={item.base_price}
-            imageUrl={item.image_url}
-            style={{ maxWidth: 160 }}
-            // onPress={() => console.log(item.Categories)}
-            onPress={() => navigation.navigate('Product', { id: item.id, list: true })}
-          />
-        </View>
-      ))}
-
+      {isLoading ? (<Loading size="large" color={COLORS.primaryPurple4} />)
+        : (
+          <>
+            {productList.length < 5 && (
+            <View style={styles.cardTambah}>
+              <TouchableOpacity style={styles.tambahProduk} onPress={() => navigation.navigate('JualFull', { data: false })}>
+                <Icon name="plus" size={30} style={{ color: COLORS.neutral3 }} />
+                <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{t('addProduct')}</Text>
+              </TouchableOpacity>
+            </View>
+            )}
+            {productList.map((item) => (
+              <View key={item.id} style={{ marginBottom: SIZES.padding3 }}>
+                <ProductCard
+                  name={item.name}
+                  categories={item.Categories}
+                  basePrice={item.base_price}
+                  imageUrl={item.image_url}
+                  style={{ maxWidth: 160 }}
+                  onPress={() => navigation.navigate('Product', { values: item, list: true })}
+                />
+              </View>
+            ))}
+          </>
+        )}
     </View>
   );
 }

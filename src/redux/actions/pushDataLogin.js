@@ -1,3 +1,4 @@
+import i18n from 'i18next';
 import { LOGIN_SUCCESS, LOGIN_FAILED } from '../types';
 import { successRegister } from './pushDataRegister';
 import { login } from '../../service/Api/auth';
@@ -22,13 +23,13 @@ export const loginUser = (email, password, navigation) => async (dispatch) => {
       dispatch(successRegister(false));
       dispatch(setLoading(false));
       Auth.setAccount(response.data);
-      showSuccess('Login Berhasil');
+      showSuccess(i18n.t('loginSuccess'));
       navigation.replace('MainApp');
     })
     .catch((err) => {
       dispatch(failedLogin());
       dispatch(setLoading(false));
-      showDanger('Login Gagal');
+      showDanger(i18n.t('loginFailed'));
       console.log(err.message);
     });
 };

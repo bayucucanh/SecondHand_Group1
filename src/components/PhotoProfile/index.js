@@ -2,6 +2,7 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { launchImageLibrary } from 'react-native-image-picker';
+import FastImage from 'react-native-fast-image';
 import { COLORS, SIZES } from '../../constant';
 
 function PhotoProfile({
@@ -47,7 +48,7 @@ function PhotoProfile({
           }}
         >
           {hasPhoto ? (
-            <Image
+            <FastImage
               source={photo}
               style={{
                 width: 112,

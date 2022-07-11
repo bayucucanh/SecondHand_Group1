@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import en from './en.json';
 import id from './id.json';
 import Language from '../../service/Language';
-import { USER_LANG, getDeviceLang } from './getDeviceLanguage';
+import { getDeviceLang } from './getDeviceLanguage';
 
 const languageDetector = {
   init: Function.prototype,
@@ -12,7 +12,6 @@ const languageDetector = {
   async: true, // flags below detection to be async
   detect: async (callback) => {
     const userLang = await Language.getLanguage();
-
     const deviceLang = userLang || getDeviceLang();
     callback(deviceLang);
   },
@@ -25,7 +24,6 @@ export const initI18n = () => {
     .use(initReactI18next)
     .init({
       compatibilityJSON: 'v3',
-      // lng: 'id',
       fallbackLng: 'id',
       resources: {
         id,

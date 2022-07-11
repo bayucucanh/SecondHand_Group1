@@ -14,7 +14,7 @@ import Terjual from './components/Terjual';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 
 function DaftarJual({ navigation }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const profileData = useSelector((state) => state.profile.profileData);
 

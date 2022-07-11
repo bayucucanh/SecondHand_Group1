@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
   StyleSheet,
   Text,
@@ -9,51 +10,80 @@ import {
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { getDataSellerOrder } from '../../../redux/actions';
-import { SIZES, COLORS } from '../../../constant';
+import { SIZES, COLORS, FONTS } from '../../../constant';
 import { Loading, NotificationCard } from '../../../components';
 import { DiminatiNull } from '../../../assets/image';
+import { SelectionImage } from '../../../assets';
 
 function Diminati() {
+  const { t } = useTranslation();
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const sellerOrderData = useSelector((state) => state.sellerOrder.sellerOrder);
+  const isLoading = useSelector((state) => state.global.isLoading);
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    dispatch(getDataSellerOrder(accessToken));
-  }, []);
+    if (isFocused) {
+      dispatch(getDataSellerOrder(accessToken));
+    }
+  }, [isFocused]);
 
-  const empty = () => (
-    <View style={{ alignItems: 'center', marginTop: 90 }}>
-      <Image source={DiminatiNull} style={{ width: 172, height: 121 }} />
-      <Text style={{ color: COLORS.neutral3, textAlign: 'center', fontSize: SIZES.h5 }}>Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana kok</Text>
-    </View>
-  );
+  function Empty() {
+    return (
+      <View style={{
+        alignItems: 'center', justifyContent: 'center',
+      }}
+      >
+        <SelectionImage width={SIZES.width * 0.6} height={SIZES.width * 0.4} />
+        <Text style={{
+          color: COLORS.neutral3, textAlign: 'center', ...FONTS.bodyLargeRegular, marginTop: SIZES.padding3,
+        }}
+        >
+          {t('emptyInterested')}
+        </Text>
+      </View>
+    );
+  }
 
   return (
-    <SafeAreaView>
-      <FlatList
-        data={sellerOrderData}
-        showsVerticalScrollIndicator={false}
-        refreshing={Loading}
-        keyExtractor={(item, index) => item.id + index.toString()}
-        ListEmptyComponent={empty}
-        renderItem={({ item }) => (
-          <NotificationCard
-            image={item.Product.image_url}
-            name={item.Product.name}
-            date="20 Apr, 14:04"
-            price={item.price}
-            status={item.status}
-            isSeen
-            onPress={() => navigation.navigate('BidderInfo', { orderId: item.id })}
+    <View>
+      {isLoading ? (<Loading size="large" color={COLORS.primaryPurple4} />)
+        : sellerOrderData.length == 0 ? (
+          <View style={{
+            flex: 1,
+            height: SIZES.height * 0.5,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          >
+            <Empty />
+          </View>
+        ) : (
+          <FlatList
+            data={sellerOrderData}
+            showsVerticalScrollIndicator={false}
+            refreshing={Loading}
+            keyExtractor={(item, index) => item.id + index.toString()}
+            renderItem={({ item }) => (
+              <NotificationCard
+                image={item.Product.image_url}
+                name={item.Product.name}
+                date="20 Apr, 14:04"
+                price={item.price}
+                status={item.status}
+                isSeen
+                onPress={() => navigation.navigate('BidderInfo', { orderId: item.id })}
+              />
+            )}
           />
         )}
-      />
-    </SafeAreaView>
+    </View>
   );
 }
 
