@@ -19,49 +19,49 @@ function History({ navigation }) {
   // Selector
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const allHistory = useSelector((state) => state.history.allHistory);
+  const loading = useSelector((state) => state.global.isLoading);
 
   useEffect(() => {
     dispatch(getDataHistory(accessToken));
-    console.log('Semua History', allHistory);
-  }, [dispatch]);
+  }, []);
 
-  const renderFooter = () => <ActivityIndicator color="white" style={{ marginLeft: 8 }} />;
+  const renderFooter = () => (
+    <ActivityIndicator color="white" style={{ marginLeft: 8 }} />
+  );
 
+  if (loading) {
+    return <Loading />;
+  }
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={{ backgroundColor: COLORS.neutral1 }}
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.neutral1,
+        paddingBottom: SIZES.padding6,
+        paddingTop: 20,
+      }}
     >
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: COLORS.neutral1,
-          paddingBottom: SIZES.padding6,
-          paddingTop: 20,
-        }}
-      >
-        <Header title="Riwayat Transaksi" />
-        <View style={{ marginHorizontal: SIZES.padding5 }}>
-          <FlatList
-            data={allHistory.sort(sortByDate)}
-            initialNumToRender={4}
-            keyExtractor={(item, index) => item.id + index.toString()}
-            showsVerticalScrollIndicator={false}
-            ListFooterComponent={renderFooter}
-            renderItem={({ item }) => (
-              <NotificationCard
-                image={item?.image_url}
-                name={item?.product_name}
-                date={item?.transaction_date}
-                price={item?.price}
-                status={item?.status}
-                onPress={() => navigation.navigate('DetailHistory', { historyId: item.id })}
-              />
-            )}
-          />
-        </View>
+      <Header title="Riwayat Transaksi" />
+      <View style={{ marginHorizontal: SIZES.padding5 }}>
+        <FlatList
+          data={allHistory?.sort(sortByDate)}
+          initialNumToRender={4}
+          keyExtractor={(item, index) => item.id + index.toString()}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={renderFooter}
+          renderItem={({ item }) => (
+            <NotificationCard
+              image={item?.image_url}
+              name={item?.product_name}
+              date={item?.transaction_date}
+              price={item?.price}
+              status={item?.status}
+              onPress={() => navigation.navigate('DetailHistory', { historyId: item.id })}
+            />
+          )}
+        />
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
