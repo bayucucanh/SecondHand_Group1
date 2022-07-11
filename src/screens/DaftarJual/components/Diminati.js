@@ -45,10 +45,10 @@ function Diminati() {
           <NotificationCard
             image={item.Product.image_url}
             name={item.Product.name}
-            date="20 Apr, 14:04"
-            price={item.price}
+            date={item.transaction_date}
+            price={item.base_price}
             status={item.status}
-            isSeen
+            offeringPrice={item.price}
             onPress={() => navigation.navigate('BidderInfo', { orderId: item.id })}
           />
         )}

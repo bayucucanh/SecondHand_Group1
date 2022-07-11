@@ -128,7 +128,7 @@ function BidderInfo({ navigation, route }) {
             <BidderCard
               image={sellerDetailOrder.Product.image_url}
               name={sellerDetailOrder.Product.name}
-              date="20 Apr, 14:04"
+              date={sellerDetailOrder.transaction_date}
               price={sellerDetailOrder.Product.base_price}
               status={sellerDetailOrder.status}
               offeringPrice={sellerDetailOrder.price}

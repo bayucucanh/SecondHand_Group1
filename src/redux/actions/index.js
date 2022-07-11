@@ -10,3 +10,4 @@ export * from './getAllBidProduct';
 export * from './getSellerOrder';
 export * from './getDataNotification';
 export * from './getDataBanner';
+export * from './getDataHistory';

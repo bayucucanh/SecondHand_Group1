@@ -15,6 +15,7 @@ import GoBackIcon from './GoBackIcon';
 import BottomSheetComponent from './BottomSheet';
 import NotificationCard from './NotificationCard';
 import BidderCard from './BidderCard';
+import Loader from './LoadingSkeleton';
 
 export {
   Header,
@@ -34,4 +35,5 @@ export {
   BottomSheetComponent,
   NotificationCard,
   BidderCard,
+  Loader,
 };

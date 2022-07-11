@@ -14,10 +14,12 @@ import DaftarJual from './DaftarJual';
 import BidderInfo from './BidderInfo';
 import Setting from './Setting';
 import ChangePassword from './ChangePassword';
+import History from './History';
+import DetailHistory from './DetailHistory';
 
 export {
   Login, Register, Home, Splash, Profile,
   ChangeProfile, Jual, Product, NotLogin,
   Success, Detail, Notification, DaftarJual,
-  BidderInfo, Setting, ChangePassword,
+  BidderInfo, Setting, ChangePassword, History, DetailHistory,
 };

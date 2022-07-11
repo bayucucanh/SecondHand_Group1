@@ -58,14 +58,14 @@ function Notification() {
         ListEmptyComponent={empty}
         renderItem={({ item }) => (
           <NotificationCard
-            image={item.Product.image_url}
-            name={item.Product.name}
+            image={item?.Product?.image_url}
+            name={item?.Product?.name}
             date="20 Apr, 14:04"
-            price={item.base_price}
-            status={item.status}
-            offeringPrice={item.bid_price}
-            isSeen={item.read}
-            onPress={() => navigate(item.status, item)}
+            price={item?.base_price}
+            status={item?.status}
+            offeringPrice={item?.bid_price}
+            isSeen={item?.read}
+            onPress={() => navigate(item?.status, item)}
           />
         )}
       />
