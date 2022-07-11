@@ -32,7 +32,7 @@ function DetailHistory({ route }) {
     >
       <View style={{ flex: 1, marginBottom: SIZES.padding5 }}>
         <Image
-          source={{ uri: detailHistory.image_url }}
+          source={{ uri: detailHistory?.image_url }}
           style={{ height: 300 }}
         />
         <GoBackIcon iconColor={COLORS.neutral5} size={28} style={{ top: 28 }} />
