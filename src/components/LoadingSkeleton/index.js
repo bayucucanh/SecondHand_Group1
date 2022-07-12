@@ -13,11 +13,10 @@ function Loader(props) {
       foregroundColor="#ecebeb"
       {...props}
     >
-      <Rect x="3" y="160" rx="2" ry="2" width="250" height="20" />
-      <Rect x="0" y="60" rx="2" ry="2" width="345" height="85" />
-      <Rect x="3" y="191" rx="2" ry="2" width="150" height="15" />
-      <Rect x="-1" y="217" rx="2" ry="2" width="345" height="25" />
-      <Circle cx="20" cy="20" r="20" />
+      <Rect x="3" y="10" rx="2" ry="2" width="250" height="110" />
+      <Rect x="3" y="110" rx="2" ry="2" width="345" height="25" />
+      <Rect x="3" y="145" rx="1" ry="2" width="100" height="10" />
+      <Rect x="3" y="165" rx="2" ry="2" width="125" height="15" />
     </ContentLoader>
   );
 }

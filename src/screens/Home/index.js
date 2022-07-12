@@ -120,7 +120,12 @@ function Home({ navigation }) {
               />
             ))}
           </ScrollView>
-          {loading ? (<Loading size="large" color={COLORS.primaryPurple4} />) : dataProduct.length === 0 ? (
+          {loading ? (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Loader />
+              <Loader />
+            </View>
+          ) : dataProduct.length === 0 ? (
             <Text style={{ fontSize: 15 }}>Tidak ada produk</Text>
           ) : (
             <FlatList
@@ -128,7 +133,6 @@ function Home({ navigation }) {
               initialNumToRender={7}
               numColumns={2}
               columnWrapperStyle={{
-                //   flex: 1,
                 marginBottom: SIZES.padding4,
                 justifyContent: 'space-between',
               }}
