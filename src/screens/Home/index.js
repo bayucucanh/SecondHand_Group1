@@ -15,22 +15,23 @@ import { useTranslation } from 'react-i18next';
 import PagerView from 'react-native-pager-view';
 import { COLORS, SIZES, FONTS } from '../../constant';
 import {
-  IconButton, Loader, Loading, ProductCard, SearchBar,
+  IconButton,
+  Loader,
+  ProductCard,
+  SearchBar,
 } from '../../components';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
-  getDataProfile,
   getDataProduct,
   getDataCategories,
   getDataBanner,
 } from '../../redux/actions';
-import { Box } from '../../assets';
 
 function Home({ navigation }) {
   const { t } = useTranslation();
-  const [btnActive, setBtnActive] = useState('');
-  const [btnAllActive, setBtnAllActive] = useState(true);
   const [searchProduct, setSearchProduct] = useState('');
+  const [categorySelectedId, setCategorySelectedId] = useState(0);
+
   const dispatch = useDispatch();
   const dataProduct = useSelector((state) => state.home.dataProduct);
   const dataCategories = useSelector((state) => state.home.categories);
@@ -41,35 +42,25 @@ function Home({ navigation }) {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     dispatch(getDataCategories());
     dispatch(getDataBanner());
-    getAllProduct();
-  }, [dispatch]);
-
-  const getProductBySearch = useCallback((nameProduct) => {
-    setSearchProduct(nameProduct);
-    dispatch(getDataProduct(`?search=${nameProduct}`));
-  }, []);
-
-  const getProductByCategory = useCallback(
-    (categoryId) => {
-      setBtnActive(categoryId);
-      setBtnAllActive(false);
-      dispatch(getDataProduct(`?category_id=${categoryId}`));
-    },
-    [dispatch, btnActive],
-  );
-
-  const getAllProduct = useCallback(() => {
-    setBtnActive(false);
-    setBtnAllActive(true);
-    dispatch(getDataProduct('/'));
-  }, [dispatch, btnActive]);
+    dispatch(
+      getDataProduct({
+        category_id: categorySelectedId !== 0 ? categorySelectedId : '',
+        search: searchProduct,
+        status: 'available',
+      }),
+    );
+  }, [dispatch, searchProduct, categorySelectedId]);
 
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar barStyle="dark-content" color={COLORS.white} />
       <ScrollView nestedScrollEnabled>
-        <SearchBar onChangeText={getProductBySearch} value={searchProduct} />
-        <PagerView style={{ height: SIZES.height * 0.25 }} initialPage={0} showPageIndicator>
+        <SearchBar onChangeText={setSearchProduct} value={searchProduct} />
+        <PagerView
+          style={{ height: SIZES.height * 0.25 }}
+          initialPage={0}
+          showPageIndicator
+        >
           {dataBanner?.map((item) => (
             <View
               key={item.id}
@@ -82,8 +73,8 @@ function Home({ navigation }) {
                 resizeMode="contain"
                 source={{ uri: item.image_url }}
                 style={{
-                  height: (SIZES.height * 0.25) - (SIZES.padding3 * 2),
-                  width: SIZES.width - (SIZES.padding3 * 2),
+                  height: SIZES.height * 0.25 - SIZES.padding3 * 2,
+                  width: SIZES.width - SIZES.padding3 * 2,
                   borderRadius: SIZES.radius2,
                 }}
               />
@@ -107,21 +98,23 @@ function Home({ navigation }) {
             <IconButton
               icon="search"
               text="Semua"
-              active={btnAllActive}
-              onPress={() => getAllProduct()}
+              active={categorySelectedId === 0}
+              onPress={() => setCategorySelectedId(0)}
             />
             {dataCategories?.map((item) => (
               <IconButton
-                key={item.id}
+                key={item?.id}
                 icon="search"
-                text={item.name}
-                active={btnActive === item.id}
-                onPress={() => getProductByCategory(item.id)}
+                text={item?.name}
+                active={categorySelectedId === item?.id}
+                onPress={() => setCategorySelectedId(item?.id)}
               />
             ))}
           </ScrollView>
           {loading ? (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
               <Loader />
               <Loader />
             </View>
@@ -130,26 +123,29 @@ function Home({ navigation }) {
           ) : (
             <FlatList
               data={dataProduct}
-              initialNumToRender={7}
-              numColumns={2}
               columnWrapperStyle={{
                 marginBottom: SIZES.padding4,
                 justifyContent: 'space-between',
               }}
+              initialNumToRender={7}
+              numColumns={2}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => item.id + index.toString()}
+              maxToRenderPerBatch={1000}
+              windowSize={60}
+              updateCellsBatchingPeriod={60}
               renderItem={({ item }) => (
                 <ProductCard
                   name={item.name}
                   categories={item.Categories}
                   basePrice={item.base_price}
                   imageUrl={item.image_url}
-                  style={{ maxWidth: 160 }}
+                  style={{ maxWidth: SIZES.width * 0.42 }}
                   onPress={() => navigation.navigate('Detail', { productId: item.id })}
                 />
               )}
             />
-          ) }
+          )}
         </View>
       </ScrollView>
     </View>
