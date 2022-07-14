@@ -14,9 +14,9 @@ export const failedGetProduct = () => ({
   type: GET_PRODUCT_FAILED,
 });
 
-export const getDataProduct = (url) => async (dispatch) => {
+export const getDataProduct = (props) => async (dispatch) => {
   dispatch(setLoading(true));
-  await getBuyerProduct(url)
+  await getBuyerProduct(`?search=${props?.search}&category_id=${props?.category_id}&status=${props?.status}`)
     .then((value) => {
       dispatch(successGetProduct(value.data));
       dispatch(setLoading(false));

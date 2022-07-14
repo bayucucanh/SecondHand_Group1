@@ -70,7 +70,7 @@ function Diminati() {
             showsVerticalScrollIndicator={false}
             refreshing={Loading}
             keyExtractor={(item, index) => item.id + index.toString()}
-            ListEmptyComponent={empty}
+            ListEmptyComponent={Empty}
             renderItem={({ item }) => (
               <NotificationCard
                 image={item.Product.image_url}
