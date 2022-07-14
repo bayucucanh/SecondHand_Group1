@@ -21,13 +21,13 @@ function Produk() {
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const isLoading = useSelector((state) => state.global.isLoading);
   const productList = useSelector((state) => state.sellerProduct.sellerProductList);
-  const [productSold, setProductSold] = useState([]);
+  const [productAvailable, setProductAvailable] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     if (isFocused) {
       dispatch(getDataSellerProduct(accessToken));
     }
-    setProductSold(productList.filter((item) => item.status.toLowerCase().match('sold')));
+    setProductAvailable(productList.filter((item) => item.status.toLowerCase().match('available')));
   }, [isFocused]);
 
   return (
@@ -35,7 +35,7 @@ function Produk() {
       {isLoading ? (<Loading size="large" color={COLORS.primaryPurple4} />)
         : (
           <>
-            {productSold.length < 5 && (
+            {productAvailable.length < 5 && (
             <View style={styles.cardTambah}>
               <TouchableOpacity style={styles.tambahProduk} onPress={() => navigation.navigate('JualFull', { data: false })}>
                 <Icon name="plus" size={30} style={{ color: COLORS.neutral3 }} />
