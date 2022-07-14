@@ -9,7 +9,7 @@ import PhotoProfile from '../PhotoProfile';
 import { formatRupiah, formatDate } from '../../utils';
 
 function NotificationCard({
-  image, date, name, price, offeringPrice, isSeen, status, accepted, bidderInfo, onPress,
+  image, date, name, price, offeringPrice, isSeen, status, accepted, bidderInfo, onPress, disabled = false,
 }) {
   const { t, i18n } = useTranslation();
 
@@ -29,11 +29,13 @@ function NotificationCard({
           marginBottom: SIZES.padding3,
         }}
         onPress={onPress}
+        disabled={disabled}
       >
         <PhotoProfile
           image={{ uri: image }}
           style={{ width: 48, height: 48, marginRight: SIZES.padding3 }}
           styleImage={{ width: 48, height: 48 }}
+          disabled
         />
         <View style={{ flex: 1 }}>
           <View style={{ flexDirection: 'row' }}>

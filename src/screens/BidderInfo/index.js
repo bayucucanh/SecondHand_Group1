@@ -12,10 +12,11 @@ import {
   BottomSheetComponent,
   Header,
   Loading,
+  LoadingScreen,
   PhotoProfile,
 } from '../../components';
 import styles from '../../constant/styles';
-import { getDetailSellerOrder } from '../../redux/actions';
+import { getDetailSellerOrder, setLoading } from '../../redux/actions';
 import { putStatusSellerOrder } from '../../redux/actions/putStatusOrder';
 import { BottomSheetHubungi } from './components/BottomSheetHubungi';
 import { BottomSheetStatus } from './components/BottomSheetStatus';
@@ -47,9 +48,13 @@ function BidderInfo({ navigation, route }) {
     const dataStatus = {
       status: value,
     };
+    dispatch(setLoading(true));
     dispatch(putStatusSellerOrder(accessToken, orderId, dataStatus));
     if (value === 'accepted') {
-      handleSnapPress(2);
+      dispatch(getDetailSellerOrder(orderId, accessToken));
+      if (!loading) {
+        handleSnapPress(2);
+      }
     }
   }
 
@@ -63,9 +68,6 @@ function BidderInfo({ navigation, route }) {
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
   return (
     <>
       <ScrollView
@@ -132,7 +134,9 @@ function BidderInfo({ navigation, route }) {
               price={sellerDetailOrder.Product.base_price}
               status={sellerDetailOrder.status}
               offeringPrice={sellerDetailOrder.price}
-              isSeen={false}
+              isSeen
+              disabled
+              // showButton={sellerDetailOrder.Product.status != 'sold'}
               onPressAccepted={
                 sellerDetailOrder.status === 'accepted'
                   ? () => onPressAfterPutStatus('hubungi')
@@ -152,6 +156,9 @@ function BidderInfo({ navigation, route }) {
         sheetRef={sheetRef}
         component={status ? BottomSheetStatus(values, setValues) : BottomSheetHubungi(sellerDetailOrder)}
       />
+      {loading && (
+      <LoadingScreen />
+      )}
     </>
   );
 }

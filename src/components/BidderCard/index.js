@@ -8,7 +8,7 @@ import CustomButton from '../CustomButton';
 import NotificationCard from '../NotificationCard';
 
 function BidderCard({
-  image, date, name, price, offeringPrice, isSeen, status, onPressDeclined, onPressAccepted,
+  image, date, name, price, offeringPrice, isSeen, status, onPressDeclined, onPressAccepted, disabled, showButton = true,
 }) {
   const { t, i18n } = useTranslation();
 
@@ -22,46 +22,50 @@ function BidderCard({
         status={status}
         offeringPrice={offeringPrice}
         isSeen={isSeen}
+        disabled={disabled}
         bidderInfo
       />
-      <View style={{
-        flexDirection: 'row', justifyContent: 'space-between', marginBottom: SIZES.padding3,
-      }}
-      >
+      {showButton && (
         <View style={{
-          flex: 1,
-          marginRight: SIZES.base,
-          borderColor: COLORS.primaryPurple4,
-          borderWidth: 2,
-          borderRadius: SIZES.radius2 + 10,
+          flexDirection: 'row', justifyContent: 'space-between', marginBottom: SIZES.padding3,
         }}
         >
-          <CustomButton
-            onPress={onPressDeclined}
-            title={status === 'accepted' ? 'Status' : 'Tolak'}
-            type
-            size="small"
-            enabled
-          />
+          <View style={{
+            flex: 1,
+            marginRight: SIZES.base,
+            borderColor: COLORS.primaryPurple4,
+            borderWidth: 2,
+            borderRadius: SIZES.radius2 + 10,
+          }}
+          >
+            <CustomButton
+              onPress={onPressDeclined}
+              title={status === 'accepted' ? 'Status' : 'Tolak'}
+              type
+              size="small"
+              enabled
+            />
 
+          </View>
+          <View style={{
+            flex: 1,
+            marginRight: SIZES.base,
+            borderColor: COLORS.primaryPurple4,
+            borderWidth: 2,
+            borderRadius: SIZES.radius2 + 10,
+            overflow: 'hidden',
+          }}
+          >
+            <CustomButton
+              onPress={onPressAccepted}
+              title={status === 'accepted' ? 'Hubungi' : 'Terima'}
+              size="small"
+              enabled
+            />
+          </View>
         </View>
-        <View style={{
-          flex: 1,
-          marginRight: SIZES.base,
-          borderColor: COLORS.primaryPurple4,
-          borderWidth: 2,
-          borderRadius: SIZES.radius2 + 10,
-          overflow: 'hidden',
-        }}
-        >
-          <CustomButton
-            onPress={onPressAccepted}
-            title={status === 'accepted' ? 'Hubungi' : 'Terima'}
-            size="small"
-            enabled
-          />
-        </View>
-      </View>
+      )}
+
       <Separator />
     </>
   );
