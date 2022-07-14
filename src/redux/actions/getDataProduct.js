@@ -16,9 +16,9 @@ export const failedGetProduct = () => ({
 
 export const getDataProduct = (props) => async (dispatch) => {
   dispatch(setLoading(true));
-  await getBuyerProduct(`?search=${props?.search}&category_id=${props?.category_id}&status=${props?.status}`)
+  await getBuyerProduct(`?status=${props?.status}&category_id=${props?.category_id}&search=${props?.search}&page=${props?.page}&per_page=${props?.per_page}`)
     .then((value) => {
-      dispatch(successGetProduct(value.data));
+      dispatch(successGetProduct(value?.data?.data));
       dispatch(setLoading(false));
       console.log('Get data product berhasil');
     })
