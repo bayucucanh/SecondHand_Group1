@@ -27,6 +27,17 @@ export function showDanger(message) {
     type: 'danger',
     color: COLORS.white,
     icon: 'danger',
+    duration: 800,
+    style: {
+      marginTop: SIZES.padding5 * 2 + 6,
+      marginHorizontal: SIZES.padding5,
+      borderRadius: SIZES.radius2,
+      padding: SIZES.padding3,
+    },
+    titleStyle: {
+      ...FONTS.bodyLargeMedium,
+      marginTop: 3,
+    },
   });
 }
 
@@ -36,6 +47,17 @@ export function showInfo(message) {
     type: 'info',
     color: COLORS.white,
     icon: 'info',
+    duration: 800,
+    style: {
+      marginTop: SIZES.padding5 * 2 + 6,
+      marginHorizontal: SIZES.padding5,
+      borderRadius: SIZES.radius2,
+      padding: SIZES.padding3,
+    },
+    titleStyle: {
+      ...FONTS.bodyLargeMedium,
+      marginTop: 3,
+    },
   });
 }
 
@@ -45,5 +67,16 @@ export const showWarning = (message) => {
     type: 'warning',
     color: COLORS.white,
     icon: 'warning',
+    duration: 800,
+    style: {
+      marginTop: SIZES.padding5 * 2 + 6,
+      marginHorizontal: SIZES.padding5,
+      borderRadius: SIZES.radius2,
+      padding: SIZES.padding3,
+    },
+    titleStyle: {
+      ...FONTS.bodyLargeMedium,
+      marginTop: 3,
+    },
   });
 };

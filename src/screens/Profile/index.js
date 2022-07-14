@@ -1,7 +1,7 @@
 import {
   Text, View, TouchableOpacity, StatusBar,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,7 @@ import Auth from '../../service/Auth';
 import { getDataProfile, logout } from '../../redux/actions';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
-  PhotoProfile, Separator, TextButton, TextHeader,
+  PhotoProfile, Separator, TextButton, TextHeader, Modal, AlertModal,
 } from '../../components';
 import { Avatar } from '../../assets';
 
@@ -22,6 +22,7 @@ function Profile({ navigation }) {
   const isFocused = useIsFocused();
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const profileData = useSelector((state) => state.profile.profileData);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -69,7 +70,7 @@ function Profile({ navigation }) {
         <TextButton onPress={() => navigation.navigate('ChangeProfile')} icon="edit" text={t('goToChangeProfile')} />
         <TextButton icon="dollar-sign" text="History" onPress={() => navigation.navigate('History')} />
         <TextButton icon="settings" text={t('goToSetting')} onPress={() => navigation.navigate('Setting')} />
-        <TextButton onPress={onLogout} icon="log-out" text={t('goToLogout')} />
+        <TextButton onPress={() => setModalVisible(true)} icon="log-out" text={t('goToLogout')} />
       </View>
       <Text style={[FONTS.bodySmallRegular, {
         color: COLORS.neutral3, marginTop: SIZES.padding3, alignSelf: 'center',
@@ -79,6 +80,7 @@ function Profile({ navigation }) {
         {' '}
         {appVersion}
       </Text>
+      <AlertModal setModalVisible={setModalVisible} modalVisible={modalVisible} title="Apakah anda yakin ingin keluar?" onPress={() => onLogout()} />
     </View>
   );
 }
