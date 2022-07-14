@@ -17,6 +17,7 @@ import NotificationCard from './NotificationCard';
 import BidderCard from './BidderCard';
 import LoadingScreen from './LoadingScreen';
 import Loader from './LoadingSkeleton';
+import AlertModal from './AlertModal';
 
 export {
   Header,
@@ -38,4 +39,5 @@ export {
   BidderCard,
   LoadingScreen,
   Loader,
+  AlertModal,
 };

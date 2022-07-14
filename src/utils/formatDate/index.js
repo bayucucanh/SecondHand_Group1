@@ -18,7 +18,7 @@ export const formatDate = (params) => {
 };
 
 export const sortByDate = (a, b) => {
-  const dateA = new Date(a.date).getTime();
-  const dateB = new Date(b.date).getTime();
-  return dateA > dateB ? 1 : -1;
+  const dateA = new Date(a.createdAt);
+  const dateB = new Date(b.createdAt);
+  return dateB - dateA;
 };
