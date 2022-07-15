@@ -32,7 +32,9 @@ export function BottomSheetStatus(value, setValue) {
           value={value}
         >
           <View style={{ flexDirection: 'row' }}>
-            <RadioButton value="firts" />
+            <View style={{ height: 10 }}>
+              <RadioButton value="seller" color={COLORS.primaryPurple4} />
+            </View>
             <View style={{ marginLeft: SIZES.padding4 }}>
               <Text
                 style={{
@@ -50,7 +52,9 @@ export function BottomSheetStatus(value, setValue) {
             </View>
           </View>
           <View style={{ flexDirection: 'row', marginTop: SIZES.padding5 }}>
-            <RadioButton value="second" />
+            <View style={{ height: 10 }}>
+              <RadioButton value="available" color={COLORS.primaryPurple4} />
+            </View>
             <View style={{ marginLeft: SIZES.padding4 }}>
               <Text
                 style={{
@@ -70,7 +74,7 @@ export function BottomSheetStatus(value, setValue) {
         </RadioButton.Group>
       </View>
       <CustomButton
-        // onPress={handleSubmit}
+        onPress={() => console.log(value)}
         buttonStyle={{ width: '100%', marginTop: 15 }}
         title="Kirim"
         enabled

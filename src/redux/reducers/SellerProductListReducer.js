@@ -3,11 +3,14 @@ import {
   GET_SELLER_PRODUCT_FAILED,
   GET_DETAIL_SELLER_PRODUCT_SUCCESS,
   GET_DETAIL_SELLER_PRODUCT_FAILED,
+  PATCH_PRODUCT_SUCCESS,
+  PATCH_PRODUCT_FAILED,
 } from '../types';
 
 const initialState = {
   sellerProductList: [],
   sellerProductDetail: [],
+  sellerProductUpdateStatus: [],
 };
 
 const SellerProductListReducer = (state = initialState, action = {}) => {
@@ -27,6 +30,15 @@ const SellerProductListReducer = (state = initialState, action = {}) => {
         sellerProductDetail: action.payload,
       };
     case GET_DETAIL_SELLER_PRODUCT_FAILED:
+      return {
+        ...state,
+      };
+    case PATCH_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        sellerProductUpdateStatus: action.payload,
+      };
+    case PATCH_PRODUCT_FAILED:
       return {
         ...state,
       };

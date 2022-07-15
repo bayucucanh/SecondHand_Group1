@@ -2,7 +2,7 @@
 import {
   FlatList, StyleSheet, Text, View,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
@@ -21,11 +21,13 @@ function Produk() {
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const isLoading = useSelector((state) => state.global.isLoading);
   const productList = useSelector((state) => state.sellerProduct.sellerProductList);
+  const [productAvailable, setProductAvailable] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     if (isFocused) {
       dispatch(getDataSellerProduct(accessToken));
     }
+    setProductAvailable(productList.filter((item) => item.status.toLowerCase().match('available')));
   }, [isFocused]);
 
   return (
@@ -33,7 +35,7 @@ function Produk() {
       {isLoading ? (<Loading size="large" color={COLORS.primaryPurple4} />)
         : (
           <>
-            {productList.length < 5 && (
+            {productAvailable.length < 5 && (
             <View style={styles.cardTambah}>
               <TouchableOpacity style={styles.tambahProduk} onPress={() => navigation.navigate('JualFull', { data: false })}>
                 <Icon name="plus" size={30} style={{ color: COLORS.neutral3 }} />
@@ -41,7 +43,7 @@ function Produk() {
               </TouchableOpacity>
             </View>
             )}
-            {productList.map((item) => (
+            {productList.map((item) => item.status != 'sold' && (
               <View key={item.id} style={{ marginBottom: SIZES.padding3 }}>
                 <ProductCard
                   name={item.name}

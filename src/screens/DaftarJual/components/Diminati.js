@@ -79,6 +79,7 @@ function Diminati() {
                 price={item.base_price}
                 status={item.status}
                 offeringPrice={item.price}
+                isSeen
                 onPress={() => navigation.navigate('BidderInfo', { orderId: item.id })}
               />
             )}

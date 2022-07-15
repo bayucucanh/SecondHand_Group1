@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
   StyleSheet, Text, View, Image,
 } from 'react-native';
@@ -32,29 +33,30 @@ function Terjual() {
 
   return (
     <View>
-      {isLoading ? (<Loading size="large" color={COLORS.primaryPurple4} />) : (
-        <View style={{
-          flex: 1,
-          height: SIZES.height * 0.5,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        >
-          {productList ? <Empty />
-            : productList.map((item) => (
-              item.status == 'sold' && (
-              <NotificationCard
-                key={item.id}
-                image={item.image_url}
-                name={item.name}
-                date="20 Apr, 14:04"
-                price={item.base_price}
-                status="bid"
-                isSeen={false}
-              />
-              )))}
-        </View>
-      )}
+      {isLoading ? (<Loading size="large" color={COLORS.primaryPurple4} />)
+        : productList ? productList.map((item) => (
+          item.status == 'sold' && (
+            <NotificationCard
+              key={item.id}
+              image={item.image_url}
+              name={item.name}
+              date="20 Apr, 14:04"
+              price={item.base_price}
+              status="bid"
+              isSeen
+            />
+          )))
+          : (
+            <View style={{
+              flex: 1,
+              height: SIZES.height * 0.5,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            >
+              <Empty />
+            </View>
+          )}
 
     </View>
   );

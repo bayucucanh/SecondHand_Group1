@@ -18,6 +18,7 @@ import {
   BottomSheetComponent,
   Loading,
   HelperText,
+  LoadingScreen,
 } from '../../components';
 import { getDetailData, getAllBidProduct, bidProduct } from '../../redux/actions';
 import styles from '../../constant/styles';
@@ -151,155 +152,156 @@ function Detail({ route, navigation }) {
     );
   }
 
-  if (!loading) {
-    return (
-      <>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{ backgroundColor: COLORS.neutral1 }}
-        >
-          <View style={{ flex: 1, marginBottom: SIZES.padding5 }}>
-            <Image source={{ uri: detailData.image_url }} style={{ height: 300 }} />
-            <GoBackIcon
-              iconColor={COLORS.neutral5}
-              size={28}
-              style={{ top: 28 }}
-            />
-            <View style={{ marginHorizontal: SIZES.padding5 }}>
-              <View
-                style={[
-                  styles.card,
-                  {
-                    marginTop: -40,
-                    paddingHorizontal: SIZES.padding5,
-                    paddingVertical: SIZES.padding3,
-                  },
-                ]}
+  return (
+    <>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ backgroundColor: COLORS.neutral1 }}
+      >
+        <View style={{ flex: 1, marginBottom: SIZES.padding5 }}>
+          <Image source={{ uri: detailData.image_url }} style={{ height: 300 }} />
+          <GoBackIcon
+            iconColor={COLORS.neutral5}
+            size={28}
+            style={{ top: 28 }}
+          />
+          <View style={{ marginHorizontal: SIZES.padding5 }}>
+            <View
+              style={[
+                styles.card,
+                {
+                  marginTop: -40,
+                  paddingHorizontal: SIZES.padding5,
+                  paddingVertical: SIZES.padding3,
+                },
+              ]}
+            >
+              <Text
+                style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
               >
-                <Text
-                  style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
-                >
-                  {detailData.name}
-                </Text>
-                <FlatList
-                  data={detailData.Categories}
-                  horizontal
-                  keyExtractor={(item, index) => item.id + index.toString()}
-                  renderItem={({ item, index }) => (
-                    <Text
-                      key={item.id}
-                      style={{
-                        ...FONTS.bodyNormalRegular,
-                        color: COLORS.neutral3,
-                      }}
-                    >
-                      {index > 0 ? ',' : ''}
-                      {' '}
-                      {item.name}
-                    </Text>
-                  )}
-                />
-                <Text
-                  style={{
-                    ...FONTS.bodyLargeRegular,
-                    fontSize: 18,
-                    color: COLORS.neutral5,
-                  }}
-                >
-                  {formatRupiah(detailData.base_price)}
-                </Text>
-              </View>
-              <View
-                style={[
-                  styles.card,
-                  {
-                    marginTop: SIZES.padding3,
-                    paddingHorizontal: SIZES.padding5,
-                    paddingVertical: SIZES.padding3,
-                    flexDirection: 'row',
-                  },
-                ]}
-              >
-                <View style={{ justifyContent: 'center' }}>
-                  <PhotoProfile
-                    image={{ uri: detailData.User?.image_url }}
-                    style={{ width: 48, height: 48 }}
-                    styleImage={{ width: 48, height: 48 }}
-                  />
-                </View>
-                <View style={{ paddingLeft: SIZES.padding3 }}>
+                {detailData.name}
+              </Text>
+              <FlatList
+                data={detailData.Categories}
+                horizontal
+                keyExtractor={(item, index) => item.id + index.toString()}
+                renderItem={({ item, index }) => (
                   <Text
-                    style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
-                  >
-                    {detailData.User?.full_name}
-                  </Text>
-                  <Text
+                    key={item.id}
                     style={{
                       ...FONTS.bodyNormalRegular,
                       color: COLORS.neutral3,
                     }}
                   >
-                    {detailData.User?.city}
+                    {index > 0 ? ',' : ''}
+                    {' '}
+                    {item.name}
                   </Text>
-                </View>
-              </View>
-              <View
-                style={[
-                  styles.card,
-                  {
-                    marginTop: SIZES.padding3,
-                    paddingHorizontal: SIZES.padding5,
-                    paddingVertical: SIZES.padding3,
-                  },
-                ]}
+                )}
+              />
+              <Text
+                style={{
+                  ...FONTS.bodyLargeRegular,
+                  fontSize: 18,
+                  color: COLORS.neutral5,
+                }}
               >
+                {formatRupiah(detailData.base_price)}
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.card,
+                {
+                  marginTop: SIZES.padding3,
+                  paddingHorizontal: SIZES.padding5,
+                  paddingVertical: SIZES.padding3,
+                  flexDirection: 'row',
+                },
+              ]}
+            >
+              <View style={{ justifyContent: 'center' }}>
+                <PhotoProfile
+                  image={{ uri: detailData.User?.image_url }}
+                  style={{ width: 48, height: 48 }}
+                  styleImage={{ width: 48, height: 48 }}
+                  disabled
+                />
+              </View>
+              <View style={{ paddingLeft: SIZES.padding3 }}>
                 <Text
                   style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
                 >
-                  {t('descriptionTitle')}
+                  {detailData.User?.full_name}
                 </Text>
                 <Text
                   style={{
-                    ...FONTS.bodyLargeRegular,
-                    paddingTop: SIZES.padding3,
+                    ...FONTS.bodyNormalRegular,
                     color: COLORS.neutral3,
                   }}
                 >
-                  {detailData.description}
+                  {detailData.User?.city}
                 </Text>
               </View>
             </View>
+            <View
+              style={[
+                styles.card,
+                {
+                  marginTop: SIZES.padding3,
+                  paddingHorizontal: SIZES.padding5,
+                  paddingVertical: SIZES.padding3,
+                },
+              ]}
+            >
+              <Text
+                style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
+              >
+                {t('descriptionTitle')}
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.bodyLargeRegular,
+                  paddingTop: SIZES.padding3,
+                  color: COLORS.neutral3,
+                }}
+              >
+                {detailData.description}
+              </Text>
+            </View>
           </View>
-        </ScrollView>
-        <View
-          style={{
-            width: '100%',
-            position: 'absolute',
-            bottom: 23,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingHorizontal: 24,
-          }}
-        >
-          <CustomButton
-            buttonStyle={{ width: '100%' }}
-            title={
+        </View>
+      </ScrollView>
+      <View
+        style={{
+          width: '100%',
+          position: 'absolute',
+          bottom: 23,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 24,
+        }}
+      >
+        <CustomButton
+          buttonStyle={{ width: '100%' }}
+          title={
               login && allBidProduct[0]?.status
                 ? 'Menunggu respon penjual'
                 : 'Saya Tertarik dan Ingin Nego Produk'
             }
-            enabled={!(login && allBidProduct[0]?.status)}
-            onPress={() => (login ? handleSnapPress(2) : navigation.navigate('NotLogin'))}
-          />
-        </View>
-        <BottomSheetComponent
-          sheetRef={sheetRef}
-          component={BottomSheetComp}
+          enabled={!(login && allBidProduct[0]?.status)}
+          onPress={() => (login ? handleSnapPress(2) : navigation.navigate('NotLogin'))}
         />
-      </>
-    );
-  }
-  return <Loading />;
+      </View>
+      <BottomSheetComponent
+        sheetRef={sheetRef}
+        component={BottomSheetComp}
+      />
+      {loading && (
+        <LoadingScreen />
+      )}
+    </>
+  );
 }
 
 export default Detail;
