@@ -10,11 +10,11 @@ function BuyerOrder({ navigation }) {
   const dispatch = useDispatch();
 
   const allBidProduct = useSelector((state) => state.allBid.allBidProduct);
-  const accessToken = useSelector((state) => state.login.userData.accessToken);
+  const accessToken = useSelector((state) => state.login.userData.access_token);
 
   useEffect(() => {
     dispatch(getAllBidProduct(accessToken));
-  });
+  }, []);
 
   return (
     <View
@@ -29,7 +29,7 @@ function BuyerOrder({ navigation }) {
       <View style={{ marginHorizontal: SIZES.padding5 }}>
         <FlatList
           data={allBidProduct}
-          keyExtractor={(item, index) => item.id + index.toString()}
+          keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           initialNumToRender={4}
           renderItem={({ item }) => (
