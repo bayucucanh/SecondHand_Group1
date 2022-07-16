@@ -9,14 +9,28 @@ export const getBuyerOrder = (accessToken) => axios.get('/buyer/order', {
     access_token: accessToken,
   },
 });
-export const detailBuyerOrder = (id) => axios.get(`/buyer/order/${id}`);
+export const detailBuyerOrder = (id, accessToken) => axios.get(`/buyer/order/${id}`, {
+  headers: {
+    access_token: accessToken,
+  },
+});
 export const addBuyerOrder = (payload, accessToken) => axios.post('/buyer/order/', payload, {
   headers: {
     access_token: accessToken,
   },
 });
-export const updateBuyerOrder = (productId, bidPrice) => axios.put('/buyer/order/', { productId, bidPrice });
-export const deleteBuyerOrder = (id) => axios.delete(`/buyer/order/${id}`);
+
+export const updateBuyerOrder = (id, bidPrice, accessToken) => axios.put(`/buyer/order/${id}`, bidPrice, {
+  headers: {
+    access_token: accessToken,
+  },
+});
+
+export const deleteBuyerOrder = (id, accessToken) => axios.delete(`/buyer/order/${id}`, {
+  headers: {
+    access_token: accessToken,
+  },
+});
 
 // buyer/product
 export const getBuyerProduct = (url) => axios.get(`/buyer/product${url}`);

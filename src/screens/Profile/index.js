@@ -69,6 +69,7 @@ function Profile({ navigation }) {
       <View>
         <TextButton onPress={() => navigation.navigate('ChangeProfile')} icon="edit" text={t('goToChangeProfile')} />
         <TextButton icon="dollar-sign" text="History" onPress={() => navigation.navigate('History')} />
+        <TextButton icon="list" text="Daftar Penawaran Produk" onPress={() => navigation.navigate('BuyerOrder')} />
         <TextButton icon="settings" text={t('goToSetting')} onPress={() => navigation.navigate('Setting')} />
         <TextButton onPress={() => setModalVisible(true)} icon="log-out" text={t('goToLogout')} />
       </View>
