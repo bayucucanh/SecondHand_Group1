@@ -1,7 +1,7 @@
 import {
-  GET_ALL_BID_SUCCESS, GET_ALL_BID_FAILED, GET_BID_DETAIL_SUCCESS, GET_BID_DETAIL_FAILED,
+  GET_ALL_BID_SUCCESS, GET_ALL_BID_FAILED, GET_BID_DETAIL_SUCCESS, GET_BID_DETAIL_FAILED, DELETE_BID_SUCCESS, DELETE_BID_FAILED,
 } from '../types';
-import { detailBuyerOrder, getBuyerOrder } from '../../service/Api/buyer';
+import { deleteBuyerOrder, detailBuyerOrder, getBuyerOrder } from '../../service/Api/buyer';
 import { setLoading } from './globalAction';
 import { showDanger, showSuccess } from '../../utils';
 
@@ -46,5 +46,24 @@ export const getBidDetailProduct = (id, accessToken) => async (dispatch) => {
     dispatch(failedGetBidDetailProduct());
     dispatch(setLoading(false));
     showDanger(err.message);
+  });
+};
+
+export const successDeleteBidProduct = () => ({
+  type: GET_BID_DETAIL_SUCCESS,
+});
+
+export const failedDeleteBidProduct = () => ({
+  type: GET_BID_DETAIL_FAILED,
+});
+
+export const deleteBid = (id, accessToken, navigation) => async (dispatch) => {
+  await deleteBuyerOrder(id, accessToken).then(() => {
+    dispatch(successDeleteBidProduct());
+    navigation.navigate('BuyerOrder');
+    showSuccess('Batalkan tawaran berhasil!');
+  }).catch(() => {
+    dispatch(failedDeleteBidProduct());
+    showDanger('Batalkan tawaran gagal!');
   });
 };

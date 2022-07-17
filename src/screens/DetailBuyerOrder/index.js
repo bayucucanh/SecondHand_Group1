@@ -5,7 +5,7 @@ import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
-import { getBidDetailProduct } from '../../redux/actions/getAllBidProduct';
+import { deleteBid, getBidDetailProduct } from '../../redux/actions/getAllBidProduct';
 import { FONTS, SIZES, COLORS } from '../../constant';
 import styles from '../../constant/styles';
 import {
@@ -19,7 +19,7 @@ import {
 } from '../../components';
 import { bidPriceSchema, formatRupiah } from '../../utils';
 
-function DetailBuyerOrder({ route }) {
+function DetailBuyerOrder({ route, navigation }) {
   const { orderId } = route.params;
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -34,7 +34,7 @@ function DetailBuyerOrder({ route }) {
   }, []);
 
   useEffect(() => {
-    dispatch(getBidDetailProduct(orderId, accessToken));
+    dispatch(getBidDetailProduct(orderId, accessToken, navigation));
   }, [dispatch]);
 
   const submitBid = (bid) => {
@@ -43,6 +43,10 @@ function DetailBuyerOrder({ route }) {
       bid_price: bid,
     };
     console.log(data.bid_price);
+  };
+
+  const handleDelete = () => {
+    console.log('Delete');
   };
 
   function BottomSheetComp() {
@@ -151,7 +155,7 @@ function DetailBuyerOrder({ route }) {
       >
         <View style={{ flex: 1, marginBottom: SIZES.padding5 }}>
           <Image
-            source={{ uri: detailData.Product.image_url }}
+            source={{ uri: detailData?.Product?.image_url }}
             style={{ height: 300 }}
           />
           <GoBackIcon iconColor={COLORS.neutral5} size={28} style={{ top: 28 }} />
@@ -167,7 +171,7 @@ function DetailBuyerOrder({ route }) {
               ]}
             >
               <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>
-                {detailData.Product.name}
+                {detailData?.Product?.name}
               </Text>
               <Text
                 style={{
@@ -176,7 +180,7 @@ function DetailBuyerOrder({ route }) {
                   color: COLORS.neutral5,
                 }}
               >
-                {formatRupiah(detailData.Product.base_price)}
+                {formatRupiah(detailData?.Product?.base_price)}
               </Text>
             </View>
             <View
@@ -192,7 +196,7 @@ function DetailBuyerOrder({ route }) {
             >
               <View style={{ justifyContent: 'center' }}>
                 <PhotoProfile
-                  image={{ uri: detailData.Product.User.image_url }}
+                  image={{ uri: detailData?.Product?.User?.image_url }}
                   style={{ width: 48, height: 48 }}
                   styleImage={{ width: 48, height: 48 }}
                 />
@@ -201,12 +205,12 @@ function DetailBuyerOrder({ route }) {
                 <Text
                   style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
                 >
-                  {detailData.Product.User.full_name}
+                  {detailData?.Product?.User?.full_name}
                 </Text>
                 <Text
                   style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}
                 >
-                  {detailData.Product.User.city}
+                  {detailData?.Product?.User?.city}
                 </Text>
               </View>
             </View>
@@ -230,7 +234,7 @@ function DetailBuyerOrder({ route }) {
                   color: COLORS.neutral3,
                 }}
               >
-                {detailData.Product.description}
+                {detailData?.Product?.description}
               </Text>
             </View>
           </View>
@@ -260,7 +264,7 @@ function DetailBuyerOrder({ route }) {
             <View style={{ flex: 1, marginLeft: 8 }}>
               <CustomButton
                 // onPress={() => dispatch(deleteDataProduct(accessToken, values.id))}
-                // onPress={() => setModalVisible(true)}
+                onPress={() => handleDelete()}
                 title={t('delete')}
                 enabled
               />
