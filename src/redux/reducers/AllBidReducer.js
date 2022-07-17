@@ -3,6 +3,8 @@ import {
   GET_ALL_BID_FAILED,
   GET_BID_DETAIL_SUCCESS,
   GET_BID_DETAIL_FAILED,
+  DELETE_BID_SUCCESS,
+  DELETE_BID_FAILED,
 } from '../types';
 
 const initialState = {
@@ -27,6 +29,14 @@ const AllBidReducer = (state = initialState, action = {}) => {
         detailBidProduct: action.payload,
       };
     case GET_BID_DETAIL_FAILED:
+      return {
+        ...state,
+      };
+    case DELETE_BID_SUCCESS:
+      return {
+        ...state,
+      };
+    case DELETE_BID_FAILED:
       return {
         ...state,
       };
