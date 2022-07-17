@@ -35,7 +35,7 @@ function Detail({ route, navigation }) {
   const login = useSelector((state) => state.login.isLogin);
   const detailData = useSelector((state) => state.detail.detailProduct);
   const loading = useSelector((state) => state.global.isLoading);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const sheetRef = useRef(null);
   const handleSnapPress = useCallback((index) => {
@@ -82,11 +82,10 @@ function Detail({ route, navigation }) {
               }}
             >
               <Text style={{ color: COLORS.black, ...FONTS.bodyNormalMedium }}>
-                Masukan Harga Tawarmu
+                {t('bottomSheetBidTitle')}
               </Text>
               <Text style={{ color: COLORS.neutral3, ...FONTS.bodyNormalMedium }}>
-                Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu
-                akan segera dihubungi penjual.
+                {t('bottomSheetBidText')}
               </Text>
               <View
                 style={[
@@ -124,9 +123,9 @@ function Detail({ route, navigation }) {
                 </View>
               </View>
               <View style={{ marginVertical: SIZES.h2 }}>
-                <Text style={{ ...FONTS.bodyNormalBold }}>Harga Tawar</Text>
+                <Text style={{ ...FONTS.bodyNormalBold }}>{t('bargainPrice')}</Text>
                 <InputText
-                  placeholder="Masukan harga tawarmu"
+                  placeholder={t('bidInputText')}
                   name="bid_price"
                   style={{ marginTop: 4 }}
                   onChangeText={handleChange('bid_price')}
@@ -142,7 +141,7 @@ function Detail({ route, navigation }) {
               <CustomButton
                 onPress={handleSubmit}
                 buttonStyle={{ width: '100%' }}
-                title="Kirim"
+                title={t('sendButton')}
                 enabled={isValid && !errors.bid_price}
               />
             </View>
@@ -286,8 +285,8 @@ function Detail({ route, navigation }) {
           buttonStyle={{ width: '100%' }}
           title={
               login && allBidProduct[0]?.status
-                ? 'Menunggu respon penjual'
-                : 'Saya Tertarik dan Ingin Nego Produk'
+                ? t('waitingSellerResponse')
+                : t('interestedAndWantToBargain')
             }
           enabled={!(login && allBidProduct[0]?.status)}
           onPress={() => (login ? handleSnapPress(2) : navigation.navigate('NotLogin'))}
@@ -296,6 +295,7 @@ function Detail({ route, navigation }) {
       <BottomSheetComponent
         sheetRef={sheetRef}
         component={BottomSheetComp}
+        type="bid"
       />
       {loading && (
         <LoadingScreen />

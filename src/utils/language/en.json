@@ -76,6 +76,13 @@
       "sellListTitle":"Daftar Jual saya",
       "offerPrice":"Ditawar",
       "addProduct":"Tambah Produk",
-      "changeLanguage":"Change Language"
+      "changeLanguage":"Change Language",
+      "bottomSheetHubungiTitle":"Yeay kamu berhasil mendapat harga yang sesuai",
+      "bottomSheetHubungiText":"Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya",
+      "productMatch":"Product Match",
+      "bargained":"Bargained",
+      "bottomSheetStatusTitle":"Update your status order product",
+      "successSoldTitle":"Successfully Sold",      
+      "successSoldText":"You've aggreed sell this product to the fucking costumer "    
     }
   }

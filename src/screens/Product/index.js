@@ -78,11 +78,8 @@ function Product({ route, navigation }) {
               elevation: 5,
             }}
             >
-              <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5, alignSelf: 'flex-start' }}>
-                {t('deleteProductTitle')}
-              </Text>
               <Text style={{
-                ...FONTS.bodyLargeRegular, paddingTop: SIZES.padding3, color: COLORS.neutral3,
+                ...FONTS.bodyLargeMedium, paddingTop: SIZES.padding3, color: COLORS.neutral5, alignSelf: 'flex-start',
               }}
               >
                 {t('deleteProductMessage')}
@@ -105,7 +102,7 @@ function Product({ route, navigation }) {
                     onPress={() => setModalVisible(!modalVisible)}
                   >
                     <CustomButton
-                      title={t('no')}
+                      title={t('noButton')}
                       type
                       enabled
                       size="small"
@@ -128,7 +125,7 @@ function Product({ route, navigation }) {
                     }}
                   >
                     <CustomButton
-                      title={t('yes')}
+                      title={t('yesButton')}
                       enabled
                       size="small"
                     />
@@ -209,7 +206,7 @@ function Product({ route, navigation }) {
         >
           <CustomButton
             buttonStyle={{ width: '100%' }}
-            title="Terbitkan"
+            title={t('postButton')}
             enabled
             onPress={() => onPost()}
           />
@@ -233,7 +230,7 @@ function Product({ route, navigation }) {
           >
             <CustomButton
               onPress={() => navigation.navigate('JualFull', { data: values })}
-              title={t('edit')}
+              title={t('editButton')}
               type
               enabled
             />
@@ -243,7 +240,7 @@ function Product({ route, navigation }) {
             <CustomButton
               // onPress={() => dispatch(deleteDataProduct(accessToken, values.id))}
               onPress={() => setModalVisible(true)}
-              title={t('delete')}
+              title={t('deleteButton')}
               enabled
             />
           </View>

@@ -2,43 +2,41 @@ import React, { useState } from 'react';
 import {
   Alert, Modal, StyleSheet, Text, Pressable, View,
 } from 'react-native';
+import { t } from 'i18next';
 import { COLORS, FONTS, SIZES } from '../../constant';
 
 function AlertModal({
   setModalVisible, modalVisible, title, onPress,
 }) {
   return (
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>{title}</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <Pressable
-                style={[styles.button, styles.buttonClose, { marginRight: 10 }]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>Batal</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonOpen]}
-                onPress={onPress}
-              >
-                <Text style={{ color: COLORS.white, textAlign: 'center', fontWeight: 'bold' }}>Logout</Text>
-              </Pressable>
-            </View>
+    <Modal
+      animationType="slide"
+      transparent
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(!modalVisible);
+      }}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>{title}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Pressable
+              style={[styles.button, styles.buttonClose, { marginRight: 10 }]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>{t('cancelText')}</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonOpen]}
+              onPress={onPress}
+            >
+              <Text style={{ color: COLORS.white, textAlign: 'center', fontWeight: 'bold' }}>{t('logoutText')}</Text>
+            </Pressable>
           </View>
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 }
 
@@ -47,7 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    backgroundColor: 'rgba(0,0,0,0.6)',
   },
   modalView: {
     margin: 20,

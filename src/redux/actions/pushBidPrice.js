@@ -1,3 +1,4 @@
+import i18n from 'i18next';
 import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
@@ -20,11 +21,12 @@ export const bidProduct = (payload, accessToken, navigation) => async (dispatch)
   await addBuyerOrder(payload, accessToken).then((response) => {
     dispatch(successBid(response.data));
     dispatch(setLoading(false));
-    showSuccess('Harga Tawarmu Berhasil Dikirim');
+    showSuccess(i18n.t('pushBidSuccess'));
     navigation.navigate('Notification');
   }).catch((err) => {
     dispatch(failedBid());
     dispatch(setLoading(false));
+    showDanger(i18n.t('pushBidFailed'));
     showDanger(err.response.data.message);
   });
 };
