@@ -92,19 +92,19 @@ function DaftarJual({ navigation }) {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: SIZES.padding5 }}>
           <IconButton
             icon="search"
-            text="Produk"
+            text={t('productTitle')}
             active={btnProdukActive}
             onPress={() => produk()}
           />
           <IconButton
             icon="heart"
-            text="Diminati"
+            text={t('interestedTitle')}
             active={btnDiminatiActive}
             onPress={() => diminati()}
           />
           <IconButton
             icon="dollar-sign"
-            text="Terjual"
+            text={t('soldTitle')}
             active={btnTerjualActive}
             onPress={() => terjual()}
           />

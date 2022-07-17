@@ -40,7 +40,7 @@ function Terjual() {
               key={item.id}
               image={item.image_url}
               name={item.name}
-              date="20 Apr, 14:04"
+              date={item.transaction_date}
               price={item.base_price}
               status="bid"
               isSeen

@@ -5,20 +5,21 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { SIZES, COLORS } from '../../constant';
+import { SIZES, COLORS, FONTS } from '../../constant';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
   NotificationCard, Loading, TextHeader,
 } from '../../components';
 import { getDataNotification, patchNotifikasi } from '../../redux/actions';
 import { DiminatiNull } from '../../assets/image';
+import { SelectionImage } from '../../assets';
 
 function Notification() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const notificationData = useSelector((state) => state.notifications.notifikasi);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -27,9 +28,17 @@ function Notification() {
   }, []);
 
   const empty = () => (
-    <View style={{ alignItems: 'center', marginTop: 90 }}>
-      <Image source={DiminatiNull} style={{ width: 172, height: 121 }} />
-      <Text style={{ color: COLORS.neutral3, textAlign: 'center', fontSize: SIZES.h5 }}>Belum ada notifikasi nih</Text>
+    <View style={{
+      alignItems: 'center', justifyContent: 'center',
+    }}
+    >
+      <SelectionImage width={SIZES.width * 0.6} height={SIZES.width * 0.4} />
+      <Text style={{
+        color: COLORS.neutral3, textAlign: 'center', ...FONTS.bodyLargeRegular, marginTop: SIZES.padding3,
+      }}
+      >
+        {t('emptyNotification')}
+      </Text>
     </View>
   );
 

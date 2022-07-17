@@ -1,6 +1,7 @@
 import { Text, View, FlatList } from 'react-native';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { t } from 'i18next';
 import styles from '../../constant/styles';
 import { FONTS, SIZES, COLORS } from '../../constant';
 import { getAllBidProduct } from '../../redux/actions/getAllBidProduct';
@@ -25,7 +26,7 @@ function BuyerOrder({ navigation }) {
         paddingTop: 20,
       }}
     >
-      <Header title="Daftar Penawaran Produk" />
+      <Header title={t('buyerOrderTitle')} />
       <View style={{ marginHorizontal: SIZES.padding5 }}>
         <FlatList
           data={allBidProduct}

@@ -2,6 +2,7 @@ import {
   ScrollView, Text, View, Image,
 } from 'react-native';
 import React from 'react';
+import { t } from 'i18next';
 import { CustomButton } from '../../../components';
 import { COLORS, FONTS, SIZES } from '../../../constant';
 import styles from '../../../constant/styles';
@@ -19,10 +20,10 @@ export function BottomSheetHubungi(sellerDetailOrder) {
         }}
       >
         <Text style={{ color: COLORS.black, ...FONTS.bodyNormalMedium }}>
-          Yeay kamu berhasil mendapat harga yang sesuai
+          {t('bottomSheetHubungiTitle')}
         </Text>
         <Text style={{ color: COLORS.neutral3, ...FONTS.bodyNormalMedium }}>
-          Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya
+          {t('bottomSheetHubungiText')}
         </Text>
 
         <View
@@ -31,8 +32,8 @@ export function BottomSheetHubungi(sellerDetailOrder) {
             { marginTop: SIZES.padding3, padding: SIZES.padding3 },
           ]}
         >
-          <Text style={{ ...FONTS.bodyNormalBold, textAlign: 'center' }}>
-            Product Match
+          <Text style={{ ...FONTS.bodyLargeMedium, textAlign: 'center' }}>
+            {t('productMatch')}
           </Text>
           <View
             style={{
@@ -97,7 +98,7 @@ export function BottomSheetHubungi(sellerDetailOrder) {
                   color: COLORS.black,
                 }}
               >
-                Ditawar
+                {t('bargained')}
                 {' '}
                 {formatRupiah(data?.price)}
               </Text>
@@ -107,7 +108,7 @@ export function BottomSheetHubungi(sellerDetailOrder) {
         <CustomButton
           // onPress={handleSubmit}
           buttonStyle={{ width: '100%' }}
-          title="Hubungi Via Whatsapp"
+          title={t('whatsappButton')}
           enabled
         />
       </View>

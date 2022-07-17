@@ -24,7 +24,7 @@ import { BottomSheetStatus } from './components/BottomSheetStatus';
 function BidderInfo({ navigation, route }) {
   const { orderId } = route.params;
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const sellerDetailOrder = useSelector(
     (state) => state.sellerOrder.sellerDetailOrder,
@@ -33,6 +33,7 @@ function BidderInfo({ navigation, route }) {
 
   const [values, setValues] = useState('first');
   const [status, setStatus] = useState(false);
+  const [type, setType] = useState('');
 
   useEffect(() => {
     dispatch(getDetailSellerOrder(orderId, accessToken));
@@ -59,6 +60,7 @@ function BidderInfo({ navigation, route }) {
   }
 
   const onPressAfterPutStatus = (params) => {
+    setType(params);
     if (params === 'hubungi') {
       setStatus(false);
       handleSnapPress(2);
@@ -82,7 +84,7 @@ function BidderInfo({ navigation, route }) {
             paddingTop: 20,
           }}
         >
-          <Header title="Info Penawar" />
+          <Header title={t('bidderInfoTitle')} />
           <View style={{ marginHorizontal: SIZES.padding5 }}>
             <View
               style={[
@@ -125,7 +127,7 @@ function BidderInfo({ navigation, route }) {
                 },
               ]}
             >
-              Daftar Produkmu yang Ditawar
+              {t('bidderInfoText')}
             </Text>
             <BidderCard
               image={sellerDetailOrder.Product.image_url}
@@ -136,7 +138,7 @@ function BidderInfo({ navigation, route }) {
               offeringPrice={sellerDetailOrder.price}
               isSeen
               disabled
-              // showButton={sellerDetailOrder.Product.status != 'sold'}
+              showButton={sellerDetailOrder.Product.status != 'seller'}
               onPressAccepted={
                 sellerDetailOrder.status === 'accepted'
                   ? () => onPressAfterPutStatus('hubungi')
@@ -154,7 +156,8 @@ function BidderInfo({ navigation, route }) {
 
       <BottomSheetComponent
         sheetRef={sheetRef}
-        component={status ? BottomSheetStatus(values, setValues) : BottomSheetHubungi(sellerDetailOrder)}
+        component={status ? BottomSheetStatus(values, setValues, sellerDetailOrder.product_id, accessToken, dispatch) : BottomSheetHubungi(sellerDetailOrder)}
+        type={type}
       />
       {loading && (
       <LoadingScreen />
