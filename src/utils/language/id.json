@@ -69,7 +69,7 @@
       "descriptionAlertRequired":"Deskripsi tidak boleh kosong",
       "photoProductTitle":"Foto Produk",
       "photoProductRequired":"Foto produk harus minimal 1",
-      "sellPreviewButton":"Preview",
+      "sellPreviewButton":"Tampilkan",
       "sellPostButton":"Terbitkan",
       "searchCategoryTitle":"Telusuri Kategori",
       "searchBarPlaceholder":"Cari di Second Chance",
@@ -139,6 +139,20 @@
       "noButton":"Tidak",
       "yesButton":"Ya",
       "cancelText":"Batal",
-      "logoutText":"Keluar"
+      "logoutText":"Keluar",
+      "home":"Beranda",
+      "notification":"Notifikasi",
+      "sell":"Jual",
+      "sellList":"Daftar Jual",
+      "account":"Akun",
+      "goToChangePassword":"Ubah Password",
+      "ChangePasswordTitle":"Ubah Password",
+      "currentPassword":"Password sekarang",
+      "currentPasswordPlaceholder":"Masukkan password sekarang",
+      "newPassword":"Password baru",
+      "newPasswordPlaceholder":"Masukkan password baru",
+      "confirmPassword":"Ulangi password baru",
+      "confirmPasswordPlaceholder":"Masukkan password baru",
+      "changePasswordButton":"Ubah Password"
     }
   }
