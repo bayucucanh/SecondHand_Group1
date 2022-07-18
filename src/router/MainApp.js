@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { t } from 'i18next';
 import {
   Home, Profile, Jual, NotLogin, Notification, DaftarJual,
 } from '../screens/index';
@@ -40,7 +41,7 @@ function MainApp() {
           name="Home"
           component={Home}
           options={{
-            tabBarLabel: 'Home',
+            tabBarLabel: t('home'),
             headerShown: false,
             tabBarIcon: ({ color }) => (
               <Icon name="home" color={color} size={SIZES.icon} />
@@ -53,7 +54,7 @@ function MainApp() {
               name="Notification"
               component={Notification}
               options={{
-                tabBarLabel: 'Notifikasi',
+                tabBarLabel: t('notification'),
                 headerShown: false,
                 tabBarIcon: ({ color }) => (
                   <Icon name="bell" color={color} size={SIZES.icon} />
@@ -68,14 +69,16 @@ function MainApp() {
                   // Prevent default action
                   e.preventDefault();
                   // Any custom code here
+                  console.log(profileData.address !== null);
+
                   // eslint-disable-next-line no-unused-expressions
-                  profileData.address == !null
+                  profileData.address !== null
                     ? navigation.navigate('JualFull', { data: false })
                     : navigation.navigate('ChangeProfile', { data: false });
                 },
               }}
               options={{
-                tabBarLabel: 'Jual',
+                tabBarLabel: t('sell'),
                 headerShown: false,
                 tabBarIcon: ({ color }) => (
                   <Icon name="plus-circle" color={color} size={SIZES.icon} />
@@ -86,7 +89,7 @@ function MainApp() {
               name="DaftarJual"
               component={DaftarJual}
               options={{
-                tabBarLabel: 'DaftarJual',
+                tabBarLabel: t('sellList'),
                 headerShown: false,
                 tabBarIcon: ({ color }) => (
                   <Icon name="list" color={color} size={SIZES.icon} />
@@ -100,7 +103,7 @@ function MainApp() {
           name="Akun"
           component={login ? Profile : NotLogin}
           options={{
-            tabBarLabel: 'Akun',
+            tabBarLabel: t('account'),
             headerShown: false,
             tabBarIcon: ({ color }) => (
               <Icon name="user" color={color} size={SIZES.icon} />
