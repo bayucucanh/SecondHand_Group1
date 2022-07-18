@@ -29,7 +29,7 @@ function Notification() {
 
   const empty = () => (
     <View style={{
-      alignItems: 'center', justifyContent: 'center',
+      alignItems: 'center', justifyContent: 'center', marginTop: SIZES.padding5,
     }}
     >
       <SelectionImage width={SIZES.width * 0.6} height={SIZES.width * 0.4} />

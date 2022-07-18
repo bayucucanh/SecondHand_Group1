@@ -153,6 +153,7 @@
       "newPasswordPlaceholder":"Masukkan password baru",
       "confirmPassword":"Ulangi password baru",
       "confirmPasswordPlaceholder":"Masukkan password baru",
-      "changePasswordButton":"Ubah Password"
+      "changePasswordButton":"Ubah Password",
+      "settingTitle":"Pengaturan Akun"
     }
   }

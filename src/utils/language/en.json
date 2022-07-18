@@ -153,6 +153,7 @@
     "newPasswordPlaceholder":"Input new password",
     "confirmPassword":"Repeat new password",
     "confirmPasswordPlaceholder":"Input new password",
-    "changePasswordButton":"Change Password"
+    "changePasswordButton":"Change Password",
+    "settingTitle":"Account Setting"
   }
 }
