@@ -51,9 +51,6 @@ function Register({ navigation }) {
               full_name: '',
               email: '',
               password: '',
-              phone_number: '',
-              city: '',
-              address: '',
             }}
             onSubmit={(values) => onRegister(values)}
           >
@@ -112,63 +109,6 @@ function Register({ navigation }) {
                 />
                 {touched.password && errors.password && (
                 <HelperText text={t(errors.password)} />
-                )}
-                <Text style={styles.text}>
-                  {t('phoneNumberTitle')}
-                </Text>
-                <InputText
-                  name="phone_number"
-                  placeholder={t('phoneNumberPlaceholder')}
-                  value={values.phone_number}
-                  onChangeText={handleChange('phone_number')}
-                  onBlur={handleBlur('phone_number')}
-                  error={touched.phone_number && errors.phone_number}
-                />
-                {touched.phone_number && errors.phone_number && (
-                <HelperText text={t(errors.phone_number)} />
-                )}
-                {/* <PhoneInput
-                  style={styles.phoneInput}
-                  value={values.phone_number}
-                  defaultCode="ID"
-                  layout="first"
-                  onChangeText={handleChange('phone_number')}
-                  withShadow
-                  containerStyle={styles.phoneInput}
-                  textContainerStyle={{ paddingVertical: 0, borderRadius: 15 }}
-                />
-                {touched.phone_number && errors.phone_number && (
-                <HelperText text={t(errors.phone_number)} />
-                )} */}
-                <Text style={styles.text}>
-                  {t('cityTitle')}
-                </Text>
-                <InputDropdown
-                  data={regions}
-                  setFieldValue={setFieldValue}
-                  value={values.city}
-                  initialData={values.city}
-                  name="city"
-                  placeholder={t('cityPlaceholder')}
-                />
-                {touched.city && errors.city && (
-                <HelperText text={t(errors.city)} />
-                )}
-                <Text style={styles.text}>
-                  {t('addressTitle')}
-                </Text>
-                <InputText
-                  name="address"
-                  onChangeText={handleChange('address')}
-                  onBlur={handleBlur('address')}
-                  error={touched.address && errors.address}
-                  value={values.address}
-                  placeholder={t('addressPlaceholder')}
-                  style={{ textAlignVertical: 'top', height: 80 }}
-                  multiline
-                />
-                {touched.address && errors.address && (
-                <HelperText text={t(errors.address)} />
                 )}
                 <CustomButton
                   onPress={(handleSubmit)}
