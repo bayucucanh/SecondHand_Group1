@@ -20,7 +20,7 @@ export const addBuyerOrder = (payload, accessToken) => axios.post('/buyer/order/
   },
 });
 
-export const updateBuyerOrder = (id, bidPrice, accessToken) => axios.put(`/buyer/order/${id}`, bidPrice, {
+export const updateBuyerOrder = (id, payload, accessToken) => axios.put(`/buyer/order/${id}`, payload, {
   headers: {
     access_token: accessToken,
   },

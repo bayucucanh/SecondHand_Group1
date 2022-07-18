@@ -5,6 +5,8 @@ import {
   GET_BID_DETAIL_FAILED,
   DELETE_BID_SUCCESS,
   DELETE_BID_FAILED,
+  UPDATE_BID_SUCCESS,
+  UPDATE_BID_FAILED,
 } from '../types';
 
 const initialState = {
@@ -37,6 +39,14 @@ const AllBidReducer = (state = initialState, action = {}) => {
         ...state,
       };
     case DELETE_BID_FAILED:
+      return {
+        ...state,
+      };
+    case UPDATE_BID_SUCCESS:
+      return {
+        ...state,
+      };
+    case UPDATE_BID_FAILED:
       return {
         ...state,
       };
