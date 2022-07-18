@@ -267,7 +267,7 @@ function DetailBuyerOrder({ route, navigation }) {
             <View style={{ flex: 1, marginLeft: 8 }}>
               <CustomButton
                 // onPress={() => dispatch(deleteDataProduct(accessToken, values.id))}
-                onPress={() => dispatch(orderId, accessToken, navigation)}
+                onPress={() => dispatch(deleteBid(orderId, accessToken, navigation))}
                 title={t('delete')}
                 enabled
               />
