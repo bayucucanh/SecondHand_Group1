@@ -26,9 +26,7 @@ function BidderInfo({ navigation, route }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const accessToken = useSelector((state) => state.login.userData.access_token);
-  const sellerDetailOrder = useSelector(
-    (state) => state.sellerOrder.sellerDetailOrder,
-  );
+  const sellerDetailOrder = useSelector((state) => state.sellerOrder.sellerDetailOrder);
   const loading = useSelector((state) => state.global.isLoading);
 
   const [values, setValues] = useState('first');
@@ -70,6 +68,10 @@ function BidderInfo({ navigation, route }) {
     }
   };
 
+  if (loading) {
+    <LoadingScreen />;
+  }
+
   return (
     <>
       <ScrollView
@@ -100,21 +102,22 @@ function BidderInfo({ navigation, route }) {
             >
               <View style={{ justifyContent: 'center' }}>
                 <PhotoProfile
-                  image={{ uri: 'https://picsum.photos/48' }}
+                  image={{ uri: sellerDetailOrder?.User?.image_url }}
                   style={{ width: 48, height: 48 }}
                   styleImage={{ width: 48, height: 48 }}
+                  disabled
                 />
               </View>
               <View style={{ paddingLeft: SIZES.padding3 }}>
                 <Text
                   style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
                 >
-                  {sellerDetailOrder.User.full_name}
+                  {sellerDetailOrder?.User?.full_name}
                 </Text>
                 <Text
                   style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}
                 >
-                  {sellerDetailOrder.User.city}
+                  {sellerDetailOrder?.User?.city}
                 </Text>
               </View>
             </View>
@@ -130,22 +133,22 @@ function BidderInfo({ navigation, route }) {
               {t('bidderInfoText')}
             </Text>
             <BidderCard
-              image={sellerDetailOrder.Product.image_url}
-              name={sellerDetailOrder.Product.name}
-              date={sellerDetailOrder.transaction_date}
-              price={sellerDetailOrder.Product.base_price}
-              status={sellerDetailOrder.status}
-              offeringPrice={sellerDetailOrder.price}
+              image={sellerDetailOrder?.Product?.image_url}
+              name={sellerDetailOrder?.Product?.name}
+              date={sellerDetailOrder?.transaction_date}
+              price={sellerDetailOrder?.Product?.base_price}
+              status={sellerDetailOrder?.status}
+              offeringPrice={sellerDetailOrder?.price}
               isSeen
               disabled
-              showButton={sellerDetailOrder.Product.status != 'seller'}
+              showButton={sellerDetailOrder?.Product?.status != 'seller'}
               onPressAccepted={
-                sellerDetailOrder.status === 'accepted'
+                sellerDetailOrder?.status === 'accepted'
                   ? () => onPressAfterPutStatus('hubungi')
                   : () => handlePutStatus('accepted')
               }
               onPressDeclined={
-                sellerDetailOrder.status === 'accepted'
+                sellerDetailOrder?.status === 'accepted'
                   ? () => onPressAfterPutStatus('status')
                   : () => handlePutStatus('declined')
               }
@@ -156,7 +159,7 @@ function BidderInfo({ navigation, route }) {
 
       <BottomSheetComponent
         sheetRef={sheetRef}
-        component={status ? BottomSheetStatus(values, setValues, sellerDetailOrder.product_id, accessToken, dispatch) : BottomSheetHubungi(sellerDetailOrder)}
+        component={status ? BottomSheetStatus(values, setValues, sellerDetailOrder?.product_id, accessToken, dispatch) : BottomSheetHubungi(sellerDetailOrder)}
         type={type}
       />
       {loading && (

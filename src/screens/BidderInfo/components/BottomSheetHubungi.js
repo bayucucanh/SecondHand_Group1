@@ -52,7 +52,7 @@ export function BottomSheetHubungi(sellerDetailOrder) {
             </View>
             <View style={{ paddingLeft: SIZES.padding3 }}>
               <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>
-                {data?.User.full_name}
+                {data?.User?.full_name}
               </Text>
               <Text
                 style={{
@@ -60,7 +60,7 @@ export function BottomSheetHubungi(sellerDetailOrder) {
                   color: COLORS.neutral3,
                 }}
               >
-                {data?.User.city}
+                {data?.User?.city}
               </Text>
             </View>
           </View>
@@ -74,14 +74,14 @@ export function BottomSheetHubungi(sellerDetailOrder) {
             <View style={{ justifyContent: 'center' }}>
               <Image
                 source={{
-                  uri: data?.Product.image_url,
+                  uri: data?.Product?.image_url,
                 }}
                 style={{ width: 48, height: 48, borderRadius: SIZES.padding1 }}
               />
             </View>
             <View style={{ paddingLeft: SIZES.padding3 }}>
               <Text style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}>
-                {data?.Product.name}
+                {data?.Product?.name}
               </Text>
               <Text
                 style={{
@@ -90,7 +90,7 @@ export function BottomSheetHubungi(sellerDetailOrder) {
                   textDecorationLine: 'line-through',
                 }}
               >
-                {formatRupiah(data?.Product.base_price)}
+                {formatRupiah(data?.Product?.base_price)}
               </Text>
               <Text
                 style={{
