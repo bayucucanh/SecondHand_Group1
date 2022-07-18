@@ -31,10 +31,6 @@ function Register({ navigation }) {
       full_name: values.full_name,
       email: values.email,
       password: values.password,
-      phone_number: values.phone_number,
-      address: values.address,
-      image_url: null,
-      city: values.city,
     };
     dispatch(checkRegister(data, navigation));
   };

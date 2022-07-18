@@ -12,6 +12,7 @@ import Produk from './components/Produk';
 import Diminati from './components/Diminati';
 import Terjual from './components/Terjual';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
+import { Avatar } from '../../assets';
 
 function DaftarJual({ navigation }) {
   const { t } = useTranslation();
@@ -75,7 +76,7 @@ function DaftarJual({ navigation }) {
         }]}
         >
           <View style={{ justifyContent: 'center' }}>
-            <PhotoProfile image={{ uri: profileData.image_url }} style={{ width: 48, height: 48 }} styleImage={{ width: 48, height: 48 }} />
+            <PhotoProfile image={profileData.image_url ? { uri: profileData.image_url } : Avatar} style={{ width: 48, height: 48 }} styleImage={{ width: 48, height: 48 }} />
           </View>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={{ paddingLeft: SIZES.padding3 }}>

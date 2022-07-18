@@ -43,6 +43,7 @@ function InputText({
         secureTextEntry={passwordVisibility}
         style={[FONTS.bodyNormalRegular, {
           ...style,
+          width: '90%',
           // borderRadius: SIZES.radius2,
           // borderWidth: 2,
           // borderColor: checkError(),

@@ -11,17 +11,24 @@ import { regions } from '../../constant/regions';
 import {
   Header, InputText, InputDropdown, CustomButton, HelperText, PhotoProfile, Loading, LoadingScreen,
 } from '../../components';
-import { profileValidationSchema } from '../../utils';
+import { profileValidationSchema, showInfo } from '../../utils';
 import { getDataProfile } from '../../redux/actions/getDataProfile';
 import { putDataProfile } from '../../redux/actions/pushDataProfile';
 import { Avatar } from '../../assets';
 
-function ChangeProfile({ navigation }) {
+function ChangeProfile({ navigation, route }) {
   const { t } = useTranslation();
   const profileData = useSelector((state) => state.profile.profileData);
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const isLoading = useSelector((state) => state.global.isLoading);
   const dispatch = useDispatch();
+  const { data } = route.params;
+
+  useEffect(() => {
+    if (!data) {
+      showInfo(t('profileDataNotComplete'));
+    }
+  }, []);
 
   const onUpdate = async (values) => {
     const formdata = new FormData();
@@ -49,7 +56,7 @@ function ChangeProfile({ navigation }) {
           backgroundColor: COLORS.neutral1, paddingBottom: SIZES.padding6, paddingTop: 20,
         }}
         >
-          <Header title={t('changeProfileTitle')} />
+          <Header title={!data ? t('completeProfileTitle') : t('changeProfileTitle')} />
           <Formik
             validationSchema={profileValidationSchema}
             initialValues={{
