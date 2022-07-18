@@ -5,7 +5,11 @@ import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
-import { deleteBid, getBidDetailProduct } from '../../redux/actions/getAllBidProduct';
+import {
+  deleteBid,
+  getBidDetailProduct,
+  updateBid,
+} from '../../redux/actions/getAllBidProduct';
 import { FONTS, SIZES, COLORS } from '../../constant';
 import styles from '../../constant/styles';
 import {
@@ -39,10 +43,8 @@ function DetailBuyerOrder({ route, navigation }) {
 
   const submitBid = (bid) => {
     const data = {
-      product_id: orderId,
       bid_price: bid,
     };
-    console.log(data.bid_price);
   };
 
   const handleDelete = () => {
