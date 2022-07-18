@@ -7,7 +7,7 @@ export function showSuccess(message) {
     type: 'success',
     color: COLORS.white,
     icon: 'success',
-    duration: 800,
+    duration: 1600,
     style: {
       marginTop: SIZES.padding5 * 2 + 6,
       marginHorizontal: SIZES.padding5,
@@ -27,7 +27,7 @@ export function showDanger(message) {
     type: 'danger',
     color: COLORS.white,
     icon: 'danger',
-    duration: 800,
+    duration: 1600,
     style: {
       marginTop: SIZES.padding5 * 2 + 6,
       marginHorizontal: SIZES.padding5,
@@ -47,7 +47,7 @@ export function showInfo(message) {
     type: 'info',
     color: COLORS.white,
     icon: 'info',
-    duration: 800,
+    duration: 1600,
     style: {
       marginTop: SIZES.padding5 * 2 + 6,
       marginHorizontal: SIZES.padding5,
@@ -67,7 +67,7 @@ export const showWarning = (message) => {
     type: 'warning',
     color: COLORS.white,
     icon: 'warning',
-    duration: 800,
+    duration: 1600,
     style: {
       marginTop: SIZES.padding5 * 2 + 6,
       marginHorizontal: SIZES.padding5,

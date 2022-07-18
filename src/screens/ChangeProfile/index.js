@@ -53,7 +53,7 @@ function ChangeProfile({ navigation, route }) {
         showsVerticalScrollIndicator={false}
       >
         <View style={{
-          backgroundColor: COLORS.neutral1, paddingBottom: SIZES.padding6, paddingTop: 20,
+          backgroundColor: COLORS.neutral1, paddingBottom: SIZES.padding6, paddingTop: 20, height: SIZES.height,
         }}
         >
           <Header title={!data ? t('completeProfileTitle') : t('changeProfileTitle')} />

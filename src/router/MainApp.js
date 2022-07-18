@@ -68,8 +68,10 @@ function MainApp() {
                   // Prevent default action
                   e.preventDefault();
                   // Any custom code here
+                  console.log(profileData.address !== null);
+
                   // eslint-disable-next-line no-unused-expressions
-                  profileData.address == !null
+                  profileData.address !== null
                     ? navigation.navigate('JualFull', { data: false })
                     : navigation.navigate('ChangeProfile', { data: false });
                 },
