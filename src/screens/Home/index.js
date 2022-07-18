@@ -28,6 +28,7 @@ import {
   getDataProduct,
   getDataCategories,
   getDataBanner,
+  getDataProfile,
 } from '../../redux/actions';
 
 function Home({ navigation }) {
@@ -42,10 +43,12 @@ function Home({ navigation }) {
   const dataCategories = useSelector((state) => state.home.categories);
   const dataBanner = useSelector((state) => state.home.dataBanner);
   const loading = useSelector((state) => state.global.isLoading);
+  const accessToken = useSelector((state) => state.login.userData.access_token);
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     console.log('Category ID', categorySelectedId);
+    dispatch(getDataProfile(accessToken));
     dispatch(getDataCategories());
     dispatch(getDataBanner());
     if (isFocused) {

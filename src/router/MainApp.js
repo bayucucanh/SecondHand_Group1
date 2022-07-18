@@ -16,6 +16,7 @@ function MainApp() {
   const navigation = useNavigation();
 
   const login = useSelector((state) => state.login.isLogin);
+  const profileData = useSelector((state) => state.profile.profileData);
 
   return (
     <>
@@ -67,7 +68,10 @@ function MainApp() {
                   // Prevent default action
                   e.preventDefault();
                   // Any custom code here
-                  navigation.navigate('JualFull', { data: false });
+                  // eslint-disable-next-line no-unused-expressions
+                  profileData.address == !null
+                    ? navigation.navigate('JualFull', { data: false })
+                    : navigation.navigate('ChangeProfile', { data: false });
                 },
               }}
               options={{

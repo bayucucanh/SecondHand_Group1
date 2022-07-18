@@ -67,7 +67,7 @@ function Profile({ navigation }) {
         </View>
       </View>
       <View>
-        <TextButton onPress={() => navigation.navigate('ChangeProfile')} icon="edit" text={t('goToChangeProfile')} />
+        <TextButton onPress={() => navigation.navigate('ChangeProfile', { data: true })} icon="edit" text={t('goToChangeProfile')} />
         <TextButton icon="dollar-sign" text={t('goToHistory')} onPress={() => navigation.navigate('History')} />
         <TextButton icon="list" text={t('goToBuyerOrder')} onPress={() => navigation.navigate('BuyerOrder')} />
         <TextButton icon="settings" text={t('goToSetting')} onPress={() => navigation.navigate('Setting')} />
