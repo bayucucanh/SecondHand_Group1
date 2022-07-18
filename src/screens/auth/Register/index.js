@@ -51,9 +51,6 @@ function Register({ navigation }) {
               full_name: '',
               email: '',
               password: '',
-              phone_number: '',
-              city: '',
-              address: '',
             }}
             onSubmit={(values) => onRegister(values)}
           >

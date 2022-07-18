@@ -40,21 +40,6 @@ export const registerValidationSchema = yup.object().shape({
       'passwordAlertMatch',
     )
     .required('passwordAlertRequired'),
-  phone_number: yup
-    .string()
-    .trim()
-    .min(9, 'phoneNumberAlertMin')
-    .max(11, 'phoneNumberAlertMax')
-    .required('phoneNumberAlertRequired'),
-  city: yup
-    .string()
-    .required('cityAlertRequired'),
-  address: yup
-    .string()
-    .trim()
-    .min(1, 'addressAlertMin')
-    .max(150, 'addressAlertMax')
-    .required('addressAlertRequired'),
 });
 
 export const profileValidationSchema = yup.object().shape({

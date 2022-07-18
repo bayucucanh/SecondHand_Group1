@@ -12,7 +12,7 @@ function InputText({
   placeholder, multiline, style, type, maxLength, onChangeText, value, error, name, onBlur, secureTextEntry,
 }) {
   const [isFocus, setIsFocus] = useState(false);
-  const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility(!secureTextEntry);
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility(secureTextEntry);
   const checkError = () => {
     if (error) {
       return COLORS.alertDanger;
