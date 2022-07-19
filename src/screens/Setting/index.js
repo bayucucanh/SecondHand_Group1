@@ -27,6 +27,10 @@ function Setting() {
 
   useEffect(() => {
     Language.getLanguage().then((data) => {
+      console.log(data);
+      if (data == null) {
+        setIsEnabled(getDeviceLang() != 'en');
+      }
       setIsEnabled(data == 'id');
     });
   }, []);

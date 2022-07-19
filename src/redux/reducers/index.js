@@ -11,6 +11,7 @@ import SellerProductListReducer from './SellerProductListReducer';
 import SellerOrderReducer from './SellerOrder';
 import NotificationReducer from './NotificationReducer';
 import HistoryReducer from './HistoryReducer';
+import WishlistReducer from './WishlistReducer';
 
 const AllReducers = combineReducers({
   login: LoginReducer,
@@ -25,6 +26,7 @@ const AllReducers = combineReducers({
   sellerOrder: SellerOrderReducer,
   notifications: NotificationReducer,
   history: HistoryReducer,
+  wishlist: WishlistReducer,
 });
 
 export default AllReducers;
