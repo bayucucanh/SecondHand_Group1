@@ -154,6 +154,14 @@
     "confirmPassword":"Repeat new password",
     "confirmPasswordPlaceholder":"Input new password",
     "changePasswordButton":"Change Password",
-    "settingTitle":"Account Setting"
+    "settingTitle":"Account Setting",
+    "goToWishlist":"Wishlist",
+    "wishlistTitle":"Wishlist",
+    "emptyWishlist":"You haven't save any product yet",
+    "loginWishlistAlert":"Please login first before save it",
+    "postWishlistSuccess":"Success add to wishlist",
+    "postWishlistFailed":"Failed add to wishlist",
+    "successDeleteWishlist":"Success delete from wishlist",
+    "failedDeleteWishlist":"Failed delete from wishlist"
   }
 }

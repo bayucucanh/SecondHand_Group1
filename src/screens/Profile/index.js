@@ -1,5 +1,5 @@
 import {
-  Text, View, TouchableOpacity, StatusBar,
+  Text, View, TouchableOpacity, StatusBar, ScrollView,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
@@ -39,9 +39,14 @@ function Profile({ navigation }) {
   };
 
   return (
-    <View style={{
-      flex: 1, paddingHorizontal: SIZES.padding5, paddingTop: SIZES.padding5, backgroundColor: COLORS.white,
-    }}
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={{
+        flex: 1,
+        paddingHorizontal: SIZES.padding5,
+        paddingTop: SIZES.padding5,
+        backgroundColor: COLORS.white,
+      }}
     >
       <FocusAwareStatusBar barStyle="dark-content" color="white" />
       <TextHeader text={t('profileTitle')} />
@@ -71,10 +76,14 @@ function Profile({ navigation }) {
         <TextButton icon="dollar-sign" text={t('goToHistory')} onPress={() => navigation.navigate('History')} />
         <TextButton icon="list" text={t('goToBuyerOrder')} onPress={() => navigation.navigate('BuyerOrder')} />
         <TextButton icon="settings" text={t('goToSetting')} onPress={() => navigation.navigate('Setting')} />
+        <TextButton icon="bookmark" text={t('goToWishlist')} onPress={() => navigation.navigate('Wishlist')} />
         <TextButton onPress={() => setModalVisible(true)} icon="log-out" text={t('goToLogout')} />
       </View>
       <Text style={[FONTS.bodySmallRegular, {
-        color: COLORS.neutral3, marginTop: SIZES.padding3, alignSelf: 'center',
+        paddingBottom: SIZES.padding6,
+        color: COLORS.neutral3,
+        marginTop: SIZES.padding3,
+        alignSelf: 'center',
       }]}
       >
         Version
@@ -82,7 +91,7 @@ function Profile({ navigation }) {
         {appVersion}
       </Text>
       <AlertModal setModalVisible={setModalVisible} modalVisible={modalVisible} title="Apakah anda yakin ingin keluar?" onPress={() => onLogout()} />
-    </View>
+    </ScrollView>
   );
 }
 

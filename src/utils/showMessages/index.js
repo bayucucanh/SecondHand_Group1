@@ -13,6 +13,7 @@ export function showSuccess(message) {
       marginHorizontal: SIZES.padding5,
       borderRadius: SIZES.radius2,
       padding: SIZES.padding3,
+      paddingRight: SIZES.padding6,
     },
     titleStyle: {
       ...FONTS.bodyLargeMedium,
@@ -33,6 +34,7 @@ export function showDanger(message) {
       marginHorizontal: SIZES.padding5,
       borderRadius: SIZES.radius2,
       padding: SIZES.padding3,
+      paddingRight: SIZES.padding6,
     },
     titleStyle: {
       ...FONTS.bodyLargeMedium,
@@ -53,6 +55,7 @@ export function showInfo(message) {
       marginHorizontal: SIZES.padding5,
       borderRadius: SIZES.radius2,
       padding: SIZES.padding3,
+      paddingRight: SIZES.padding6,
     },
     titleStyle: {
       ...FONTS.bodyLargeMedium,
@@ -73,6 +76,7 @@ export const showWarning = (message) => {
       marginHorizontal: SIZES.padding5,
       borderRadius: SIZES.radius2,
       padding: SIZES.padding3,
+      paddingRight: SIZES.padding6,
     },
     titleStyle: {
       ...FONTS.bodyLargeMedium,

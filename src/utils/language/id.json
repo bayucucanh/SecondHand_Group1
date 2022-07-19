@@ -154,6 +154,14 @@
       "confirmPassword":"Ulangi password baru",
       "confirmPasswordPlaceholder":"Masukkan password baru",
       "changePasswordButton":"Ubah Password",
-      "settingTitle":"Pengaturan Akun"
+      "settingTitle":"Pengaturan Akun",
+      "goToWishlist":"Daftar Simpan",
+      "wishlistTitle":"Daftar Simpan",
+      "emptyWishlist":"Kamu belum ada simpan produk sama sekali nih",
+      "loginWishlistAlert":"Masuk terlebih dahulu sebelum simpan",
+      "postWishlistSuccess":"Berhasil tambah ke daftar simpan",
+      "postWishlistFailed":"Gagal tambah ke daftar simpan",
+      "successDeleteWishlist":"Berhasil hapus dari daftar simpan",
+      "failedDeleteWishlist":"Gagal hapus dari daftar simpan"
     }
   }

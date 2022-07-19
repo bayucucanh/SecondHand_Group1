@@ -10,7 +10,7 @@ function BottomSheetComponent({ sheetRef, component, type }) {
     } if (types === 'hubungi') {
       return SIZES.height * 0.65;
     } if (types === 'bid') {
-      return SIZES.height * 0.64;
+      return SIZES.height * 0.61;
     }
     return SIZES.height * 0.5;
   };

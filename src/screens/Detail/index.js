@@ -1,5 +1,5 @@
 import {
-  Text, View, ScrollView, Image, FlatList,
+  Text, View, ScrollView, Image, FlatList, TouchableWithoutFeedback,
 } from 'react-native';
 import React, {
   useEffect, useState, useRef, useCallback,
@@ -7,6 +7,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   COLORS, SIZES, FONTS, style,
 } from '../../constant';
@@ -23,7 +24,11 @@ import {
 import { getDetailData, getAllBidProduct, bidProduct } from '../../redux/actions';
 import styles from '../../constant/styles';
 import formatRupiah from '../../utils/formatCurrency';
-import { bidPriceSchema } from '../../utils';
+import { bidPriceSchema, showInfo } from '../../utils';
+import { getDetailWishlistData } from '../../redux/actions/getWishlistDetail';
+import { postWishlistData } from '../../redux/actions/pushWishlist';
+import { deleteWishlistData } from '../../redux/actions/deleteWishlist';
+import { getWishlistData } from '../../redux/actions/getWishlist';
 
 function Detail({ route, navigation }) {
   const dispatch = useDispatch();
@@ -34,7 +39,9 @@ function Detail({ route, navigation }) {
   const accessToken = useSelector((state) => state.login.userData);
   const login = useSelector((state) => state.login.isLogin);
   const detailData = useSelector((state) => state.detail.detailProduct);
+  const wishlistData = useSelector((state) => state.wishlist.wishlistData.filter((item) => item.product_id === productId));
   const loading = useSelector((state) => state.global.isLoading);
+  const [enable, setEnable] = useState(true);
   const { t } = useTranslation();
 
   const sheetRef = useRef(null);
@@ -45,9 +52,33 @@ function Detail({ route, navigation }) {
   useEffect(() => {
     dispatch(getDetailData(productId));
     if (login) {
+      dispatch(getWishlistData(accessToken.access_token));
       dispatch(getAllBidProduct(accessToken.access_token));
+      if (wishlistData.length !== 0) {
+        setEnable(false);
+      }
     }
   }, [productId, dispatch, login]);
+
+  const checkEnable = () => {
+    if (login) {
+      if (enable) {
+        const dataId = {
+          product_id: productId,
+        };
+        console.log('ini post');
+        dispatch(postWishlistData(accessToken.access_token, dataId));
+        dispatch(getWishlistData(accessToken.access_token));
+      } else {
+        console.log('ini delete');
+        dispatch(deleteWishlistData(accessToken.access_token, wishlistData[0]?.id));
+        dispatch(getWishlistData(accessToken.access_token));
+      }
+      setEnable(!enable);
+    } else {
+      showInfo(t('loginWishlistAlert'));
+    }
+  };
 
   const submitBid = (bid) => {
     const data = {
@@ -155,7 +186,7 @@ function Detail({ route, navigation }) {
     <>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ backgroundColor: COLORS.neutral1 }}
+        style={{ backgroundColor: COLORS.neutral1, marginBottom: SIZES.padding6 + SIZES.padding2 }}
       >
         <View style={{ flex: 1, marginBottom: SIZES.padding5 }}>
           <Image source={{ uri: detailData.image_url }} style={{ height: 300 }} />
@@ -175,29 +206,32 @@ function Detail({ route, navigation }) {
                 },
               ]}
             >
+              <View style={{ flexDirection: 'row' }}>
+                <Text
+                  style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
+                >
+                  {detailData.name}
+                </Text>
+                <View style={{ position: 'absolute', right: 0 }}>
+                  <TouchableWithoutFeedback onPress={checkEnable}>
+                    <Icon name={enable ? 'bookmark-o' : 'bookmark'} color={COLORS.neutral5} size={24} />
+                  </TouchableWithoutFeedback>
+                </View>
+              </View>
               <Text
-                style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
+                style={{
+                  ...FONTS.bodyNormalRegular,
+                  color: COLORS.neutral3,
+                }}
               >
-                {detailData.name}
-              </Text>
-              <FlatList
-                data={detailData.Categories}
-                horizontal
-                keyExtractor={(item, index) => item.id + index.toString()}
-                renderItem={({ item, index }) => (
-                  <Text
-                    key={item.id}
-                    style={{
-                      ...FONTS.bodyNormalRegular,
-                      color: COLORS.neutral3,
-                    }}
-                  >
-                    {index > 0 ? ',' : ''}
-                    {' '}
+                {detailData?.Categories?.map((item, index) => (
+                  <Text key={item.id}>
+                    {index > 0 ? ', ' : ''}
                     {item.name}
                   </Text>
-                )}
-              />
+                ))}
+              </Text>
+
               <Text
                 style={{
                   ...FONTS.bodyLargeRegular,
