@@ -18,6 +18,6 @@ export const getWishlistData = (accessToken) => async (dispatch) => {
     dispatch(setLoading(false));
     console.log('Get wishlist berhasil');
   }).catch((err) => {
-    dispatch(failedGetWishlist(err.message));
+    dispatch(failedGetWishlist());
   });
 };

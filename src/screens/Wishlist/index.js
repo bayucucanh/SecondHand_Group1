@@ -13,28 +13,35 @@ import {
 } from '../../constant';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import { SelectionImage } from '../../assets';
+import { getWishlistData } from '../../redux/actions/getWishlist';
 
 function Wishlist() {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const isLoading = useSelector((state) => state.global.isLoading);
+  const wishlistData = useSelector((state) => state.wishlist.wishlistData);
   const dispatch = useDispatch();
-  const dataWishlist = [];
 
   useEffect(() => {
-    console.log('Category ID');
+    dispatch(getWishlistData(accessToken));
   }, []);
 
   function Empty() {
     return (
       <View style={{
-        height: SIZES.height * 0.8, alignItems: 'center', justifyContent: 'center',
+        height: SIZES.height * 0.8,
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
       >
         <SelectionImage width={SIZES.width * 0.6} height={SIZES.width * 0.4} />
         <Text style={{
-          color: COLORS.neutral3, textAlign: 'center', ...FONTS.bodyLargeRegular, marginTop: SIZES.padding3,
+          color: COLORS.neutral3,
+          textAlign: 'center',
+          ...FONTS.bodyLargeRegular,
+          marginTop: SIZES.padding3,
+          marginHorizontal: SIZES.padding6,
         }}
         >
           {t('emptyWishlist')}
@@ -56,7 +63,7 @@ function Wishlist() {
           <FocusAwareStatusBar barStyle="dark-content" color="white" />
           <Header title={t('wishlistTitle')} />
           <FlatList
-            data={dataWishlist}
+            data={wishlistData}
             columnWrapperStyle={{
               marginBottom: SIZES.padding4,
               justifyContent: 'space-between',
