@@ -14,6 +14,8 @@ import {
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import { SelectionImage } from '../../assets';
 import { getWishlistData } from '../../redux/actions/getWishlist';
+import { postWishlistData } from '../../redux/actions/pushWishlist';
+import { deleteWishlistData } from '../../redux/actions/deleteWishlist';
 
 function Wishlist() {
   const { t } = useTranslation();
@@ -21,7 +23,14 @@ function Wishlist() {
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const isLoading = useSelector((state) => state.global.isLoading);
   const wishlistData = useSelector((state) => state.wishlist.wishlistData);
+  const [enable, setEnable] = useState(false);
+
   const dispatch = useDispatch();
+
+  const checkEnable = (wishlistId) => {
+    dispatch(deleteWishlistData(accessToken, wishlistId));
+    dispatch(getWishlistData(accessToken));
+  };
 
   useEffect(() => {
     dispatch(getWishlistData(accessToken));
@@ -62,31 +71,35 @@ function Wishlist() {
         >
           <FocusAwareStatusBar barStyle="dark-content" color="white" />
           <Header title={t('wishlistTitle')} />
-          <FlatList
-            data={wishlistData}
-            columnWrapperStyle={{
-              marginBottom: SIZES.padding4,
-              justifyContent: 'space-between',
-            }}
-            initialNumToRender={7}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => item.id + index.toString()}
-            maxToRenderPerBatch={1000}
-            windowSize={60}
-            updateCellsBatchingPeriod={60}
-            ListEmptyComponent={Empty}
-            renderItem={({ item }) => (
-              <ProductCard
-                name={item.name}
-                categories={item.Categories}
-                basePrice={item.base_price}
-                imageUrl={item.image_url}
-                style={{ maxWidth: SIZES.width * 0.42 }}
-                onPress={() => navigation.navigate('Detail', { productId: item.id })}
-              />
-            )}
-          />
+          <View style={{ marginHorizontal: SIZES.padding5 }}>
+            <FlatList
+              data={wishlistData}
+              columnWrapperStyle={{
+                marginBottom: SIZES.padding4,
+                justifyContent: 'space-between',
+              }}
+              initialNumToRender={7}
+              numColumns={2}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => item.id + index.toString()}
+              maxToRenderPerBatch={1000}
+              windowSize={60}
+              updateCellsBatchingPeriod={60}
+              ListEmptyComponent={Empty}
+              renderItem={({ item }) => (
+                <ProductCard
+                  name={item.Product.name}
+                  basePrice={item.Product.base_price}
+                  imageUrl={item.Product.image_url}
+                  style={{ maxWidth: SIZES.width * 0.42 }}
+                  icon
+                  enable={enable}
+                  checkEnable={() => checkEnable(item.id)}
+                  onPress={() => navigation.navigate('Detail', { productId: item.Product.id })}
+                />
+              )}
+            />
+          </View>
         </View>
       </ScrollView>
       {isLoading && (

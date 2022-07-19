@@ -19,5 +19,6 @@ export const getDetailWishlistData = (accessToken, id) => async (dispatch) => {
     console.log('Get detail wishlist berhasil');
   }).catch((err) => {
     dispatch(failedGetDetailWishlist());
+    console.log(err.message);
   });
 };
