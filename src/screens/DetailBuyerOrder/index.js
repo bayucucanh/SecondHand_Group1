@@ -45,6 +45,7 @@ function DetailBuyerOrder({ route, navigation }) {
     const data = {
       bid_price: bid,
     };
+    dispatch(updateBid(orderId, data, accessToken))
   };
 
   const handleDelete = () => {
@@ -266,7 +267,7 @@ function DetailBuyerOrder({ route, navigation }) {
             <View style={{ flex: 1, marginLeft: 8 }}>
               <CustomButton
                 // onPress={() => dispatch(deleteDataProduct(accessToken, values.id))}
-                onPress={() => handleDelete()}
+                onPress={() => dispatch(deleteBid(orderId, accessToken, navigation))}
                 title={t('delete')}
                 enabled
               />
