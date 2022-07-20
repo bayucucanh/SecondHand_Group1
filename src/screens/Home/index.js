@@ -29,6 +29,7 @@ import {
   getDataCategories,
   getDataBanner,
   getDataProfile,
+  setRefresh,
 } from '../../redux/actions';
 
 function Home({navigation}) {
@@ -63,7 +64,18 @@ function Home({navigation}) {
     }
   }, [dispatch, categorySelectedId, searchProduct, page]);
 
-  const Refresh = () => {};
+  const Refresh = () => {
+    dispatch(setRefresh(true));
+    dispatch(
+      getDataProduct({
+        status: 'available',
+        category_id: categorySelectedId !== 0 ? categorySelectedId : '',
+        search: searchProduct,
+        page,
+        per_page: 10,
+      }),
+    );
+  };
 
   const footerHome = () => (
     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -116,7 +128,9 @@ function Home({navigation}) {
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar barStyle="dark-content" color={COLORS.white} />
-      <ScrollView nestedScrollEnabled>
+      <ScrollView nestedScrollEnabled refreshControl={
+        <RefreshControl refreshing={refresh} onRefresh={()=>Refresh()}/>
+      }>
         <SearchBar onChangeText={setSearchProduct} value={searchProduct} />
         <PagerView
           style={{height: SIZES.height * 0.25}}
