@@ -162,6 +162,21 @@
     "postWishlistSuccess":"Success add to wishlist",
     "postWishlistFailed":"Failed add to wishlist",
     "successDeleteWishlist":"Success delete from wishlist",
-    "failedDeleteWishlist":"Failed delete from wishlist"
+    "failedDeleteWishlist":"Failed delete from wishlist",
+    "logoutTitle":"Are you sure want to get out?",
+    "before":"Before",
+    "next":"Next",
+    "pages":"Page ",
+    "emptyProduct":"No product you looking for",
+    "sortBy":"Sort by ",
+    "newestTitle":"Newest",
+    "newest":"newest",
+    "oldestTitle":"Oldest",
+    "oldest":"oldest",
+    "expensiveTitle":"Most expensive",
+    "expensive":"most expensive",
+    "cheapestTitle":"Cheapest",
+    "cheapest":"cheapest",
+    "BottomSheetSortingTitle":"Sorting by what?"
   }
 }

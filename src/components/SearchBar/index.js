@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { COLORS, FONTS, SIZES } from '../../constant';
 
 function SearchBar({ onChangeText, value }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <View style={{

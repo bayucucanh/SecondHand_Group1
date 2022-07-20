@@ -7,18 +7,26 @@ import {
   SafeAreaView,
   LogBox,
   Image,
+  TouchableOpacity,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, {
+  useEffect, useState, useRef, useCallback,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { RectButton } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Feather';
 import { getDataSellerOrder } from '../../../redux/actions';
 import { SIZES, COLORS, FONTS } from '../../../constant';
-import { Loading, NotificationCard } from '../../../components';
+import {
+  BottomSheetComponent, IconButton, Loading, NotificationCard,
+} from '../../../components';
 import { DiminatiNull } from '../../../assets/image';
 import { SelectionImage } from '../../../assets';
+import { BottomSheetSorting } from './BottomSheetSorting';
 
-function Diminati() {
+function Diminati({ handleSnapPress, sort, setSort }) {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -26,13 +34,23 @@ function Diminati() {
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const sellerOrderData = useSelector((state) => state.sellerOrder.sellerOrder);
   const isLoading = useSelector((state) => state.global.isLoading);
+  const [diminatiData, setDiminatiData] = useState([...sellerOrderData]);
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     if (isFocused) {
       dispatch(getDataSellerOrder(accessToken));
+      setDiminatiData(sellerOrderData);
     }
   }, [isFocused]);
+
+  useEffect(() => {
+    if (sort === 'newest') { diminatiData.sort((a, b) => a.transaction_date < b.transaction_date); }
+    if (sort === 'oldest') { diminatiData.sort((a, b) => a.transaction_date > b.transaction_date); }
+    if (sort === 'expensive') { diminatiData.sort((a, b) => a.price < b.price); }
+    if (sort === 'cheapest') { diminatiData.sort((a, b) => a.price > b.price); }
+    setDiminatiData([...diminatiData]);
+  }, [sort]);
 
   function Empty() {
     return (
@@ -47,6 +65,26 @@ function Diminati() {
         >
           {t('emptyInterested')}
         </Text>
+      </View>
+    );
+  }
+
+  function Sort() {
+    return (
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral5 }}>
+          {t('sortBy')}
+          <Text style={{ ...FONTS.bodyNormalBold, color: COLORS.neutral5 }}>
+            {' '}
+            {t(sort)}
+          </Text>
+        </Text>
+        <TouchableOpacity onPress={() => {
+          handleSnapPress(2);
+        }}
+        >
+          <Icon name="sliders" color={COLORS.neutral4} size={20} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -66,11 +104,12 @@ function Diminati() {
           </View>
         ) : (
           <FlatList
-            data={sellerOrderData}
+            data={diminatiData}
             showsVerticalScrollIndicator={false}
             refreshing={Loading}
             keyExtractor={(item, index) => item.id + index.toString()}
             ListEmptyComponent={Empty}
+            ListHeaderComponent={Sort}
             renderItem={({ item }) => (
               <NotificationCard
                 image={item.Product.image_url}

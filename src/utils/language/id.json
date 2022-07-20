@@ -162,6 +162,21 @@
       "postWishlistSuccess":"Berhasil tambah ke daftar simpan",
       "postWishlistFailed":"Gagal tambah ke daftar simpan",
       "successDeleteWishlist":"Berhasil hapus dari daftar simpan",
-      "failedDeleteWishlist":"Gagal hapus dari daftar simpan"
+      "failedDeleteWishlist":"Gagal hapus dari daftar simpan",
+      "logoutTitle":"Apakah anda yakin ingin keluar?",
+      "before":"Sebelum",
+      "next":"Selanjutnya",
+      "pages":"Halaman ",
+      "emptyProduct":"Tidak ada produk yang dicari",
+      "sortBy":"Urutkan berdasarkan ",
+      "newestTitle":"Terbaru",
+      "newest":"terbaru",
+      "oldestTitle":"Terlama",
+      "oldest":"terlama",
+      "expensiveTitle":"Termahal",
+      "expensive":"termahal",
+      "cheapestTitle":"Termurah",
+      "cheapest":"termurah",
+      "BottomSheetSortingTitle":"Urutkan berdasarkan apa?"
     }
   }

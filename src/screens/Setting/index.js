@@ -30,8 +30,9 @@ function Setting() {
       console.log(data);
       if (data == null) {
         setIsEnabled(getDeviceLang() != 'en');
+      } else {
+        setIsEnabled(data == 'id');
       }
-      setIsEnabled(data == 'id');
     });
   }, []);
 
