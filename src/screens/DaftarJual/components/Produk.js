@@ -52,7 +52,7 @@ function Produk() {
                   categories={item.Categories}
                   basePrice={item.base_price}
                   imageUrl={item.image_url}
-                  style={{ maxWidth: 160 }}
+                  style={{ maxWidth: SIZES.width*0.42 }}
                   onPress={() => navigation.navigate('Product', { values: item, list: true })}
                 />
               </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   cardTambah: {
-    maxWidth: 160,
+    maxWidth: SIZES.width*0.42,
   },
   tambahProduk: {
     borderWidth: 2,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 150,
-    height: SIZES.height * 0.3,
+    height: SIZES.height * 0.269,
     borderStyle: 'dashed',
     borderColor: COLORS.neutral2,
     marginLeft: 5,
