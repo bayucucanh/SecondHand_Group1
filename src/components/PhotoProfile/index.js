@@ -48,7 +48,7 @@ function PhotoProfile({
           }}
         >
           {hasPhoto ? (
-            <FastImage
+            <Image
               source={photo}
               style={{
                 width: 112,

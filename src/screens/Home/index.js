@@ -8,14 +8,15 @@ import {
   Image,
   LogBox,
   RefreshControl,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useEffect, useState, useReducer} from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {useDispatch, useSelector} from 'react-redux';
-import {useTranslation} from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import PagerView from 'react-native-pager-view';
-import {useIsFocused} from '@react-navigation/native';
-import {COLORS, SIZES, FONTS} from '../../constant';
+import { useIsFocused } from '@react-navigation/native';
+import { COLORS, SIZES, FONTS } from '../../constant';
 import {
   CustomButton,
   IconButton,
@@ -31,20 +32,21 @@ import {
   getDataProfile,
   setRefresh,
 } from '../../redux/actions';
+import { SelectionImage } from '../../assets';
 
-function Home({navigation}) {
+function Home({ navigation }) {
   const isFocused = useIsFocused();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [searchProduct, setSearchProduct] = useState('');
   const [categorySelectedId, setCategorySelectedId] = useState(0);
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
-  const dataProduct = useSelector(state => state.home.dataProduct);
-  const dataCategories = useSelector(state => state.home.categories);
-  const dataBanner = useSelector(state => state.home.dataBanner);
-  const loading = useSelector(state => state.global.isLoading);
-  const refresh = useSelector(state => state.global.isRefresh);
+  const dataProduct = useSelector((state) => state.home.dataProduct);
+  const dataCategories = useSelector((state) => state.home.categories);
+  const dataBanner = useSelector((state) => state.home.dataBanner);
+  const loading = useSelector((state) => state.global.isLoading);
+  const refresh = useSelector((state) => state.global.isRefresh);
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -56,13 +58,12 @@ function Home({navigation}) {
         getDataProduct({
           status: 'available',
           category_id: categorySelectedId !== 0 ? categorySelectedId : '',
-          search: searchProduct,
           page,
           per_page: 10,
         }),
       );
     }
-  }, [dispatch, categorySelectedId, searchProduct, page]);
+  }, [dispatch, categorySelectedId, page]);
 
   const Refresh = () => {
     dispatch(setRefresh(true));
@@ -78,20 +79,23 @@ function Home({navigation}) {
   };
 
   const footerHome = () => (
-    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: SIZES.padding4 }}>
       <CustomButton
-        buttonStyle={{width: '35%'}}
-        title="Previous"
+        buttonStyle={{ width: '35%' }}
+        title={t('before')}
         size="small"
         enabled={page !== 1}
         onPress={() => setPage(page - 1)}
       />
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{...FONTS.bodyNormalMedium}}>Page {page}</Text>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ ...FONTS.bodyNormalMedium }}>
+          {t('pages')}
+          {page}
+        </Text>
       </View>
       <CustomButton
-        buttonStyle={{width: '35%'}}
-        title="Next"
+        buttonStyle={{ width: '35%' }}
+        title={t('next')}
         size="small"
         enabled
         onPress={() => setPage(page + 1)}
@@ -99,53 +103,53 @@ function Home({navigation}) {
     </View>
   );
 
-  const EmptyProduct = () => {
+  function Empty() {
     return (
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginVertical: SIZES.radius1,
-        }}>
-        <Image
-          source={{
-            uri: 'https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png',
-          }}
-          style={{width: 280, height: 160}}
-        />
-        <Text
-          style={{
-            ...FONTS.bodyLargeMedium,
-            color: COLORS.black,
-            marginVertical: SIZES.radius1,
-          }}>
-          Tidak ada produk!
+      <View style={{
+        alignItems: 'center', justifyContent: 'center', marginTop: SIZES.padding4,
+      }}
+      >
+        <SelectionImage width={SIZES.width * 0.6} height={SIZES.width * 0.4} />
+        <Text style={{
+          color: COLORS.neutral3, textAlign: 'center', ...FONTS.bodyLargeRegular, marginTop: SIZES.padding3,
+        }}
+        >
+          {t('emptyProduct')}
         </Text>
       </View>
     );
-  };
+  }
 
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar barStyle="dark-content" color={COLORS.white} />
-      <ScrollView nestedScrollEnabled refreshControl={
-        <RefreshControl refreshing={refresh} onRefresh={()=>Refresh()}/>
-      }>
-        <SearchBar onChangeText={setSearchProduct} value={searchProduct} />
+      <ScrollView
+        nestedScrollEnabled
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={() => Refresh()} />
+      }
+      >
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Search')}>
+          <View>
+            <SearchBar onChangeText={setSearchProduct} value={searchProduct} />
+          </View>
+        </TouchableWithoutFeedback>
         <PagerView
-          style={{height: SIZES.height * 0.25}}
+          style={{ height: SIZES.height * 0.25 }}
           initialPage={0}
-          showPageIndicator>
-          {dataBanner?.map(item => (
+          showPageIndicator
+        >
+          {dataBanner?.map((item) => (
             <View
               key={item.id}
               style={{
                 marginVertical: SIZES.padding3,
                 marginHorizontal: SIZES.padding3,
-              }}>
+              }}
+            >
               <Image
                 resizeMode="contain"
-                source={{uri: item.image_url}}
+                source={{ uri: item.image_url }}
                 style={{
                   height: SIZES.height * 0.25 - SIZES.padding3 * 2,
                   width: SIZES.width - SIZES.padding3 * 2,
@@ -155,18 +159,20 @@ function Home({navigation}) {
             </View>
           ))}
         </PagerView>
-        <View style={{marginHorizontal: SIZES.padding5}}>
+        <View style={{ marginHorizontal: SIZES.padding5 }}>
           <Text
             style={{
               ...FONTS.bodyLargeMedium,
               color: COLORS.neutral5,
-            }}>
+            }}
+          >
             {t('searchCategoryTitle')}
           </Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{marginVertical: SIZES.padding3}}>
+            style={{ marginVertical: SIZES.padding3 }}
+          >
             <IconButton
               icon="search"
               text="Semua"
@@ -176,7 +182,7 @@ function Home({navigation}) {
                 setPage(1);
               }}
             />
-            {dataCategories?.map(item => (
+            {dataCategories?.map((item) => (
               <IconButton
                 key={item?.id}
                 icon="search"
@@ -191,7 +197,8 @@ function Home({navigation}) {
           </ScrollView>
           {loading ? (
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
               <Loader />
               <Loader />
             </View>
@@ -209,18 +216,16 @@ function Home({navigation}) {
               maxToRenderPerBatch={1000}
               windowSize={60}
               updateCellsBatchingPeriod={60}
-              ListFooterComponent={footerHome}
-              ListEmptyComponent={EmptyProduct}
-              renderItem={({item}) => (
+              ListFooterComponent={dataProduct?.length > 0 && footerHome}
+              ListEmptyComponent={Empty}
+              renderItem={({ item }) => (
                 <ProductCard
                   name={item.name}
                   categories={item.Categories}
                   basePrice={item.base_price}
                   imageUrl={item.image_url}
-                  style={{maxWidth: SIZES.width * 0.42}}
-                  onPress={() =>
-                    navigation.navigate('Detail', {productId: item.id})
-                  }
+                  style={{ maxWidth: SIZES.width * 0.42 }}
+                  onPress={() => navigation.navigate('Detail', { productId: item.id })}
                 />
               )}
             />

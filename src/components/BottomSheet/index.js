@@ -11,6 +11,8 @@ function BottomSheetComponent({ sheetRef, component, type }) {
       return SIZES.height * 0.65;
     } if (types === 'bid') {
       return SIZES.height * 0.61;
+    } if (types === 'sort') {
+      return SIZES.height * 0.53;
     }
     return SIZES.height * 0.5;
   };

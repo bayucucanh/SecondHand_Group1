@@ -19,11 +19,12 @@ import DetailHistory from './DetailHistory';
 import BuyerOrder from './BuyerOrder';
 import DetailBuyerOrder from './DetailBuyerOrder';
 import Wishlist from './Wishlist';
+import Search from './Search';
 
 export {
   Login, Register, Home, Splash, Profile,
   ChangeProfile, Jual, Product, NotLogin,
   Success, Detail, Notification, DaftarJual,
   BidderInfo, Setting, ChangePassword, History, DetailHistory,
-  BuyerOrder, DetailBuyerOrder, Wishlist,
+  BuyerOrder, DetailBuyerOrder, Wishlist, Search,
 };

@@ -90,7 +90,7 @@ function Profile({ navigation }) {
         {' '}
         {appVersion}
       </Text>
-      <AlertModal setModalVisible={setModalVisible} modalVisible={modalVisible} title="Apakah anda yakin ingin keluar?" onPress={() => onLogout()} />
+      <AlertModal setModalVisible={setModalVisible} modalVisible={modalVisible} title={t('logoutTitle')} onPress={() => onLogout()} />
     </ScrollView>
   );
 }

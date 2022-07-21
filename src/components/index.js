@@ -18,6 +18,7 @@ import BidderCard from './BidderCard';
 import LoadingScreen from './LoadingScreen';
 import Loader from './LoadingSkeleton';
 import AlertModal from './AlertModal';
+import CustomRadioButton from './CustomRadioButton';
 
 export {
   Header,
@@ -40,4 +41,5 @@ export {
   LoadingScreen,
   Loader,
   AlertModal,
+  CustomRadioButton,
 };
