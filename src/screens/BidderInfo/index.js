@@ -20,6 +20,7 @@ import { getDetailSellerOrder, setLoading } from '../../redux/actions';
 import { putStatusSellerOrder } from '../../redux/actions/putStatusOrder';
 import { BottomSheetHubungi } from './components/BottomSheetHubungi';
 import { BottomSheetStatus } from './components/BottomSheetStatus';
+import { stringToHash } from '../../utils';
 
 function BidderInfo({ navigation, route }) {
   const { orderId } = route.params;
@@ -112,7 +113,9 @@ function BidderInfo({ navigation, route }) {
                 <Text
                   style={{ ...FONTS.bodyLargeMedium, color: COLORS.neutral5 }}
                 >
-                  {sellerDetailOrder?.User?.full_name}
+                  {sellerDetailOrder?.status == 'pending'
+                    ? stringToHash(sellerDetailOrder?.User?.full_name)
+                    : sellerDetailOrder?.User?.full_name}
                 </Text>
                 <Text
                   style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}
