@@ -9,7 +9,6 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import PhoneInput from 'react-native-phone-number-input';
 import { useTranslation } from 'react-i18next';
 import { registerValidationSchema } from '../../../utils/validationSchema';
 import InputDropdown from '../../../components/InputDropdown/index';
