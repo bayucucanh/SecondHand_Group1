@@ -8,6 +8,7 @@ import { CustomButton } from '../../../components';
 import styles from '../../../constant/styles';
 import { COLORS, SIZES, FONTS } from '../../../constant';
 import { patchStatusProduct } from '../../../redux/actions/pushProductStatus';
+import { getDetailSellerOrder } from '../../../redux/actions';
 
 export function BottomSheetStatus(value, setValue, productId, accessToken, dispatch) {
   const submitUpdate = (productStatus) => {
@@ -15,6 +16,7 @@ export function BottomSheetStatus(value, setValue, productId, accessToken, dispa
       status: productStatus,
     };
     dispatch(patchStatusProduct(accessToken, productId, data));
+    dispatch(getDetailSellerOrder(productId, accessToken));
   };
 
   return (

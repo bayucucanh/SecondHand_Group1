@@ -51,9 +51,10 @@ function ChangeProfile({ navigation, route }) {
     <>
       <ScrollView
         showsVerticalScrollIndicator={false}
+        style={{ backgroundColor: COLORS.neutral1 }}
       >
         <View style={{
-          backgroundColor: COLORS.neutral1, paddingBottom: SIZES.padding6, paddingTop: 20, height: SIZES.height,
+          backgroundColor: COLORS.neutral1, marginBottom: SIZES.padding5, paddingTop: 20, height: SIZES.height,
         }}
         >
           <Header title={!data ? t('completeProfileTitle') : t('changeProfileTitle')} />
@@ -82,7 +83,7 @@ function ChangeProfile({ navigation, route }) {
                 <View style={{ marginVertical: SIZES.padding5 }}>
                   <PhotoProfile
                     name="image_url"
-                    image={values.image_url ? { uri: values.image_url } : Avatar}
+                    image={{ uri: values.image_url ? values.image_url : '' }}
                     setFieldValue={setFieldValue}
                     icon="camera"
                     colorIcon={COLORS.primaryPurple4}
@@ -145,7 +146,7 @@ function ChangeProfile({ navigation, route }) {
                   )}
                   <CustomButton
                     onPress={handleSubmit}
-                    title={t('changeProfileTitle')}
+                    title={!data ? t('completeProfileTitle') : t('changeProfileTitle')}
                     buttonStyle={{ marginTop: SIZES.padding5 }}
                     enabled={isValid && !errors.full_name
                   && !errors.city && !errors.address && !errors.phone_number}

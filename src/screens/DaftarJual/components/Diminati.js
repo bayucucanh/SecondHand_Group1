@@ -25,6 +25,7 @@ import {
 import { DiminatiNull } from '../../../assets/image';
 import { SelectionImage } from '../../../assets';
 import { BottomSheetSorting } from './BottomSheetSorting';
+import { bubbleSortAsc, bubbleSortDesc } from '../../../utils';
 
 function Diminati({ handleSnapPress, sort, setSort }) {
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ function Diminati({ handleSnapPress, sort, setSort }) {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.userData.access_token);
-  const sellerOrderData = useSelector((state) => state.sellerOrder.sellerOrder);
+  const sellerOrderData = useSelector((state) => state.sellerOrder.sellerOrder.sort((a, b) => a.transaction_date < b.transaction_date).filter((item) => item.status !== 'declined'));
   const isLoading = useSelector((state) => state.global.isLoading);
   const [diminatiData, setDiminatiData] = useState([...sellerOrderData]);
 
@@ -40,15 +41,15 @@ function Diminati({ handleSnapPress, sort, setSort }) {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     if (isFocused) {
       dispatch(getDataSellerOrder(accessToken));
-      setDiminatiData(sellerOrderData);
+      setDiminatiData(sellerOrderData.sort((a, b) => a.transaction_date < b.transaction_date).filter((item) => item.status !== 'declined'));
     }
   }, [isFocused]);
 
   useEffect(() => {
-    if (sort === 'newest') { diminatiData.sort((a, b) => a.transaction_date < b.transaction_date); }
-    if (sort === 'oldest') { diminatiData.sort((a, b) => a.transaction_date > b.transaction_date); }
-    if (sort === 'expensive') { diminatiData.sort((a, b) => a.price < b.price); }
-    if (sort === 'cheapest') { diminatiData.sort((a, b) => a.price > b.price); }
+    if (sort === 'newest') { bubbleSortDesc(diminatiData, 'transaction_date'); }
+    if (sort === 'oldest') { bubbleSortAsc(diminatiData, 'transaction_date'); }
+    if (sort === 'expensive') { bubbleSortDesc(diminatiData, 'price'); }
+    if (sort === 'cheapest') { bubbleSortAsc(diminatiData, 'price'); }
     setDiminatiData([...diminatiData]);
   }, [sort]);
 

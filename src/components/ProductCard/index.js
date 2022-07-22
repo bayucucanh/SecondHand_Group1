@@ -16,10 +16,10 @@ import styles from '../../constant/styles';
 import LoadingScreen from '../LoadingScreen';
 
 function ProductCard({
-  name, categories, basePrice, imageUrl, style, onPress, icon, checkEnable, enable,
+  name, categories, basePrice, imageUrl, style, onPress, icon, checkEnable, enable, productDisable,
 }) {
   return (
-    <TouchableOpacity style={[styles.card, { ...style }]} onPress={onPress}>
+    <TouchableOpacity style={[styles.card, { ...style }]} onPress={onPress} disabled={productDisable}>
       <FastImage
         style={{
           width: 140,

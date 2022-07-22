@@ -29,7 +29,7 @@ function Produk() {
     if (isFocused) {
       dispatch(getDataSellerProduct(accessToken));
     }
-    setProductAvailable(productList.filter((item) => item.status.toLowerCase().match('available')));
+    setProductAvailable(productList.filter((item) => item.status == 'available'));
   }, [isFocused]);
 
   return (
@@ -39,20 +39,20 @@ function Produk() {
           <>
             {productAvailable.length < 5 && (
             <View style={styles.cardTambah}>
-              <TouchableOpacity style={styles.tambahProduk} onPress={() => (profileData.address == !null ? navigation.navigate('JualFull', { data: false }) : navigation.navigate('ChangeProfile', { data: false }))}>
+              <TouchableOpacity style={styles.tambahProduk} onPress={() => (profileData.address !== null ? navigation.navigate('JualFull', { data: false }) : navigation.navigate('ChangeProfile', { data: false }))}>
                 <Icon name="plus" size={30} style={{ color: COLORS.neutral3 }} />
                 <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{t('addProduct')}</Text>
               </TouchableOpacity>
             </View>
             )}
-            {productList.map((item) => item.status != 'sold' && (
+            {productList.map((item) => item.status == 'available' && (
               <View key={item.id} style={{ marginBottom: SIZES.padding3 }}>
                 <ProductCard
                   name={item.name}
                   categories={item.Categories}
                   basePrice={item.base_price}
                   imageUrl={item.image_url}
-                  style={{ maxWidth: SIZES.width*0.42 }}
+                  style={{ maxWidth: SIZES.width * 0.4 }}
                   onPress={() => navigation.navigate('Product', { values: item, list: true })}
                 />
               </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   cardTambah: {
-    maxWidth: SIZES.width*0.42,
+    maxWidth: SIZES.width * 0.42,
   },
   tambahProduk: {
     borderWidth: 2,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 150,
-    height: SIZES.height * 0.269,
+    height: SIZES.height * 0.3,
     borderStyle: 'dashed',
     borderColor: COLORS.neutral2,
     marginLeft: 5,

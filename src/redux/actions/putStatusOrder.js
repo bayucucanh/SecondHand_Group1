@@ -19,10 +19,9 @@ export const putStatusSellerOrder = (accessToken, id, status) => async (dispatch
     dispatch(successPutOrder(value.data));
     dispatch(setLoading(false));
     showSuccess(i18n.t('successChangeSellerOrder'));
-    console.log('Update put seller order success');
   }).catch((err) => {
     dispatch(failedPutOrder());
-    showSuccess(i18n.t('failedChangeSellerOrder'));
+    showDanger(i18n.t('failedChangeSellerOrder'));
     console.log(err.message);
   });
 };

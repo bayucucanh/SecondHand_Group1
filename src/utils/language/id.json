@@ -177,6 +177,9 @@
       "expensive":"termahal",
       "cheapestTitle":"Termurah",
       "cheapest":"termurah",
-      "BottomSheetSortingTitle":"Urutkan berdasarkan apa?"
+      "BottomSheetSortingTitle":"Urutkan berdasarkan apa?",
+      "edit":"Ubah",
+      "emptyHistory":"Riwayat transaksi kamu masih kosong nih",
+      "emptyOfferList":"Daftar penawaran produk kamu masih kosong nih"
     }
   }
