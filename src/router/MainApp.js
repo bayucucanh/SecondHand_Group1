@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 import { useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ function MainApp() {
 
   const login = useSelector((state) => state.login.isLogin);
   const profileData = useSelector((state) => state.profile.profileData);
+  const notificationData = useSelector((state) => state.notifications.notifikasi.filter((item) => item.read === false));
 
   return (
     <>
@@ -57,7 +58,21 @@ function MainApp() {
                 tabBarLabel: t('notification'),
                 headerShown: false,
                 tabBarIcon: ({ color }) => (
-                  <Icon name="bell" color={color} size={SIZES.icon} />
+                  <View>
+                    <Icon name="bell" color={color} size={22} />
+                    {notificationData.length > 0 && (
+                      <View
+                        style={{
+                          width: SIZES.base,
+                          height: SIZES.base,
+                          backgroundColor: COLORS.alertDanger,
+                          borderRadius: 100,
+                          position: 'absolute',
+                          right: 4,
+                        }}
+                      />
+                    )}
+                  </View>
                 ),
               }}
             />

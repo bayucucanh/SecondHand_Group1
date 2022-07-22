@@ -8,7 +8,9 @@ import CustomButton from '../CustomButton';
 import NotificationCard from '../NotificationCard';
 
 function BidderCard({
-  image, date, name, price, offeringPrice, isSeen, status, onPressDeclined, onPressAccepted, disabled, showButton = true,
+  image, date, name, price, offeringPrice, isSeen, status,
+  onPressDeclined, onPressAccepted, disabled, showButton = true,
+  productStatus,
 }) {
   const { t, i18n } = useTranslation();
 

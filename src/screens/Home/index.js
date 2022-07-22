@@ -53,17 +53,19 @@ function Home({ navigation }) {
     console.log('Category ID', categorySelectedId);
     dispatch(getDataCategories());
     dispatch(getDataBanner());
+    setSearchProduct('');
     if (isFocused) {
       dispatch(
         getDataProduct({
           status: 'available',
           category_id: categorySelectedId !== 0 ? categorySelectedId : '',
+          search: '',
           page,
           per_page: 10,
         }),
       );
     }
-  }, [dispatch, categorySelectedId, page]);
+  }, [dispatch, categorySelectedId, page, isFocused]);
 
   const Refresh = () => {
     dispatch(setRefresh(true));
@@ -129,7 +131,7 @@ function Home({ navigation }) {
           <RefreshControl refreshing={refresh} onRefresh={() => Refresh()} />
       }
       >
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Search')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Search', { value: searchProduct })}>
           <View>
             <SearchBar onChangeText={setSearchProduct} value={searchProduct} />
           </View>
@@ -208,6 +210,7 @@ function Home({ navigation }) {
               columnWrapperStyle={{
                 marginBottom: SIZES.padding4,
                 justifyContent: 'space-between',
+                paddingHorizontal: SIZES.base,
               }}
               initialNumToRender={7}
               numColumns={2}
@@ -224,7 +227,7 @@ function Home({ navigation }) {
                   categories={item.Categories}
                   basePrice={item.base_price}
                   imageUrl={item.image_url}
-                  style={{ maxWidth: SIZES.width * 0.42 }}
+                  style={{ maxWidth: SIZES.width * 0.4 }}
                   onPress={() => navigation.navigate('Detail', { productId: item.id })}
                 />
               )}

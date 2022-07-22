@@ -5,7 +5,6 @@ import {
 import { getBuyerProduct } from '../../service/Api/buyer';
 import { setLoading, setRefresh } from './globalAction';
 
-
 export const successGetProduct = (value) => ({
   type: GET_PRODUCT_SUCCESS,
   payload: value,

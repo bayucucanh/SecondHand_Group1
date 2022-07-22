@@ -177,6 +177,9 @@
     "expensive":"most expensive",
     "cheapestTitle":"Cheapest",
     "cheapest":"cheapest",
-    "BottomSheetSortingTitle":"Sorting by what?"
+    "BottomSheetSortingTitle":"Sorting by what?",
+    "edit":"Edit",
+    "emptyHistory":"Your history transaction is still empty",
+    "emptyOfferList":"Your offer list is still empty"
   }
 }

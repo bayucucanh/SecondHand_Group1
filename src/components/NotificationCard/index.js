@@ -84,8 +84,8 @@ function NotificationCard({
                   style={{
                     ...FONTS.bodyLargeRegular,
                     color: COLORS.neutral5,
-                    textDecorationLine:
-                      status === 'declined' ? 'line-through' : 'none',
+                    // textDecorationLine:
+                    //   status === 'declined' ? 'line-through' : 'none',
                   }}
                 >
                   {accepted ? t('successOfferPrice') : t('offerPrice')}

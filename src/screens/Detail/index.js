@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
   Text, View, ScrollView, Image, FlatList, TouchableWithoutFeedback,
 } from 'react-native';
@@ -41,6 +42,8 @@ function Detail({ route, navigation }) {
   const detailData = useSelector((state) => state.detail.detailProduct);
   const wishlistData = useSelector((state) => state.wishlist.wishlistData.filter((item) => item.product_id === productId));
   const loading = useSelector((state) => state.global.isLoading);
+  const profileData = useSelector((state) => state.profile.profileData);
+
   const [enable, setEnable] = useState(true);
   const { t } = useTranslation();
 
@@ -186,7 +189,7 @@ function Detail({ route, navigation }) {
     <>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ backgroundColor: COLORS.neutral1, marginBottom: SIZES.padding6 + SIZES.padding2 }}
+        style={{ backgroundColor: COLORS.neutral1, height: SIZES.height, paddingBottom: SIZES.padding6 + SIZES.padding2 }}
       >
         <View style={{ flex: 1, marginBottom: SIZES.padding5 }}>
           <Image source={{ uri: detailData.image_url }} style={{ height: 300 }} />
@@ -313,18 +316,21 @@ function Detail({ route, navigation }) {
           justifyContent: 'center',
           alignItems: 'center',
           paddingHorizontal: 24,
+          backgroundColor: COLORS.neutral1,
         }}
       >
-        <CustomButton
-          buttonStyle={{ width: '100%' }}
-          title={
+        {detailData.user_id !== accessToken?.id && (
+          <CustomButton
+            buttonStyle={{ width: '100%' }}
+            title={
               login && allBidProduct[0]?.status
                 ? t('waitingSellerResponse')
                 : t('interestedAndWantToBargain')
             }
-          enabled={!(login && allBidProduct[0]?.status)}
-          onPress={() => (login ? handleSnapPress(2) : navigation.navigate('NotLogin'))}
-        />
+            enabled={!(login && allBidProduct[0]?.status)}
+            onPress={() => (login ? profileData?.address == null ? navigation.navigate('ChangeProfile', { data: false }) : handleSnapPress(2) : navigation.navigate('NotLogin'))}
+          />
+        )}
       </View>
       <BottomSheetComponent
         sheetRef={sheetRef}

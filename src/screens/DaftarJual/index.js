@@ -4,6 +4,7 @@ import {
 import React, { useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import Icon from 'react-native-vector-icons/Feather';
 import { COLORS, FONTS, SIZES } from '../../constant';
 import { BottomSheetComponent, PhotoProfile, TextHeader } from '../../components';
 import styles from '../../constant/styles';
@@ -85,7 +86,23 @@ function DaftarJual({ navigation }) {
           }]}
           >
             <View style={{ justifyContent: 'center' }}>
-              <PhotoProfile image={profileData.image_url ? { uri: profileData.image_url } : Avatar} style={{ width: 48, height: 48 }} styleImage={{ width: 48, height: 48 }} />
+              {profileData.image_url ? (
+                <PhotoProfile disabled image={{ uri: profileData.image_url }} style={{ width: 48, height: 48 }} styleImage={{ width: 48, height: 48 }} />
+              ) : (
+                <View
+                  style={{
+                    width: 48,
+                    height: 48,
+                    backgroundColor: COLORS.primaryPurple1,
+                    borderRadius: SIZES.radius2,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Icon name="camera" color={COLORS.primaryPurple4} size={20} />
+                </View>
+              )}
             </View>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
               <View style={{ paddingLeft: SIZES.padding3 }}>
@@ -94,8 +111,8 @@ function DaftarJual({ navigation }) {
                 </Text>
                 <Text style={{ ...FONTS.bodyNormalRegular, color: COLORS.neutral3 }}>{profileData.city}</Text>
               </View>
-              <TouchableOpacity style={stylesIn.btnEdit} onPress={() => navigation.navigate('ChangeProfile')}>
-                <Text style={{ color: COLORS.black }}>Edit</Text>
+              <TouchableOpacity style={stylesIn.btnEdit} onPress={() => navigation.navigate('ChangeProfile', { data: true })}>
+                <Text style={{ color: COLORS.black }}>{t('edit')}</Text>
               </TouchableOpacity>
             </View>
           </View>

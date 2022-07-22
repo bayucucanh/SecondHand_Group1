@@ -53,6 +53,7 @@ function BidderInfo({ navigation, route }) {
     if (value === 'accepted') {
       dispatch(getDetailSellerOrder(orderId, accessToken));
       if (!loading) {
+        setType('hubungi');
         handleSnapPress(2);
       }
     }
@@ -142,9 +143,10 @@ function BidderInfo({ navigation, route }) {
               price={sellerDetailOrder?.Product?.base_price}
               status={sellerDetailOrder?.status}
               offeringPrice={sellerDetailOrder?.price}
+              productStatus={sellerDetailOrder?.Product?.status}
               isSeen
               disabled
-              showButton={sellerDetailOrder?.Product?.status != 'seller'}
+              showButton={sellerDetailOrder?.status !== 'declined' && sellerDetailOrder?.Product?.status !== 'seller'}
               onPressAccepted={
                 sellerDetailOrder?.status === 'accepted'
                   ? () => onPressAfterPutStatus('hubungi')

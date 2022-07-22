@@ -15,6 +15,7 @@ import {
 } from '../../components';
 import { getDataHistory } from '../../redux/actions';
 import { sortByDate } from '../../utils';
+import { SelectionImage } from '../../assets';
 
 function History({ navigation }) {
   const dispatch = useDispatch();
@@ -27,6 +28,23 @@ function History({ navigation }) {
   useEffect(() => {
     dispatch(getDataHistory(accessToken));
   }, []);
+
+  function Empty() {
+    return (
+      <View style={{
+        alignItems: 'center', justifyContent: 'center', height: SIZES.height * 0.8,
+      }}
+      >
+        <SelectionImage width={SIZES.width * 0.6} height={SIZES.width * 0.4} />
+        <Text style={{
+          color: COLORS.neutral3, textAlign: 'center', ...FONTS.bodyLargeRegular, marginTop: SIZES.padding3,
+        }}
+        >
+          {t('emptyHistory')}
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <>
@@ -45,7 +63,7 @@ function History({ navigation }) {
             initialNumToRender={4}
             keyExtractor={(item, index) => item.id + index.toString()}
             showsVerticalScrollIndicator={false}
-            ListFooterComponent={<Loader />}
+            ListEmptyComponent={Empty}
             renderItem={({ item }) => (
               <NotificationCard
                 image={item?.image_url}

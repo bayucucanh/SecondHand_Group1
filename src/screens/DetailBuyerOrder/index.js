@@ -5,6 +5,7 @@ import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import {
   deleteBid,
   getBidDetailProduct,
@@ -26,6 +27,8 @@ import { bidPriceSchema, formatRupiah } from '../../utils';
 function DetailBuyerOrder({ route, navigation }) {
   const { orderId } = route.params;
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+
   const { t } = useTranslation();
 
   const accessToken = useSelector((state) => state.login.userData.access_token);
@@ -39,13 +42,13 @@ function DetailBuyerOrder({ route, navigation }) {
 
   useEffect(() => {
     dispatch(getBidDetailProduct(orderId, accessToken, navigation));
-  }, [dispatch]);
+  }, [dispatch, isFocused]);
 
   const submitBid = (bid) => {
     const data = {
       bid_price: bid,
     };
-    dispatch(updateBid(orderId, data, accessToken))
+    dispatch(updateBid(orderId, data, accessToken));
   };
 
   const handleDelete = () => {
@@ -266,9 +269,8 @@ function DetailBuyerOrder({ route, navigation }) {
             </View>
             <View style={{ flex: 1, marginLeft: 8 }}>
               <CustomButton
-                // onPress={() => dispatch(deleteDataProduct(accessToken, values.id))}
                 onPress={() => dispatch(deleteBid(orderId, accessToken, navigation))}
-                title={t('delete')}
+                title={t('deleteButton')}
                 enabled
               />
             </View>
@@ -280,7 +282,9 @@ function DetailBuyerOrder({ route, navigation }) {
         component={BottomSheetComp}
         type="bid"
       />
-      {loading && <LoadingScreen />}
+      {loading && (
+      <LoadingScreen />
+      )}
     </>
   );
 }

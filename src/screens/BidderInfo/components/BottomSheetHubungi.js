@@ -1,5 +1,5 @@
 import {
-  ScrollView, Text, View, Image,
+  ScrollView, Text, View, Image, Linking,
 } from 'react-native';
 import React from 'react';
 import { t } from 'i18next';
@@ -106,7 +106,16 @@ export function BottomSheetHubungi(sellerDetailOrder) {
           </View>
         </View>
         <CustomButton
-          // onPress={handleSubmit}
+          onPress={() => {
+            const link = `whatsapp://send?text=Halo ${data?.User?.full_name}, penawaranmu untuk ${data?.Product?.name} saya terima. Gimana proses selanjutnya? &phone=62${data?.User?.phone_number}`;
+            Linking.canOpenURL(link)
+              .then((supported) => {
+                if (!supported) {
+                  Linking.openURL(`http://wa.me/62${data?.User?.phone_number}?text=Halo ${data?.User?.full_name}, penawaranmu untuk ${data?.Product?.name} saya terima. Gimana proses selanjutnya?`);
+                }
+                return Linking.openURL(link);
+              });
+          }}
           buttonStyle={{ width: '100%' }}
           title={t('whatsappButton')}
           enabled

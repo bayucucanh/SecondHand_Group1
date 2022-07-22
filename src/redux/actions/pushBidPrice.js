@@ -22,7 +22,6 @@ export const bidProduct = (payload, accessToken, navigation) => async (dispatch)
     dispatch(successBid(response.data));
     dispatch(setLoading(false));
     showSuccess(i18n.t('pushBidSuccess'));
-    navigation.navigate('Notification');
   }).catch((err) => {
     dispatch(failedBid());
     dispatch(setLoading(false));
