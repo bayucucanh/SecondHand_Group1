@@ -1,12 +1,10 @@
-import { Text, View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'i18next';
-import styles from '../../constant/styles';
-import { FONTS, SIZES, COLORS } from '../../constant';
+import { SIZES, COLORS } from '../../constant';
 import { getAllBidProduct } from '../../redux/actions/getAllBidProduct';
-import { Header, NotificationCard } from '../../components';
-import { SelectionImage } from '../../assets';
+import { Header, NotificationCard, Empty } from '../../components';
 
 function BuyerOrder({ navigation }) {
   const dispatch = useDispatch();
@@ -17,23 +15,6 @@ function BuyerOrder({ navigation }) {
   useEffect(() => {
     dispatch(getAllBidProduct(accessToken));
   }, []);
-
-  function Empty() {
-    return (
-      <View style={{
-        alignItems: 'center', justifyContent: 'center', height: SIZES.height * 0.8,
-      }}
-      >
-        <SelectionImage width={SIZES.width * 0.6} height={SIZES.width * 0.4} />
-        <Text style={{
-          color: COLORS.neutral3, textAlign: 'center', ...FONTS.bodyLargeRegular, marginTop: SIZES.padding3,
-        }}
-        >
-          {t('emptyOfferList')}
-        </Text>
-      </View>
-    );
-  }
 
   return (
     <View
@@ -51,7 +32,7 @@ function BuyerOrder({ navigation }) {
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           initialNumToRender={4}
-          ListEmptyComponent={Empty}
+          ListEmptyComponent={<Empty title={t('emptyOfferList')} />}
           renderItem={({ item }) => (
             <NotificationCard
               image={item?.Product?.image_url}
