@@ -1,5 +1,5 @@
 import {
-  ScrollView, Text, View, Image,
+  ScrollView, Text, View, Image, RefreshControl,
 } from 'react-native';
 import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +23,7 @@ import {
   HelperText,
 } from '../../components';
 import { bidPriceSchema, formatRupiah } from '../../utils';
+import { setRefresh } from '../../redux/actions';
 
 function DetailBuyerOrder({ route, navigation }) {
   const { orderId } = route.params;
@@ -34,6 +35,7 @@ function DetailBuyerOrder({ route, navigation }) {
   const accessToken = useSelector((state) => state.login.userData.access_token);
   const detailData = useSelector((state) => state.allBid.detailBidProduct);
   const loading = useSelector((state) => state.global.isLoading);
+  const refresh = useSelector((state) => state.global.isRefresh);
 
   const sheetRef = useRef(null);
   const handleSnapPress = useCallback((index) => {
@@ -51,8 +53,9 @@ function DetailBuyerOrder({ route, navigation }) {
     dispatch(updateBid(orderId, data, accessToken));
   };
 
-  const handleDelete = () => {
-    console.log('Delete');
+  const Refresh = () => {
+    dispatch(setRefresh(true));
+    dispatch(getBidDetailProduct(orderId, accessToken, navigation));
   };
 
   function BottomSheetComp() {
@@ -116,7 +119,7 @@ function DetailBuyerOrder({ route, navigation }) {
                       color: COLORS.neutral3,
                     }}
                   >
-                    Ditawar
+                    {t('offerPrice')}
                     {' '}
                     {formatRupiah(detailData?.price)}
                   </Text>
@@ -158,6 +161,9 @@ function DetailBuyerOrder({ route, navigation }) {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ backgroundColor: COLORS.neutral1 }}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={() => Refresh()} />
+}
       >
         <View style={{ flex: 1, marginBottom: SIZES.padding5 }}>
           <Image
@@ -186,7 +192,9 @@ function DetailBuyerOrder({ route, navigation }) {
                   color: COLORS.neutral5,
                 }}
               >
-                {formatRupiah(detailData?.Product?.base_price)}
+                {t('offerPrice')}
+                {' '}
+                {formatRupiah(detailData?.price)}
               </Text>
             </View>
             <View

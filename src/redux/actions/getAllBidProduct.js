@@ -4,7 +4,7 @@ import {
 import {
   deleteBuyerOrder, detailBuyerOrder, getBuyerOrder, updateBuyerOrder,
 } from '../../service/Api/buyer';
-import { setLoading } from './globalAction';
+import { setLoading, setRefresh } from './globalAction';
 import { showDanger, showSuccess } from '../../utils';
 
 export const successGetBidProduct = (value) => ({
@@ -43,6 +43,7 @@ export const getBidDetailProduct = (id, accessToken) => async (dispatch) => {
   await detailBuyerOrder(id, accessToken).then((values) => {
     dispatch(successGetBidDetailProduct(values.data));
     dispatch(setLoading(false));
+    dispatch(setRefresh(false));
     console.log('Get Bid Detail Product Succes');
   }).catch((err) => {
     dispatch(failedGetBidDetailProduct());
