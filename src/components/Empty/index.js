@@ -9,7 +9,7 @@ function Empty({ title }) {
       style={{
         alignItems: 'center',
         justifyContent: 'center',
-        height: SIZES.height * 0.8,
+        height: SIZES.height * 0.3,
       }}
     >
       <SelectionImage width={SIZES.width * 0.6} height={SIZES.width * 0.4} />
