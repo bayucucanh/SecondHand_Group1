@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SIZES, COLORS, FONTS } from '../../constant';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
-  NotificationCard, Loading, TextHeader,
+  NotificationCard, Loading, TextHeader, LoadingScreen
 } from '../../components';
 import { getDataNotification, patchNotifikasi, setRefresh } from '../../redux/actions';
 import { DiminatiNull } from '../../assets/image';
@@ -64,6 +64,7 @@ function Notification() {
   };
 
   return (
+    <>
     <ScrollView
       style={{
         flex: 1, paddingHorizontal: SIZES.padding5, paddingTop: SIZES.padding5, backgroundColor: COLORS.white,
@@ -93,6 +94,8 @@ function Notification() {
         )}
       />
     </ScrollView>
+  {loading&&<LoadingScreen/>}
+    </>
   );
 }
 
