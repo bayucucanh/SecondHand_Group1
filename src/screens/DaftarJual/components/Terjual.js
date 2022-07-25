@@ -34,7 +34,7 @@ function Terjual() {
   }, [isFocused]);
 
   return (
-    <View>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap' }}>
       {isLoading ? (
         <Loading size="large" color={COLORS.primaryPurple4} />
       ) : productList.length > 0 ? (
