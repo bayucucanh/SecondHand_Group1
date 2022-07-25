@@ -22,7 +22,7 @@ function ProductCard({
     <TouchableOpacity style={[styles.card, { ...style }]} onPress={onPress} disabled={productDisable}>
       <FastImage
         style={{
-          width: SIZES.width*0.34,
+          width: SIZES.width * 0.34,
           height: 100,
           backgroundColor: COLORS.neutral5,
           borderRadius: SIZES.base,
