@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SIZES, COLORS, FONTS } from '../../constant';
 import FocusAwareStatusBar from '../../utils/focusAwareStatusBar';
 import {
-  NotificationCard, Loading, TextHeader, LoadingScreen
+  NotificationCard, Loading, TextHeader, LoadingScreen,
 } from '../../components';
 import { getDataNotification, patchNotifikasi, setRefresh } from '../../redux/actions';
 import { DiminatiNull } from '../../assets/image';
@@ -65,36 +65,36 @@ function Notification() {
 
   return (
     <>
-    <ScrollView
-      style={{
-        flex: 1, paddingHorizontal: SIZES.padding5, paddingTop: SIZES.padding5, backgroundColor: COLORS.white,
-      }}
-      refreshControl={
-        <RefreshControl refreshing={refresh} onRefresh={() => Refresh()} />
+      <ScrollView
+        style={{
+          flex: 1, paddingHorizontal: SIZES.padding5, paddingTop: SIZES.padding5, backgroundColor: COLORS.white,
+        }}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={() => Refresh()} />
       }
-    >
-      <FocusAwareStatusBar barStyle="dark-content" color="white" />
-      <TextHeader text={t('notificationTitle')} />
-      <FlatList
-        data={notificationData.sort((a, b) => a.createdAt < b.createdAt)}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item, index) => item.id + index.toString()}
-        ListEmptyComponent={empty}
-        renderItem={({ item }) => (
-          <NotificationCard
-            image={item?.Product?.image_url}
-            name={item?.Product?.name}
-            date={item?.createdAt}
-            price={item?.base_price}
-            status={item?.status}
-            offeringPrice={item?.bid_price}
-            isSeen={item?.read}
-            onPress={() => navigate(item?.status, item)}
-          />
-        )}
-      />
-    </ScrollView>
-  {loading&&<LoadingScreen/>}
+      >
+        <FocusAwareStatusBar barStyle="dark-content" color="white" />
+        <TextHeader text={t('notificationTitle')} />
+        <FlatList
+          data={notificationData.sort((a, b) => a.createdAt < b.createdAt)}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => item.id + index.toString()}
+          ListEmptyComponent={empty}
+          renderItem={({ item }) => (
+            <NotificationCard
+              image={item?.Product?.image_url}
+              name={item?.Product?.name}
+              date={item?.createdAt}
+              price={item?.base_price}
+              status={item?.status}
+              offeringPrice={item?.bid_price}
+              isSeen={item?.read}
+              onPress={() => navigate(item?.status, item)}
+            />
+          )}
+        />
+      </ScrollView>
+      {loading && <LoadingScreen />}
     </>
   );
 }
